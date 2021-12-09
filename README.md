@@ -1,5 +1,5 @@
-# Midi Controller PWA
-Midi control interface in a progressive web app.
+# MIDI Controller PWA
+MIDI control interface in a progressive web app.
 
 ### Mac OS
 Use the [IAC Driver](https://support.apple.com/en-gb/guide/audio-midi-setup/ams1013/mac) for creating a virtual MIDI bus.
