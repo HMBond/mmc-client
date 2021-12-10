@@ -1,16 +1,24 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { WebMidi } from 'webmidi';
-import { MidiContext } from './context';
 import './App.css';
-import { MidiSettings, MidiSlider, MidiButton } from './Components';
+import {
+  MidiSettings,
+  MidiSlider,
+  LaunchPad,
+  MidiContextProvider,
+  UserContextProvider,
+  Placer,
+  View,
+} from './Components';
 
 function App() {
   const [inputDevice, setInputDevice] = useState({ id: '' });
   const [outputDevice, setOutputDevice] = useState({ id: '' });
-  const midiContextProviderValue = useMemo(
-    () => ({ inputDevice, outputDevice }),
-    [inputDevice, outputDevice]
-  );
+  const [arrangement, setArrangement] = useState({
+    placers: new Map(),
+    views: new Map(),
+    editMode: true,
+  });
 
   useEffect(() => {
     startMidi();
@@ -34,15 +42,25 @@ function App() {
 
   return (
     <div className="App">
-      <MidiContext.Provider value={midiContextProviderValue}>
-        <MidiSettings restartMidi={restartMidi} />
-        <div className="mixer">
-          <MidiSlider channel={1} />
-        </div>
-        <div className="launchpad">
-          <MidiButton note="C3">Play</MidiButton>
-        </div>
-      </MidiContext.Provider>
+      <MidiContextProvider
+        inputDevice={inputDevice}
+        outputDevice={outputDevice}
+      >
+        <UserContextProvider
+          arrangement={arrangement}
+          setArrangement={setArrangement}
+        >
+          <View>
+            <Placer id={1}>
+              <MidiSettings restartMidi={restartMidi} />
+            </Placer>
+            <div className="mixer">
+              <MidiSlider channel={1} />
+            </div>
+            <LaunchPad />
+          </View>
+        </UserContextProvider>
+      </MidiContextProvider>
     </div>
   );
 }

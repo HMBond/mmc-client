@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { MidiContext } from '../../context';
+import { MidiContext } from '../../../context';
 import { Button } from '@mui/material';
 
 function MidiButton({ channel = 1, note, children }) {

@@ -1,0 +1,17 @@
+.placer {
+  position: fixed;
+  padding: 1rem;
+  background: #ffffff50;
+  left: 1rem;
+}
+
+.placer[draggable]:hover {
+  cursor: move;
+  background: #aaaaaa50;
+  cursor: move;
+}
+
+.placer[draggable]:active {
+  background: #cccccc50;
+  box-shadow: 1px 5px 5px -1px grey;
+}

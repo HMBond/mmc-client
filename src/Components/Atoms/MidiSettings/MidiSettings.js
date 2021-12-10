@@ -9,7 +9,7 @@ import {
   InputLabel,
   Alert,
 } from '@mui/material';
-import { MidiContext } from '../../context';
+import { MidiContext } from '../../../context';
 
 function MidiSettings({ restartMidi }) {
   const { inputDevice, setInputDevice, outputDevice, setOutputDevice } =
@@ -17,21 +17,21 @@ function MidiSettings({ restartMidi }) {
 
   return (
     <div className="midi-settings">
-      <Button variant="contained" onClick={() => restartMidi()}>
+      <Button variant="contained" onClick={async () => await restartMidi()}>
         Restart Midi
       </Button>
-      {WebMidi.inputs.length > 0 && (
+      {inputDevice && inputDevice.id && (
         <FormControl fullWidth>
           <InputLabel id="output-select-label">Input Device</InputLabel>
           <Select
             labelId="input-select-label"
             id="input-select"
-            value={inputDevice ? inputDevice : ''}
+            value={inputDevice && inputDevice.id ? inputDevice.id : ''}
             label="Input Device"
             onChange={setInputDevice}
           >
             {WebMidi.inputs.map((input) => (
-              <MenuItem key={input.id} value={input}>
+              <MenuItem key={input.id} value={input.id}>
                 {input.name}
               </MenuItem>
             ))}
@@ -41,18 +41,18 @@ function MidiSettings({ restartMidi }) {
       {WebMidi.inputs.length === 0 && (
         <Alert severity="warning">No input devices found</Alert>
       )}
-      {WebMidi.outputs.length > 0 && (
+      {outputDevice && outputDevice.id && (
         <FormControl fullWidth>
           <InputLabel id="output-select-label">Output Device</InputLabel>
           <Select
             labelId="output-select-label"
             id="output-select"
-            value={outputDevice ? outputDevice : ''}
+            value={outputDevice && outputDevice.id ? outputDevice.id : ''}
             label="Output Device"
             onChange={setOutputDevice}
           >
             {WebMidi.outputs.map((output) => (
-              <MenuItem key={output.id} value={output}>
+              <MenuItem key={output.id} value={output.id}>
                 {output.name}
               </MenuItem>
             ))}
