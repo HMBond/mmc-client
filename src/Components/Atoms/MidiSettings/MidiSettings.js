@@ -9,7 +9,7 @@ import {
   InputLabel,
   Alert,
 } from '@mui/material';
-import { MidiContext } from '../../../context';
+import { MidiContext } from '../../Organisms/ContextProviders/MidiContextProvider';
 
 function MidiSettings({ restartMidi }) {
   const { inputDevice, setInputDevice, outputDevice, setOutputDevice } =

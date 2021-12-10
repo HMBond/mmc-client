@@ -1,10 +1,10 @@
 import React, { useContext, useRef } from 'react';
-import { UserContext } from '../../../context';
+import { UserContext } from '../../Organisms/ContextProviders/UserContextProvider';
 import './Placer.css';
 
 function Placer({ children, id }) {
-  const { arrangement, setArrangement } = useContext(UserContext);
-  const placerData = arrangement.placers.get(id);
+  const { placers, setPlacers, editMode } = useContext(UserContext);
+  const placerData = placers.get(id);
   const placerRef = useRef(null);
   let startPosition;
 
@@ -12,7 +12,7 @@ function Placer({ children, id }) {
     event.dataTransfer.setData('text/plain', null);
     if (event.altKey) {
       event.dataTransfer.effectAllowed = 'copyMove';
-      // insert new copy of this placer at newPosition at handleOndragEnd
+      // todo: insert new copy of this placer at newPosition at handleOndragEnd
     } else {
       event.dataTransfer.effectAllowed = 'move';
     }
@@ -31,11 +31,8 @@ function Placer({ children, id }) {
       x: distance.x + placerRef.current.offsetLeft,
       y: distance.y + placerRef.current.offsetTop,
     };
-    const newPlacerData = { ...placerData, position: newPosition };
-    setArrangement({
-      ...arrangement,
-      placers: arrangement.placers.set(id, newPlacerData),
-    });
+    const newPlacerData = { position: newPosition };
+    setPlacers(new Map(placers.set(id, newPlacerData)));
   }
 
   const placerPositionStyle = {
@@ -47,7 +44,7 @@ function Placer({ children, id }) {
     <div
       className="placer"
       style={placerPositionStyle}
-      draggable={arrangement.editMode}
+      draggable={editMode}
       onDragStart={handleOnDragStart}
       onDragEndCapture={handleOnDragEnd}
       ref={placerRef}

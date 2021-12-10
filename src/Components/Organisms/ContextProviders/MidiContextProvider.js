@@ -1,11 +1,16 @@
-import React, { useMemo } from 'react';
-import { MidiContext } from '../../../context';
+import React, { createContext, useState } from 'react';
 
-const MidiContextProvider = ({ children, inputDevice, outputDevice }) => {
-  const midiContextProviderValue = useMemo(
-    () => ({ inputDevice, outputDevice }),
-    [inputDevice, outputDevice]
-  );
+export const MidiContext = createContext(null);
+
+const MidiContextProvider = ({ children }) => {
+  const [inputDevice, setInputDevice] = useState({ id: '' });
+  const [outputDevice, setOutputDevice] = useState({ id: '' });
+  const midiContextProviderValue = {
+    inputDevice,
+    setInputDevice,
+    outputDevice,
+    setOutputDevice,
+  };
 
   return (
     <MidiContext.Provider value={midiContextProviderValue}>

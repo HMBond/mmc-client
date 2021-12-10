@@ -1,0 +1,12 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 100vw;
+}
+
+.views {
+  display: flex;
+  gap: 1rem;
+}

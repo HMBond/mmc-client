@@ -1,20 +1,25 @@
 import React from 'react';
 import { MidiButton } from '../..';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import StopIcon from '@mui/icons-material/Stop';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+import './LaunchPad.css';
 
 const Launchpad = () => {
   return (
-    <div className="launchpad">
+    <div className="launch-pad">
       <MidiButton note="C3" channel={16}>
-        Play
+        <PlayArrowIcon />
       </MidiButton>
       <MidiButton note="D3" channel={16}>
-        Stop
+        <StopIcon />
       </MidiButton>
       <MidiButton note="E3" channel={16}>
-        Prev
+        <SkipPreviousIcon />
       </MidiButton>
       <MidiButton note="F3" channel={16}>
-        Next
+        <SkipNextIcon />
       </MidiButton>
     </div>
   );

@@ -1,24 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { WebMidi } from 'webmidi';
 import './App.css';
 import {
   MidiSettings,
   MidiSlider,
   LaunchPad,
-  MidiContextProvider,
-  UserContextProvider,
+  Carrousel,
   Placer,
   View,
+  Nav,
 } from './Components';
+import { MidiContext } from './Components/Organisms/ContextProviders/MidiContextProvider';
+import { UserContext } from './Components/Organisms/ContextProviders/UserContextProvider';
 
 function App() {
-  const [inputDevice, setInputDevice] = useState({ id: '' });
-  const [outputDevice, setOutputDevice] = useState({ id: '' });
-  const [arrangement, setArrangement] = useState({
-    placers: new Map(),
-    views: new Map(),
-    editMode: true,
-  });
+  const { setInputDevice, setOutputDevice } = useContext(MidiContext);
+  const { activeView, setActiveView, views } = useContext(UserContext);
 
   useEffect(() => {
     startMidi();
@@ -40,27 +37,27 @@ function App() {
     await startMidi();
   }
 
+  function handleViewToggle() {
+    setActiveView(activeView ? 0 : 1);
+  }
+
   return (
     <div className="App">
-      <MidiContextProvider
-        inputDevice={inputDevice}
-        outputDevice={outputDevice}
-      >
-        <UserContextProvider
-          arrangement={arrangement}
-          setArrangement={setArrangement}
-        >
-          <View>
-            <Placer id={1}>
-              <MidiSettings restartMidi={restartMidi} />
-            </Placer>
-            <div className="mixer">
-              <MidiSlider channel={1} />
-            </div>
-            <LaunchPad />
-          </View>
-        </UserContextProvider>
-      </MidiContextProvider>
+      <Nav>
+        <LaunchPad />
+      </Nav>
+      <Carrousel activeView={activeView} viewCount={views.size}>
+        <View pageNumber={0} label={'Settings'}>
+          <Placer id={1}>
+            <MidiSettings restartMidi={restartMidi} />
+          </Placer>
+        </View>
+        <View pageNumber={1} label={'Mixer'}>
+          <div className="mixer">
+            <MidiSlider channel={1} />
+          </div>
+        </View>
+      </Carrousel>
     </div>
   );
 }

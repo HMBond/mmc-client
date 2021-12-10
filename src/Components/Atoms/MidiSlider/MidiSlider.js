@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Slider } from '@mui/material';
-import { MidiContext } from '../../../context';
+import { MidiContext } from '../../Organisms/ContextProviders/MidiContextProvider';
 
 function MidiSlider({ channel }) {
   const { outputDevice } = useContext(MidiContext);

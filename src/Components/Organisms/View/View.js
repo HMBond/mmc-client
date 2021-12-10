@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { UserContext } from '../ContextProviders/UserContextProvider';
 import './View.css';
 
-const View = ({ children }) => {
+function View({ children, pageNumber, label }) {
+  const { activeView, views, setViews } = useContext(UserContext);
+
+  useEffect(() => {
+    setViews(views.set(pageNumber, label));
+  }, []);
+
   function allowDrop(even) {
     even.preventDefault();
   }
@@ -11,10 +19,20 @@ const View = ({ children }) => {
   }
 
   return (
-    <div className="view" onDrop={handleOnDrop} onDragOver={allowDrop}>
+    <div
+      className="view"
+      onDrop={handleOnDrop}
+      onDragOver={allowDrop}
+      active={(pageNumber === activeView).toString()}
+    >
       {children}
     </div>
   );
+}
+
+View.propTypes = {
+  pageNumber: PropTypes.number,
+  label: PropTypes.string,
 };
 
 export default View;

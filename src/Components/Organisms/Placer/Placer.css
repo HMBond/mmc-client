@@ -12,6 +12,8 @@
 }
 
 .placer[draggable]:active {
-  background: #cccccc50;
+  opacity: 0.5;
+  background: #ffffff50;
   box-shadow: 1px 5px 5px -1px grey;
+  transform: translate(-1px, -3px);
 }
