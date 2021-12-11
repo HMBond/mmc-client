@@ -2,8 +2,8 @@ import React from 'react';
 import { MidiButton } from '../..';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import StopIcon from '@mui/icons-material/Stop';
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import './LaunchPad.css';
 
 const Launchpad = () => {
@@ -16,10 +16,10 @@ const Launchpad = () => {
         <StopIcon />
       </MidiButton>
       <MidiButton note="E3" channel={16}>
-        <SkipPreviousIcon />
+        <ArrowUpwardIcon />
       </MidiButton>
       <MidiButton note="F3" channel={16}>
-        <SkipNextIcon />
+        <ArrowDownwardIcon />
       </MidiButton>
     </div>
   );
