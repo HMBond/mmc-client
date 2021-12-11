@@ -6,7 +6,7 @@ import {
   MidiSlider,
   LaunchPad,
   Carrousel,
-  Placer,
+  Module,
   View,
   Nav,
 } from './Components';
@@ -45,14 +45,14 @@ function App() {
       </Nav>
       <Carrousel activeView={activeView} viewCount={views.size}>
         <View pageNumber={0} label={'Settings'}>
-          <Placer id={1}>
+          <Module id={1} label={'MIDI'}>
             <MidiSettings restartMidi={restartMidi} />
-          </Placer>
+          </Module>
         </View>
         <View pageNumber={1} label={'Mixer'}>
-          <div className="mixer">
+          <Module id={2} label={'track 1 vol'}>
             <MidiSlider channel={1} />
-          </div>
+          </Module>
         </View>
       </Carrousel>
     </div>

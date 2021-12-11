@@ -4,7 +4,7 @@
   overflow: hidden;
 }
 
-.carrousel__inner {
+.carrousel__content {
   transition: transform 0.5s ease-in-out;
   display: flex;
 }

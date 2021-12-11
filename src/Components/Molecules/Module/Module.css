@@ -1,0 +1,39 @@
+.module {
+  position: absolute;
+  padding: 1rem;
+  left: 1rem;
+}
+
+.module[draggable]:hover {
+  background: #cccccc80;
+  cursor: move;
+}
+
+.module[draggable]:hover > *:not(.module__controls) {
+  pointer-events: none;
+}
+
+.module[draggable]:active {
+  opacity: 0.5;
+  background: white;
+  box-shadow: 1px 5px 5px -1px grey;
+  transform: translate(-1px, -3px);
+}
+
+.module__controls {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  opacity: 0;
+  transform: translate(50%, -50%);
+  transition: opacity 0.3s linear;
+}
+
+.module:hover > .module__controls {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.module[draggable]:active > .module__controls {
+  opacity: 0;
+}

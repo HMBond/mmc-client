@@ -8,7 +8,7 @@ function Carrousel({ children, activeView, viewCount }) {
 
   return (
     <div className="carrousel">
-      <div className="carrousel__inner" style={style}>
+      <div className="carrousel__content" style={style}>
         {children}
       </div>
     </div>

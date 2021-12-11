@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Slider } from '@mui/material';
+import { Box, Slider } from '@mui/material';
 import { MidiContext } from '../../';
 
-function MidiSlider({ channel }) {
+function MidiSlider({ channel, orientation = 'vertical' }) {
   const { outputDevice } = useContext(MidiContext);
 
   function handlePitchbend(event, value) {
@@ -11,14 +11,16 @@ function MidiSlider({ channel }) {
   }
 
   return (
-    <Slider
-      disabled={!outputDevice}
-      orientation="vertical"
-      onChange={handlePitchbend}
-      min={-1}
-      max={1}
-      step={0.01}
-    />
+    <Box sx={{ height: 250 }}>
+      <Slider
+        disabled={!outputDevice}
+        orientation={orientation}
+        onChange={handlePitchbend}
+        min={-1}
+        max={1}
+        step={0.01}
+      />
+    </Box>
   );
 }
 
