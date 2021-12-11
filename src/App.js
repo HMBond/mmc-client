@@ -10,12 +10,12 @@ import {
   View,
   Nav,
 } from './Components';
-import { MidiContext } from './Components/Organisms/ContextProviders/MidiContextProvider';
-import { UserContext } from './Components/Organisms/ContextProviders/UserContextProvider';
+import { MidiContext } from './Components/';
+import { UserContext } from './Components/';
 
 function App() {
   const { setInputDevice, setOutputDevice } = useContext(MidiContext);
-  const { activeView, setActiveView, views } = useContext(UserContext);
+  const { activeView, views } = useContext(UserContext);
 
   useEffect(() => {
     startMidi();
@@ -35,10 +35,6 @@ function App() {
       await WebMidi.disable();
     }
     await startMidi();
-  }
-
-  function handleViewToggle() {
-    setActiveView(activeView ? 0 : 1);
   }
 
   return (

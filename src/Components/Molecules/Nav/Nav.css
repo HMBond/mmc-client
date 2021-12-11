@@ -5,8 +5,3 @@ nav {
   padding: 1rem;
   max-width: 100vw;
 }
-
-.views {
-  display: flex;
-  gap: 1rem;
-}

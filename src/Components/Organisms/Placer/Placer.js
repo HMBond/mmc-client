@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from 'react';
-import { UserContext } from '../../Organisms/ContextProviders/UserContextProvider';
+import { UserContext } from '../../';
 import './Placer.css';
 
 function Placer({ children, id }) {
