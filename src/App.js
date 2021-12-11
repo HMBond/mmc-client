@@ -19,6 +19,7 @@ function App() {
 
   useEffect(() => {
     startMidi();
+    // eslint-disable-next-line
   }, []);
 
   async function startMidi() {

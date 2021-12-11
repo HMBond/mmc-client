@@ -8,6 +8,7 @@ function View({ children, pageNumber, label }) {
 
   useEffect(() => {
     setViews(views.set(pageNumber, label));
+    // eslint-disable-next-line
   }, []);
 
   function allowDrop(even) {
