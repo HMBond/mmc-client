@@ -1,6 +1,7 @@
+import DeviceSelect from './Atoms/DeviceSelect/DeviceSelect';
 import MidiButton from './Atoms/MidiButton/MidiButton';
-import MidiSettings from './Atoms/MidiSettings/MidiSettings';
 import MidiSlider from './Atoms/MidiSlider/MidiSlider';
+import MidiSettings from './Molecules/MidiSettings/MidiSettings';
 import LaunchPad from './Molecules/LaunchPad/LaunchPad';
 import Module from './Molecules/Module/Module';
 import Nav from './Molecules/Nav/Nav';
@@ -9,12 +10,14 @@ import Carrousel from './Organisms/Carrousel/Carrousel';
 import MidiContextProvider, {
   MidiContext,
 } from './Organisms/ContextProviders/MidiContextProvider';
+import Settings from './Organisms/Settings/Settings';
 import UserContextProvider, {
   UserContext,
 } from './Organisms/ContextProviders/UserContextProvider';
 import View from './Organisms/View/View';
 
 export {
+  DeviceSelect,
   MidiButton,
   MidiSettings,
   MidiSlider,
@@ -25,6 +28,7 @@ export {
   Carrousel,
   MidiContextProvider,
   MidiContext,
+  Settings,
   UserContextProvider,
   UserContext,
   View,

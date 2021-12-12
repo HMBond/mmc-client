@@ -6,7 +6,7 @@ import './Module.css';
 
 function Module({ children, id }) {
   const { modules, setModules, editMode } = useContext(UserContext);
-  const moduleData = modules.get(id);
+  const module = modules.get(id);
   const moduleRef = useRef(null);
   let startPosition;
 
@@ -27,7 +27,7 @@ function Module({ children, id }) {
   }
 
   function handleOnDragEnd(event) {
-    // todo: if(event.altKey) insert new copy of this placer at newPosition
+    // TODO: if(event.altKey) insert new copy of this placer at newPosition
     const distance = {
       x: event.clientX - startPosition.x,
       y: event.clientY - startPosition.y,
@@ -36,18 +36,18 @@ function Module({ children, id }) {
       x: distance.x + moduleRef.current.offsetLeft,
       y: distance.y + moduleRef.current.offsetTop,
     };
-    const newModuleData = { position: newPosition };
-    setModules(new Map(modules.set(id, newModuleData)));
+    const module = { position: newPosition };
+    setModules(new Map(modules.set(id, module)));
   }
 
-  function handleDeleteClick(event) {
+  function handleOnDeleteClick(event) {
     modules.delete(id);
     setModules(new Map(modules));
   }
 
   const modulePositionStyle = {
-    left: moduleData?.position.x,
-    top: moduleData?.position.y,
+    left: module?.position.x,
+    top: module?.position.y,
   };
 
   return (
@@ -61,8 +61,13 @@ function Module({ children, id }) {
     >
       {children}
       <div className="module__controls">
-        <Fab color="secondary" size="small" aria-label="delete">
-          <DeleteIcon onClick={handleDeleteClick} />
+        <Fab
+          color="secondary"
+          size="small"
+          aria-label="delete"
+          onClick={handleOnDeleteClick}
+        >
+          <DeleteIcon />
         </Fab>
       </div>
     </div>

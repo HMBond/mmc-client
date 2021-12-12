@@ -1,7 +1,9 @@
-nav {
+.nav {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   gap: 1rem;
   padding: 1rem;
   max-width: 100vw;
+  z-index: var(--z-index-nav);
 }

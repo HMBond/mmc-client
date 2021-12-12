@@ -4,16 +4,16 @@
   left: 1rem;
 }
 
-.module[draggable]:hover {
+.module[draggable='true']:hover {
   background: #cccccc80;
   cursor: move;
 }
 
-.module[draggable]:hover > *:not(.module__controls) {
+.module[draggable='true']:hover > *:not(.module__controls) {
   pointer-events: none;
 }
 
-.module[draggable]:active {
+.module[draggable='true']:active {
   opacity: 0.5;
   background: white;
   box-shadow: 1px 5px 5px -1px grey;
@@ -28,11 +28,11 @@
   transform: translate(50%, -50%);
 }
 
-.module:hover > .module__controls {
+.module[draggable='true']:hover > .module__controls {
   opacity: 1;
   pointer-events: all;
 }
 
-.module[draggable]:active > .module__controls {
+.module[draggable='true']:active > .module__controls {
   visibility: hidden;
 }

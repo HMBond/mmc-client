@@ -15,8 +15,8 @@ function ViewControl() {
       {[...views].map(([id, label]) => {
         return (
           <Button
-            disableElevation={activeView === id}
-            color={activeView === id ? 'warning' : 'primary'}
+            disableElevation
+            color={activeView === id ? 'warning' : 'secondary'}
             variant="contained"
             onClick={() => handleViewButtonClick(id)}
             key={id}

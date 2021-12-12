@@ -1,0 +1,14 @@
+.settings {
+  display: flex;
+}
+
+.settings__modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.settings__modal-content[open] {
+  transform: translate(-50%, -50%);
+}

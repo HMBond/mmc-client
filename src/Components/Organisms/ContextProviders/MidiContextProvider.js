@@ -3,13 +3,19 @@ import React, { createContext, useState } from 'react';
 export const MidiContext = createContext(null);
 
 const MidiContextProvider = ({ children }) => {
-  const [inputDevice, setInputDevice] = useState({ id: '' });
-  const [outputDevice, setOutputDevice] = useState({ id: '' });
+  const [input, setInput] = useState({});
+  const [inputs, setInputs] = useState(null);
+  const [output, setOutput] = useState({});
+  const [outputs, setOutputs] = useState(null);
   const midiContextProviderValue = {
-    inputDevice,
-    setInputDevice,
-    outputDevice,
-    setOutputDevice,
+    input,
+    setInput,
+    inputs,
+    setInputs,
+    output,
+    setOutput,
+    outputs,
+    setOutputs,
   };
 
   return (

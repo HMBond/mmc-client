@@ -4,20 +4,22 @@ import { MidiContext } from '../../';
 import { Button } from '@mui/material';
 
 function MidiButton({ channel = 1, note, children }) {
-  const { outputDevice } = useContext(MidiContext);
+  const { output } = useContext(MidiContext);
 
   function handlePlayNote() {
-    outputDevice.channels[channel].playNote(note);
+    output?.channels[channel].playNote(note);
   }
 
   function handleStopNote() {
-    outputDevice.channels[channel].stopNote(note);
+    output?.channels[channel].stopNote(note);
   }
 
   return (
     <Button
-      variant="outlined"
-      disabled={!outputDevice}
+      disableElevation
+      variant="contained"
+      color="secondary"
+      disabled={!output}
       onMouseDown={() => handlePlayNote()}
       onMouseUp={() => handleStopNote()}
     >

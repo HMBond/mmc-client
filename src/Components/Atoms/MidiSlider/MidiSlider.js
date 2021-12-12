@@ -4,16 +4,16 @@ import { Box, Slider } from '@mui/material';
 import { MidiContext } from '../../';
 
 function MidiSlider({ channel, orientation = 'vertical' }) {
-  const { outputDevice } = useContext(MidiContext);
+  const { output } = useContext(MidiContext);
 
   function handlePitchbend(event, value) {
-    outputDevice.channels[channel].sendPitchBend(value);
+    output?.channels[channel].sendPitchBend(value);
   }
 
   return (
     <Box sx={{ height: 250 }}>
       <Slider
-        disabled={!outputDevice}
+        disabled={!output}
         orientation={orientation}
         onChange={handlePitchbend}
         min={-1}

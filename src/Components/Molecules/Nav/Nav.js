@@ -1,13 +1,12 @@
 import React from 'react';
-import { ViewControl } from '../../';
+import AppBar from '@mui/material/AppBar';
 import './Nav.css';
 
-function Nav({ children }) {
+function Nav({ children, theme }) {
   return (
-    <nav>
-      <ViewControl />
-      {children}
-    </nav>
+    <AppBar position="static">
+      <div className="nav">{children}</div>
+    </AppBar>
   );
 }
 
