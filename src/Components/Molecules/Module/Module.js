@@ -1,12 +1,13 @@
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useContext, useRef } from 'react';
+import PropTypes from 'prop-types';
 import Fab from '@mui/material/Fab';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { UserContext } from '../..';
+import { overrideCursor } from './Module_helpers.js';
 import './Module.css';
 
-function Module({ children, id, current }) {
-  const { modules, setModules, editMode } = useContext(UserContext);
-  const module = modules.get(id);
+function Module({ children, module }) {
+  const { updateModule, deleteModule, editMode } = useContext(UserContext);
   const moduleRef = useRef(null);
   let startPosition;
 
@@ -16,14 +17,6 @@ function Module({ children, id, current }) {
       x: event.clientX,
       y: event.clientY,
     };
-  }
-
-  function overrideCursor(event) {
-    if (event.altKey) {
-      event.dataTransfer.effectAllowed = 'copyMove';
-    } else {
-      event.dataTransfer.effectAllowed = 'move';
-    }
   }
 
   function handleOnDragEnd(event) {
@@ -36,13 +29,12 @@ function Module({ children, id, current }) {
       x: distance.x + moduleRef.current.offsetLeft,
       y: distance.y + moduleRef.current.offsetTop,
     };
-    const module = { position: newPosition };
-    setModules(new Map(modules.set(id, module)));
+    const newModule = { ...module, position: newPosition };
+    updateModule(module, newModule);
   }
 
   function handleOnDeleteClick(event) {
-    modules.delete(id);
-    setModules(new Map(modules));
+    deleteModule(module);
   }
 
   const modulePositionStyle = {
@@ -73,5 +65,12 @@ function Module({ children, id, current }) {
     </div>
   );
 }
+
+Module.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+};
 
 export default Module;

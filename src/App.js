@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {
   Carrousel,
   LaunchPad,
-  MidiSlider,
+  MidiButton,
   Module,
   Nav,
   Settings,
@@ -12,6 +12,8 @@ import {
   ViewControl,
   MidiContext,
   UserContext,
+  MidiSlider,
+  MidiSettings,
 } from './Components';
 import './App.css';
 
@@ -21,6 +23,7 @@ function App() {
   const {
     activeView,
     views,
+    modules,
     editMode,
     invertThemeMode,
     inputName,
@@ -96,6 +99,10 @@ function App() {
     await startMidi();
   }
 
+  function getModulesForView(view) {
+    return modules.filter((item) => view.modules.includes(item.id));
+  }
+
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
@@ -106,15 +113,17 @@ function App() {
         </Nav>
         <Carrousel activeView={activeView} viewCount={views.size}>
           {views &&
-            [...views].map(([id, view]) => {
-              return (
-                <View key={view.page} page={view.page} label={view.label}>
-                  <Module id={0} label={'track 1 vol'}>
-                    <MidiSlider channel={1} />
+            views.map((view) => (
+              <View key={view.id} {...view}>
+                {getModulesForView(view).map((id) => (
+                  <Module key={id} module={module}>
+                    {module.type === 'button' && <MidiButton />}
+                    {module.type === 'slider' && <MidiSlider />}
+                    {module.type === 'settings' && <MidiSettings />}
                   </Module>
-                </View>
-              );
-            })}
+                ))}
+              </View>
+            ))}
         </Carrousel>
       </ThemeProvider>
     </div>

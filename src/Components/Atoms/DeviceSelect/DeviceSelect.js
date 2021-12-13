@@ -1,5 +1,4 @@
 import React from 'react';
-import { WebMidi } from 'webmidi';
 import {
   Alert,
   FormControl,

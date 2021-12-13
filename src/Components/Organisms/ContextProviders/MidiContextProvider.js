@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react';
+import PropTypes from 'prop-types';
 
 export const MidiContext = createContext(null);
 
@@ -23,6 +24,13 @@ const MidiContextProvider = ({ children }) => {
       {children}
     </MidiContext.Provider>
   );
+};
+
+MidiContextProvider.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
 };
 
 export default MidiContextProvider;

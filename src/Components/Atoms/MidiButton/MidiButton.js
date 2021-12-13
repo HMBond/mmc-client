@@ -1,13 +1,20 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { MidiContext } from '../../';
 import { Button } from '@mui/material';
+import { MidiContext } from '../../';
+import { midiRawNumber } from '../../../propTypeValidators';
 
-function MidiButton({ channel = 1, note, children }) {
+const MAX_NOTE_ON_DURATION = 4000;
+
+function MidiButton({ channel = 1, note, velocity, children }) {
   const { output } = useContext(MidiContext);
 
   function handlePlayNote() {
-    output?.channels[channel].playNote(note);
+    output?.channels[channel].playNote(note, {
+      duration: MAX_NOTE_ON_DURATION,
+      rawAttack: velocity,
+      rawRelease: velocity,
+    });
   }
 
   function handleStopNote() {
@@ -31,6 +38,7 @@ function MidiButton({ channel = 1, note, children }) {
 MidiButton.propTypes = {
   channel: PropTypes.number,
   note: PropTypes.string.isRequired,
+  velocity: midiRawNumber,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { WebMidi } from 'webmidi';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
@@ -8,7 +8,6 @@ import { MidiContext, DeviceSelect, UserContext } from '../..';
 function MidiSettings({ restartMidi }) {
   const { input, setInput, inputs, output, setOutput, outputs } =
     useContext(MidiContext);
-
   const { setInputName, setOutputName } = useContext(UserContext);
 
   function handleOnInputSelect(event) {

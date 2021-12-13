@@ -6,22 +6,22 @@ import './ViewControl.css';
 function ViewControl() {
   const { views, activeView, setActiveView } = useContext(UserContext);
 
-  function handleViewButtonClick(id) {
-    setActiveView(id);
+  function handleViewButtonClick(view) {
+    setActiveView(view);
   }
 
   return (
     <div className="view-control">
-      {[...views].map(([id, label]) => {
+      {views.map((view) => {
         return (
           <Button
             disableElevation
-            color={activeView === id ? 'warning' : 'secondary'}
+            color={activeView.id === view.id ? 'warning' : 'secondary'}
             variant="contained"
-            onClick={() => handleViewButtonClick(id)}
-            key={id}
+            onClick={() => handleViewButtonClick(view)}
+            key={view.id}
           >
-            {label}
+            {view.label}
           </Button>
         );
       })}

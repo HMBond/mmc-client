@@ -3,7 +3,9 @@ import './Carrousel.css';
 
 function Carrousel({ children, activeView, viewCount }) {
   const style = {
-    transform: `translateX(-${Math.ceil((activeView / viewCount) * 100)}%)`,
+    transform: `translateX(-${Math.ceil(
+      (activeView.place / viewCount) * 100
+    )}%)`,
   };
 
   return (

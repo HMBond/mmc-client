@@ -1,16 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { UserContext } from '../ContextProviders/UserContextProvider';
 import './View.css';
 
-function View({ children, page, label }) {
-  const { activeView, views, setViews } = useContext(UserContext);
-
-  useEffect(() => {
-    setViews(views.set(page, label));
-    // eslint-disable-next-line
-  }, []);
-
+function View({ children, id, backgroundColor }) {
+  const { activeView } = useContext(UserContext);
   function allowDrop(even) {
     even.preventDefault();
   }
@@ -21,10 +15,11 @@ function View({ children, page, label }) {
 
   return (
     <div
+      style={{ backgroundColor }}
       className="view"
       onDrop={handleOnDrop}
       onDragOver={allowDrop}
-      active={(page === activeView).toString()}
+      active={(id === activeView).toString()}
     >
       {children}
     </div>
@@ -32,8 +27,8 @@ function View({ children, page, label }) {
 }
 
 View.propTypes = {
-  page: PropTypes.number,
-  label: PropTypes.string,
+  id: PropTypes.number,
+  backgroundColor: PropTypes.string,
 };
 
 export default View;
