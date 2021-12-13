@@ -105,11 +105,16 @@ function App() {
           <ViewControl />
         </Nav>
         <Carrousel activeView={activeView} viewCount={views.size}>
-          <View pageNumber={0} label={'First view'}>
-            <Module id={2} label={'track 1 vol'}>
-              <MidiSlider channel={1} />
-            </Module>
-          </View>
+          {views &&
+            [...views].map(([id, view]) => {
+              return (
+                <View key={view.page} page={view.page} label={view.label}>
+                  <Module id={0} label={'track 1 vol'}>
+                    <MidiSlider channel={1} />
+                  </Module>
+                </View>
+              );
+            })}
         </Carrousel>
       </ThemeProvider>
     </div>

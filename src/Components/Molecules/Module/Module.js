@@ -1,10 +1,10 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import Fab from '@mui/material/Fab';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { UserContext } from '../..';
 import './Module.css';
 
-function Module({ children, id }) {
+function Module({ children, id, current }) {
   const { modules, setModules, editMode } = useContext(UserContext);
   const module = modules.get(id);
   const moduleRef = useRef(null);
@@ -46,8 +46,8 @@ function Module({ children, id }) {
   }
 
   const modulePositionStyle = {
-    left: module?.position.x,
-    top: module?.position.y,
+    left: module?.position?.x,
+    top: module?.position?.y,
   };
 
   return (
