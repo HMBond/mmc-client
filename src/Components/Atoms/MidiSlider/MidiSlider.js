@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Box, Slider, Input } from '@mui/material';
 import { MidiContext } from '../../';
 
-function MidiSlider({ children, channel, label, orientation = 'vertical' }) {
+function MidiSlider({ children, channel, label, orientation }) {
   const { output } = useContext(MidiContext);
 
   function handleLabelChange() {
@@ -16,10 +16,10 @@ function MidiSlider({ children, channel, label, orientation = 'vertical' }) {
 
   return (
     <Box sx={{ height: 250 }}>
-      <Input onChange={handleLabelChange}>{children}</Input>
+      {false && <Input value={label} onChange={handleLabelChange} />}
       <Slider
         disabled={!output}
-        orientation={orientation}
+        orientation={orientation ? orientation : 'vertical'}
         onChange={handlePitchbend}
         min={-1}
         max={1}

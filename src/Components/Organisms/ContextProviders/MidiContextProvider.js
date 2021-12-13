@@ -8,6 +8,8 @@ const MidiContextProvider = ({ children }) => {
   const [inputs, setInputs] = useState(null);
   const [output, setOutput] = useState({});
   const [outputs, setOutputs] = useState(null);
+
+  // eslint-disable-next-line
   const midiContextProviderValue = {
     input,
     setInput,

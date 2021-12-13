@@ -1,4 +1,4 @@
-export function updateModule({ Module, setModules, modules }) {
+export function updateModule({ module, setModules, modules }) {
   const otherModules = modules.filter((item) => item.id !== module.id);
   setModules([...otherModules, module]);
 }

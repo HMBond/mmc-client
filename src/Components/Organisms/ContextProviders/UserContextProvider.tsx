@@ -1,16 +1,22 @@
 import React, { createContext, useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { deleteModule, updateModule } from './UserContextProvider_extensions';
+import {
+  View,
+  Module,
+  UserContextInterface,
+} from './UserContextProvider_interfaces';
 
-const LOCAL_STORAGE_ITEM_NAME = 'midi-controller';
-const DEFAULT_VIEW = {
+const LOCAL_STORAGE_ITEM_NAME: string = 'midi-controller-user-setup';
+const DEFAULT_VIEW: View = {
   id: 0,
   label: 'Example',
-  backgroundColor: '#000000',
-  place: 1, // placement of view and view button
-  modules: [0], // list of module ids to render within the view
+  backgroundColor: 'black',
+  place: 0,
+  moduleIds: [0, 1],
 };
-const DEFAULT_MODULES = [
+
+const DEFAULT_MODULES: Module[] = [
   {
     id: 0,
     type: 'button',
@@ -28,21 +34,21 @@ const DEFAULT_MODULES = [
   },
 ];
 
-export const UserContext = createContext(null);
+export const UserContext = createContext<UserContextInterface | null>(null);
 
-const UserContextProvider = ({ children }) => {
+const UserContextProvider = ({ children }: { children: any }) => {
   const [isUseEffectFinished, setIsUseEffectFinished] = useState(false);
 
-  const [modules, setModules] = useState(DEFAULT_MODULES);
+  const [modules, setModules] = useState<Module[]>(DEFAULT_MODULES);
   const [views, setViews] = useState([DEFAULT_VIEW]);
-  const [editMode, setEditMode] = useState(true);
+  const [editMode, setEditMode] = useState(false);
   const [invertThemeMode, setInvertThemeMode] = useState(false);
   const [activeView, setActiveView] = useState(DEFAULT_VIEW);
   const [inputName, setInputName] = useState('');
   const [outputName, setOutputName] = useState('');
 
   // eslint-disable-next-line
-  const user = {
+  const user: UserContextInterface = {
     editMode,
     invertThemeMode,
     activeView,
@@ -54,7 +60,7 @@ const UserContextProvider = ({ children }) => {
 
   useEffect(() => {
     let localStorageItem = JSON.parse(
-      localStorage.getItem(LOCAL_STORAGE_ITEM_NAME)
+      localStorage.getItem(LOCAL_STORAGE_ITEM_NAME) || 'null'
     );
     if (localStorageItem) {
       setModules(localStorageItem.modules);
@@ -74,15 +80,18 @@ const UserContextProvider = ({ children }) => {
   }, []);
 
   useMemo(() => {
-    if (isUseEffectFinished)
+    if (isUseEffectFinished) {
       localStorage.setItem(LOCAL_STORAGE_ITEM_NAME, JSON.stringify(user));
+    }
   }, [user, isUseEffectFinished]);
 
-  const userContextProviderValue = {
+  const userContextProviderValue: UserContextInterface = {
     modules,
     setModules,
-    updateModule: (module) => updateModule({ module, setModules, modules }),
-    deleteModule: (module) => deleteModule({ module, setModules, modules }),
+    updateModule: (module: Module) =>
+      updateModule({ module, setModules, modules }),
+    deleteModule: (module: Module) =>
+      deleteModule({ module, setModules, modules }),
     views,
     setViews,
     editMode,

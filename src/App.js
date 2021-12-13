@@ -100,7 +100,7 @@ function App() {
   }
 
   function getModulesForView(view) {
-    return modules.filter((item) => view.modules.includes(item.id));
+    return modules.filter((item) => view.moduleIds.includes(item.id));
   }
 
   return (
@@ -111,7 +111,7 @@ function App() {
           <LaunchPad />
           <ViewControl />
         </Nav>
-        <Carrousel activeView={activeView} viewCount={views.size}>
+        <Carrousel activeView={activeView} viewCount={views.length}>
           {views &&
             views.map((view) => (
               <View key={view.id} {...view}>
