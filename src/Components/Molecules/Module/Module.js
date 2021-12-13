@@ -11,7 +11,7 @@ function Module({ children, module }) {
   const moduleRef = useRef(null);
   let startPosition;
 
-  function handleOnDragStart(event) {
+  function handleDragStart(event) {
     overrideCursor(event);
     startPosition = {
       x: event.clientX,
@@ -19,7 +19,7 @@ function Module({ children, module }) {
     };
   }
 
-  function handleOnDragEnd(event) {
+  function handleDragEnd(event) {
     // TODO: if(event.altKey) insert new copy of this placer at newPosition
     const distance = {
       x: event.clientX - startPosition.x,
@@ -30,10 +30,10 @@ function Module({ children, module }) {
       y: distance.y + moduleRef.current.offsetTop,
     };
     const newModule = { ...module, position: newPosition };
-    updateModule(module, newModule);
+    updateModule(newModule);
   }
 
-  function handleOnDeleteClick(event) {
+  function handleDeleteClick(event) {
     deleteModule(module);
   }
 
@@ -47,8 +47,8 @@ function Module({ children, module }) {
       className="module"
       style={modulePositionStyle}
       draggable={editMode}
-      onDragStart={handleOnDragStart}
-      onDragEndCapture={handleOnDragEnd}
+      onDragStart={handleDragStart}
+      onDragEndCapture={handleDragEnd}
       ref={moduleRef}
     >
       {children}
@@ -57,7 +57,7 @@ function Module({ children, module }) {
           color="secondary"
           size="small"
           aria-label="delete"
-          onClick={handleOnDeleteClick}
+          onClick={handleDeleteClick}
         >
           <DeleteIcon />
         </Fab>

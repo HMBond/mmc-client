@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import IconButton from '@mui/material/IconButton';
+import Fab from '@mui/material/Fab';
 import CardContent from '@mui/material/CardContent';
 import Switch from '@mui/material/Switch';
 import Modal from '@mui/material/Modal';
@@ -18,11 +18,11 @@ function Settings({ restartMidi }) {
     useContext(UserContext);
   const [open, setOpen] = useState(false);
 
-  function handleOnOpenClick() {
+  function handleOpenClick() {
     setOpen(true);
   }
 
-  function handleOnCloseClick() {
+  function handleCloseClick() {
     setOpen(false);
   }
 
@@ -30,36 +30,36 @@ function Settings({ restartMidi }) {
     setInvertThemeMode(checked);
   }
 
-  function handleOnEditClick() {
+  function handleEditClick() {
     setEditMode(!editMode);
   }
 
   return (
     <div className="settings">
-      <IconButton
-        color="inherit"
+      <Fab
+        color="info"
         aria-label="menu"
         size="large"
         edge="start"
         sx={{ mr: 2 }}
-        onClick={handleOnEditClick}
+        onClick={handleEditClick}
       >
         {editMode ? <EditOffIcon /> : <ModeEditIcon />}
-      </IconButton>
-      <IconButton
-        color="inherit"
+      </Fab>
+      <Fab
+        color="info"
         aria-label="settings button"
         size="large"
         edge="start"
         sx={{ mr: 2 }}
-        onClick={handleOnOpenClick}
+        onClick={handleOpenClick}
       >
         <SettingsIcon />
-      </IconButton>
+      </Fab>
       <Modal
         keepMounted
         open={open}
-        onClose={handleOnCloseClick}
+        onClose={handleCloseClick}
         aria-labelledby="settings"
         aria-describedby="global and midi settings"
       >
@@ -75,7 +75,7 @@ function Settings({ restartMidi }) {
               <MidiSettings restartMidi={restartMidi} />
             </CardContent>
             <CardActions>
-              <Button onClick={handleOnCloseClick} sx={{ ml: 'auto' }}>
+              <Button onClick={handleCloseClick} sx={{ ml: 'auto' }}>
                 Close
               </Button>
             </CardActions>

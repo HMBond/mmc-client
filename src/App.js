@@ -115,11 +115,17 @@ function App() {
           {views &&
             views.map((view) => (
               <View key={view.id} {...view}>
-                {getModulesForView(view).map((id) => (
-                  <Module key={id} module={module}>
-                    {module.type === 'button' && <MidiButton />}
-                    {module.type === 'slider' && <MidiSlider />}
-                    {module.type === 'settings' && <MidiSettings />}
+                {getModulesForView(view).map((module) => (
+                  <Module key={module.id} module={module}>
+                    {module.type === 'button' && (
+                      <MidiButton {...module}>{module.label}</MidiButton>
+                    )}
+                    {module.type === 'slider' && (
+                      <MidiSlider {...module}>{module.label}</MidiSlider>
+                    )}
+                    {module.type === 'settings' && (
+                      <MidiSettings restartMidi={handleRestartMidi} />
+                    )}
                   </Module>
                 ))}
               </View>

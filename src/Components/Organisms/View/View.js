@@ -1,15 +1,13 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { UserContext } from '../ContextProviders/UserContextProvider';
 import './View.css';
 
-function View({ children, id, backgroundColor }) {
-  const { activeView } = useContext(UserContext);
+function View({ children, backgroundColor }) {
   function allowDrop(even) {
     even.preventDefault();
   }
 
-  function handleOnDrop(event) {
+  function handleDrop(event) {
     event.preventDefault();
   }
 
@@ -17,9 +15,8 @@ function View({ children, id, backgroundColor }) {
     <div
       style={{ backgroundColor }}
       className="view"
-      onDrop={handleOnDrop}
+      onDrop={handleDrop}
       onDragOver={allowDrop}
-      active={(id === activeView).toString()}
     >
       {children}
     </div>
@@ -27,7 +24,6 @@ function View({ children, id, backgroundColor }) {
 }
 
 View.propTypes = {
-  id: PropTypes.number,
   backgroundColor: PropTypes.string,
 };
 

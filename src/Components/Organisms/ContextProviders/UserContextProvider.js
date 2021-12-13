@@ -16,8 +16,15 @@ const DEFAULT_MODULES = [
     type: 'button',
     label: 'volume',
     channel: null, // defaults to 1
-    note: 'C3',
+    note: 'C3', // must unique per channel
     velocity: null, // defaults to 64
+  },
+  {
+    id: 1,
+    type: 'slider',
+    label: 'volume',
+    channel: 16, // must be unique
+    orientation: null, // defaults to 'vertical'
   },
 ];
 
@@ -74,8 +81,7 @@ const UserContextProvider = ({ children }) => {
   const userContextProviderValue = {
     modules,
     setModules,
-    updateModule: (module, newModule) =>
-      updateModule({ module, newModule, setModules, modules }),
+    updateModule: (module) => updateModule({ module, setModules, modules }),
     deleteModule: (module) => deleteModule({ module, setModules, modules }),
     views,
     setViews,

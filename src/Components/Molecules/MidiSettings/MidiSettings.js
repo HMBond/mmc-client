@@ -10,13 +10,13 @@ function MidiSettings({ restartMidi }) {
     useContext(MidiContext);
   const { setInputName, setOutputName } = useContext(UserContext);
 
-  function handleOnInputSelect(event) {
+  function handleInputSelect(event) {
     const selected = WebMidi?.getInputById(event.target.value);
     setInput(selected);
     setInputName(selected.name);
   }
 
-  function handleOnOutputSelect(event) {
+  function handleOutputSelect(event) {
     const selected = WebMidi?.getOutputById(event.target.value);
     setOutput(selected);
     setOutputName(selected.name);
@@ -34,13 +34,13 @@ function MidiSettings({ restartMidi }) {
           deviceTypeName="input"
           devices={inputs}
           selected={input}
-          onChange={handleOnInputSelect}
+          onChange={handleInputSelect}
         />
         <DeviceSelect
           deviceTypeName="output"
           devices={outputs}
           selected={output}
-          onChange={handleOnOutputSelect}
+          onChange={handleOutputSelect}
         />
       </Box>
     );
