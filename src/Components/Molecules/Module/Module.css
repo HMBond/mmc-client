@@ -2,10 +2,15 @@
   position: absolute;
   padding: 0.5rem;
   left: 1rem;
+  z-index: var(--z-index-module);
+}
+
+.module[draggable='true'] {
+  touch-action: none;
 }
 
 .module[draggable='true']:hover {
-  background: #cccccc80;
+  background: #ffffff80;
   cursor: move;
 }
 
@@ -16,8 +21,8 @@
 .module[draggable='true']:active {
   opacity: 0.5;
   background: white;
-  box-shadow: 1px 5px 5px -1px grey;
-  transform: translate(-1px, -3px);
+  box-shadow: 1px 4px 5px -1px #454545;
+  transform: translate(-1px, -4px);
 }
 
 .module__controls {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -18,7 +19,7 @@ type FormDialogProps = {
   successLabel: string;
 };
 
-export default function FormDialog({
+function FormDialog({
   children,
   inputValue,
   onSuccess,
@@ -65,3 +66,19 @@ export default function FormDialog({
     </Dialog>
   );
 }
+
+FormDialog.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+  inputValue: PropTypes.string,
+  onSuccess: PropTypes.func,
+  open: PropTypes.bool,
+  setOpen: PropTypes.func,
+  title: PropTypes.string,
+  label: PropTypes.string,
+  successLabel: PropTypes.string,
+};
+
+export default FormDialog;

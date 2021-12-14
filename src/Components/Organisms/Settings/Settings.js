@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, Fragment } from 'react';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Fab from '@mui/material/Fab';
 import CardContent from '@mui/material/CardContent';
@@ -13,6 +13,7 @@ import EditOffIcon from '@mui/icons-material/EditOff';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import { UserContext, MidiSettings, FormDialog } from '../..';
 import './Settings.css';
+import { LOCAL_STORAGE_ITEM_NAME } from '../../../defaults';
 
 function Settings({ restartMidi }) {
   const {
@@ -58,28 +59,34 @@ function Settings({ restartMidi }) {
     setFileName(fileName);
   }
 
+  function handleClearLocalStorage() {
+    localStorage.setItem(LOCAL_STORAGE_ITEM_NAME, 'null');
+  }
+
   return (
     <div className="settings">
       {showEditButton && (
-        <Fab
-          color="info"
-          aria-label="edit"
-          size="large"
-          edge="start"
-          onClick={handleEditClick}
-        >
-          {editMode ? <EditOffIcon /> : <ModeEditIcon />}
-        </Fab>
+        <Fragment>
+          <Fab
+            color="info"
+            aria-label="edit"
+            size="large"
+            edge="start"
+            onClick={handleEditClick}
+          >
+            {editMode ? <EditOffIcon /> : <ModeEditIcon />}
+          </Fab>
+          <Fab
+            color="info"
+            aria-label="settings"
+            size="large"
+            edge="start"
+            onClick={handleSaveClick}
+          >
+            <SaveAsIcon />
+          </Fab>
+        </Fragment>
       )}
-      <Fab
-        color="info"
-        aria-label="settings"
-        size="large"
-        edge="start"
-        onClick={handleSaveClick}
-      >
-        <SaveAsIcon />
-      </Fab>
       <Fab
         color="info"
         aria-label="settings button"
@@ -111,6 +118,9 @@ function Settings({ restartMidi }) {
                 onChange={handleSwitchThemeMode}
                 label="Perform in light mode"
               />
+              <Button variant="contained" onClick={handleClearLocalStorage}>
+                Clear Local Storage
+              </Button>
               <MidiSettings restartMidi={restartMidi} />
             </CardContent>
             <CardActions>

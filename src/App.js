@@ -106,11 +106,13 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Nav>
-          <Settings restartMidi={handleRestartMidi} />
-          <LaunchPad />
-          <ViewControl />
-        </Nav>
+        {true && (
+          <Nav>
+            <Settings restartMidi={handleRestartMidi} />
+            <LaunchPad />
+            <ViewControl />
+          </Nav>
+        )}
         <Carrousel activeView={activeView} viewCount={views.length}>
           {views &&
             views.map((view) => (

@@ -1,4 +1,4 @@
-import { UserContextInterface } from './Components/Organisms/ContextProviders/interfaces';
+import { UserInterface } from './Components/Organisms/ContextProviders/interfaces';
 import { ViewModel } from './Components/Organisms/View/View_model';
 
 export const MIDI_MIN = 0;
@@ -11,12 +11,12 @@ export const LOCAL_STORAGE_ITEM_NAME = 'midi-controller-user-setup';
 const defaultView: ViewModel = {
   id: 0,
   label: 'Example',
-  backgroundColor: 'black',
+  backgroundColor: 'orange',
   place: 0,
   moduleIds: [0, 1],
 };
 
-export const DEFAULT_USER_CONTEXT: UserContextInterface = {
+export const DEFAULT_USER_CONTEXT: UserInterface = {
   editMode: false,
   showEditButton: true,
   invertTheme: false,

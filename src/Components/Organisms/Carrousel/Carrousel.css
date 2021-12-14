@@ -1,5 +1,4 @@
 .carrousel {
-  max-width: 100vw;
   display: grid;
   overflow: hidden;
 }

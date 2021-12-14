@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { ModuleModel } from '../../Molecules/Module/Module_model';
-import { UserContextInterface } from './interfaces';
+import { UserInterface } from './interfaces';
 import { deleteModule, saveUserContextAs, updateModule } from './extensions';
 import {
   LOCAL_STORAGE_ITEM_NAME,
@@ -10,8 +10,7 @@ import {
 } from '../../../defaults';
 import { throttle } from 'lodash';
 
-export const UserContext =
-  createContext<UserContextInterface>(DEFAULT_USER_CONTEXT);
+export const UserContext = createContext<UserInterface>(DEFAULT_USER_CONTEXT);
 
 const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [isInitialized, setIsInitialized] = useState(false);
@@ -43,7 +42,19 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     modules,
   };
 
-  function setStorageToState(storage: UserContextInterface) {
+  const setters = {
+    setModules,
+    setViews,
+    setEditMode,
+    setShowEditButton,
+    setInvertTheme,
+    setActiveView,
+    setInputName,
+    setOutputName,
+    setFileName,
+  };
+
+  function setStorageToState(storage: UserInterface) {
     setEditMode(storage.editMode);
     setShowEditButton(storage.showEditButton);
     setInvertTheme(storage.invertThem);
@@ -81,25 +92,9 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     [user, isInitialized, debounceMemo]
   );
 
-  const userContextProviderValue: UserContextInterface = {
-    modules,
-    setModules,
-    views,
-    setViews,
-    editMode,
-    setEditMode,
-    showEditButton,
-    setShowEditButton,
-    invertTheme,
-    setInvertTheme,
-    activeView,
-    setActiveView,
-    inputName,
-    setInputName,
-    outputName,
-    setOutputName,
-    fileName,
-    setFileName,
+  const userContextProviderValue: UserInterface = {
+    ...user,
+    ...setters,
     updateModule: (id: number, module: ModuleModel) =>
       updateModule({ id, module, setModules, modules }),
     deleteModule: (id: number) => deleteModule({ id, setModules, modules }),

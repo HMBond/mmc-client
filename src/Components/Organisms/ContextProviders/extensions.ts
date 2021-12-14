@@ -1,6 +1,6 @@
 import { ModuleModel } from '../../Molecules/Module/Module_model';
 import { ViewModel } from '../View/View_model';
-import { UserContextInterface } from './interfaces';
+import { UserInterface } from './interfaces';
 import { validate } from './validate';
 
 type UpdateModuleProps = {
@@ -47,7 +47,7 @@ export function updateView({ id, view, setViews, views }: UpdateViewProps) {
 
 type SaveUserContextAs = {
   fileName: string;
-  user: UserContextInterface;
+  user: UserInterface;
 };
 
 export async function saveUserContextAs({ fileName, user }: SaveUserContextAs) {

@@ -2,12 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './View.css';
 
-function View({ children, backgroundColor }) {
-  function allowDrop(even) {
-    even.preventDefault();
+type ViewProps = {
+  children: React.ReactNode;
+  backgroundColor: string;
+};
+
+function View({ children, backgroundColor }: ViewProps) {
+  function allowDrop(event: React.DragEvent) {
+    event.preventDefault();
   }
 
-  function handleDrop(event) {
+  function handleDrop(event: React.DragEvent) {
     event.preventDefault();
   }
 
@@ -24,6 +29,10 @@ function View({ children, backgroundColor }) {
 }
 
 View.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
   backgroundColor: PropTypes.string,
 };
 
