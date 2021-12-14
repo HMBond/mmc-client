@@ -1,15 +1,8 @@
-import React, {
-  createContext,
-  useState,
-  useEffect,
-  useMemo,
-  useCallback,
-} from 'react';
+import React, { createContext, useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { ModuleModel } from '../../Molecules/Module/Module_model';
-import { ViewModel } from '../View/View_model';
 import { UserContextInterface } from './interfaces';
-import { deleteModule, updateModule } from './extensions';
+import { deleteModule, saveUserContextAs, updateModule } from './extensions';
 import {
   LOCAL_STORAGE_ITEM_NAME,
   LOCAL_STORAGE_THROTTLE_WAIT,
@@ -35,6 +28,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [activeView, setActiveView] = useState(DEFAULT_USER_CONTEXT.activeView);
   const [inputName, setInputName] = useState(DEFAULT_USER_CONTEXT.inputName);
   const [outputName, setOutputName] = useState(DEFAULT_USER_CONTEXT.outputName);
+  const [fileName, setFileName] = useState(DEFAULT_USER_CONTEXT.fileName);
 
   // eslint-disable-next-line
   const user = {
@@ -44,6 +38,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     activeView,
     inputName,
     outputName,
+    fileName,
     views,
     modules,
   };
@@ -81,14 +76,14 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     []
   );
 
-  useMemo(() => debounceMemo(user), [user]);
+  useMemo(
+    () => isInitialized && debounceMemo(user),
+    [user, isInitialized, debounceMemo]
+  );
 
   const userContextProviderValue: UserContextInterface = {
     modules,
     setModules,
-    updateModule: (id: number, module: ModuleModel) =>
-      updateModule({ id, module, setModules, modules }),
-    deleteModule: (id: number) => deleteModule({ id, setModules, modules }),
     views,
     setViews,
     editMode,
@@ -103,6 +98,13 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     setInputName,
     outputName,
     setOutputName,
+    fileName,
+    setFileName,
+    updateModule: (id: number, module: ModuleModel) =>
+      updateModule({ id, module, setModules, modules }),
+    deleteModule: (id: number) => deleteModule({ id, setModules, modules }),
+    saveUserContextAs: (fileName: string) =>
+      saveUserContextAs({ fileName, user }),
   };
 
   return (

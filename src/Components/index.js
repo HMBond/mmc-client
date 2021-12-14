@@ -2,6 +2,7 @@ import DeviceSelect from './Atoms/DeviceSelect/DeviceSelect';
 import MidiButton from './Atoms/MidiButton/MidiButton';
 import MidiSlider from './Atoms/MidiSlider/MidiSlider';
 import MidiSettings from './Molecules/MidiSettings/MidiSettings';
+import FormDialog from './Molecules/FormDialog/FormDialog';
 import LaunchPad from './Molecules/LaunchPad/LaunchPad';
 import Module from './Molecules/Module/Module';
 import Nav from './Molecules/Nav/Nav';
@@ -21,6 +22,7 @@ export {
   MidiButton,
   MidiSettings,
   MidiSlider,
+  FormDialog,
   LaunchPad,
   Module,
   Nav,

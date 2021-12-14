@@ -1,5 +1,6 @@
 import { ModuleModel } from '../../Molecules/Module/Module_model';
 import { ViewModel } from '../View/View_model';
+import { UserContextInterface } from './interfaces';
 import { validate } from './validate';
 
 type UpdateModuleProps = {
@@ -42,4 +43,17 @@ export function updateView({ id, view, setViews, views }: UpdateViewProps) {
   validate(view);
   const otherviews = views.filter((item) => item.id !== id);
   setViews([...otherviews, view]);
+}
+
+type SaveUserContextAs = {
+  fileName: string;
+  user: UserContextInterface;
+};
+
+export async function saveUserContextAs({ fileName, user }: SaveUserContextAs) {
+  const a = document.createElement('a');
+  const file = new Blob([JSON.stringify(user)], { type: 'application/json' });
+  a.href = URL.createObjectURL(file);
+  a.download = fileName;
+  a.click();
 }

@@ -10,7 +10,8 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import Card from '@mui/material/Card';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import EditOffIcon from '@mui/icons-material/EditOff';
-import { UserContext, MidiSettings } from '../..';
+import SaveAsIcon from '@mui/icons-material/SaveAs';
+import { UserContext, MidiSettings, FormDialog } from '../..';
 import './Settings.css';
 
 function Settings({ restartMidi }) {
@@ -21,8 +22,12 @@ function Settings({ restartMidi }) {
     showEditButton,
     setShowEditButton,
     setInvertTheme,
+    saveUserContextAs,
+    fileName,
+    setFileName,
   } = useContext(UserContext);
   const [open, setOpen] = useState(false);
+  const [saveDialogOpen, setSaveDialogOpen] = useState(false);
 
   function handleOpenClick() {
     setOpen(true);
@@ -44,15 +49,23 @@ function Settings({ restartMidi }) {
     setEditMode(!editMode);
   }
 
+  function handleSaveClick() {
+    setSaveDialogOpen(true);
+  }
+
+  function handleSave(fileName) {
+    saveUserContextAs(fileName);
+    setFileName(fileName);
+  }
+
   return (
     <div className="settings">
       {showEditButton && (
         <Fab
           color="info"
-          aria-label="menu"
+          aria-label="edit"
           size="large"
           edge="start"
-          sx={{ mr: 2 }}
           onClick={handleEditClick}
         >
           {editMode ? <EditOffIcon /> : <ModeEditIcon />}
@@ -60,10 +73,18 @@ function Settings({ restartMidi }) {
       )}
       <Fab
         color="info"
+        aria-label="settings"
+        size="large"
+        edge="start"
+        onClick={handleSaveClick}
+      >
+        <SaveAsIcon />
+      </Fab>
+      <Fab
+        color="info"
         aria-label="settings button"
         size="large"
         edge="start"
-        sx={{ mr: 2 }}
         onClick={handleOpenClick}
       >
         <SettingsIcon />
@@ -100,6 +121,15 @@ function Settings({ restartMidi }) {
           </Card>
         </div>
       </Modal>
+      <FormDialog
+        title="Save file"
+        label="File name"
+        successLabel="Save"
+        inputValue={fileName}
+        onSuccess={handleSave}
+        open={saveDialogOpen}
+        setOpen={setSaveDialogOpen}
+      />
     </div>
   );
 }

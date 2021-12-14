@@ -1,4 +1,3 @@
-import { ModuleModel } from './Components/Molecules/Module/Module_model';
 import { UserContextInterface } from './Components/Organisms/ContextProviders/interfaces';
 import { ViewModel } from './Components/Organisms/View/View_model';
 
@@ -24,6 +23,7 @@ export const DEFAULT_USER_CONTEXT: UserContextInterface = {
   activeView: defaultView,
   inputName: '',
   outputName: '',
+  fileName: 'my-modular-midi-controller-setup.json',
   views: [defaultView],
   modules: [
     {
