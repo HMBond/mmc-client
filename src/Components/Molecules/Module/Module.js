@@ -30,11 +30,11 @@ function Module({ children, module }) {
       y: distance.y + moduleRef.current.offsetTop,
     };
     const newModule = { ...module, position: newPosition };
-    updateModule(newModule);
+    updateModule(newModule.id, newModule);
   }
 
   function handleDeleteClick(event) {
-    deleteModule(module);
+    deleteModule(module.id);
   }
 
   const modulePositionStyle = {

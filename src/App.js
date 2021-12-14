@@ -25,7 +25,7 @@ function App() {
     views,
     modules,
     editMode,
-    invertThemeMode,
+    invertTheme,
     inputName,
     setInputName,
     outputName,
@@ -34,7 +34,7 @@ function App() {
 
   const theme = createTheme({
     palette: {
-      mode: invertThemeMode ^ editMode ? 'light' : 'dark',
+      mode: invertTheme ^ editMode ? 'light' : 'dark',
     },
   });
 
@@ -121,7 +121,7 @@ function App() {
                       <MidiButton {...module}>{module.label}</MidiButton>
                     )}
                     {module.type === 'slider' && (
-                      <MidiSlider {...module}>{module.label}</MidiSlider>
+                      <MidiSlider module={module}>{module.label}</MidiSlider>
                     )}
                     {module.type === 'settings' && (
                       <MidiSettings restartMidi={handleRestartMidi} />

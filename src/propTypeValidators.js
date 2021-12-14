@@ -1,5 +1,4 @@
-const MIDI_MIN = 0;
-const MIDI_MAX = 127;
+import { MIDI_MAX, MIDI_MIN } from './defaults';
 
 export function midiRawNumber(props, propName, componentName) {
   if (props[propName] === null || props[propName] === undefined) return;

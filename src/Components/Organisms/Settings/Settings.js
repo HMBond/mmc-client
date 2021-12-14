@@ -14,8 +14,14 @@ import { UserContext, MidiSettings } from '../..';
 import './Settings.css';
 
 function Settings({ restartMidi }) {
-  const { editMode, setEditMode, invertThemeMode, setInvertThemeMode } =
-    useContext(UserContext);
+  const {
+    editMode,
+    setEditMode,
+    invertTheme,
+    showEditButton,
+    setShowEditButton,
+    setInvertTheme,
+  } = useContext(UserContext);
   const [open, setOpen] = useState(false);
 
   function handleOpenClick() {
@@ -27,7 +33,11 @@ function Settings({ restartMidi }) {
   }
 
   function handleSwitchThemeMode(event, checked) {
-    setInvertThemeMode(checked);
+    setInvertTheme(checked);
+  }
+
+  function handleShowEditButtonChange() {
+    setShowEditButton(!showEditButton);
   }
 
   function handleEditClick() {
@@ -36,16 +46,18 @@ function Settings({ restartMidi }) {
 
   return (
     <div className="settings">
-      <Fab
-        color="info"
-        aria-label="menu"
-        size="large"
-        edge="start"
-        sx={{ mr: 2 }}
-        onClick={handleEditClick}
-      >
-        {editMode ? <EditOffIcon /> : <ModeEditIcon />}
-      </Fab>
+      {showEditButton && (
+        <Fab
+          color="info"
+          aria-label="menu"
+          size="large"
+          edge="start"
+          sx={{ mr: 2 }}
+          onClick={handleEditClick}
+        >
+          {editMode ? <EditOffIcon /> : <ModeEditIcon />}
+        </Fab>
+      )}
       <Fab
         color="info"
         aria-label="settings button"
@@ -68,7 +80,13 @@ function Settings({ restartMidi }) {
             <CardContent sx={{ display: 'grid', gap: 3, width: '20rem' }}>
               <FormControlLabel
                 control={<Switch />}
-                checked={invertThemeMode}
+                checked={showEditButton}
+                onChange={handleShowEditButtonChange}
+                label="Show edit button"
+              />
+              <FormControlLabel
+                control={<Switch />}
+                checked={invertTheme}
                 onChange={handleSwitchThemeMode}
                 label="Perform in light mode"
               />

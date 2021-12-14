@@ -8,14 +8,14 @@ function MidiButton({ channel, note, velocity, children }) {
   const { output } = useContext(MidiContext);
 
   function handlePlayNote() {
-    output?.channels[channel ? channel : 1].playNote(note, {
+    output.channels[channel ? channel : 1].playNote(note, {
       rawAttack: velocity,
       rawRelease: velocity,
     });
   }
 
   function handleStopNote() {
-    output?.channels[channel ? channel : 1].stopNote(note);
+    output.channels[channel ? channel : 1].stopNote(note);
   }
 
   return (

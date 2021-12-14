@@ -1,56 +1,46 @@
-import React, { createContext, useState, useEffect, useMemo } from 'react';
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+} from 'react';
 import PropTypes from 'prop-types';
-import { deleteModule, updateModule } from './UserContextProvider_extensions';
+import { ModuleModel } from '../../Molecules/Module/Module_model';
+import { ViewModel } from '../View/View_model';
+import { UserContextInterface } from './interfaces';
+import { deleteModule, updateModule } from './extensions';
 import {
-  View,
-  Module,
-  UserContextInterface,
-} from './UserContextProvider_interfaces';
+  LOCAL_STORAGE_ITEM_NAME,
+  LOCAL_STORAGE_THROTTLE_WAIT,
+  DEFAULT_USER_CONTEXT,
+} from '../../../defaults';
+import { throttle } from 'lodash';
 
-const LOCAL_STORAGE_ITEM_NAME: string = 'midi-controller-user-setup';
-const DEFAULT_VIEW: View = {
-  id: 0,
-  label: 'Example',
-  backgroundColor: 'black',
-  place: 0,
-  moduleIds: [0, 1],
-};
+export const UserContext =
+  createContext<UserContextInterface>(DEFAULT_USER_CONTEXT);
 
-const DEFAULT_MODULES: Module[] = [
-  {
-    id: 0,
-    type: 'button',
-    label: 'volume',
-    channel: null, // defaults to 1
-    note: 'C3', // must unique per channel
-    velocity: null, // defaults to 64
-  },
-  {
-    id: 1,
-    type: 'slider',
-    label: 'volume',
-    channel: 16, // must be unique
-    orientation: null, // defaults to 'vertical'
-  },
-];
+const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
+  const [isInitialized, setIsInitialized] = useState(false);
 
-export const UserContext = createContext<UserContextInterface | null>(null);
-
-const UserContextProvider = ({ children }: { children: any }) => {
-  const [isUseEffectFinished, setIsUseEffectFinished] = useState(false);
-
-  const [modules, setModules] = useState<Module[]>(DEFAULT_MODULES);
-  const [views, setViews] = useState([DEFAULT_VIEW]);
-  const [editMode, setEditMode] = useState(false);
-  const [invertThemeMode, setInvertThemeMode] = useState(false);
-  const [activeView, setActiveView] = useState(DEFAULT_VIEW);
-  const [inputName, setInputName] = useState('');
-  const [outputName, setOutputName] = useState('');
+  const [modules, setModules] = useState(DEFAULT_USER_CONTEXT.modules);
+  const [views, setViews] = useState(DEFAULT_USER_CONTEXT.views);
+  const [editMode, setEditMode] = useState(DEFAULT_USER_CONTEXT.editMode);
+  const [showEditButton, setShowEditButton] = useState(
+    DEFAULT_USER_CONTEXT.showEditButton
+  );
+  const [invertTheme, setInvertTheme] = useState(
+    DEFAULT_USER_CONTEXT.invertTheme
+  );
+  const [activeView, setActiveView] = useState(DEFAULT_USER_CONTEXT.activeView);
+  const [inputName, setInputName] = useState(DEFAULT_USER_CONTEXT.inputName);
+  const [outputName, setOutputName] = useState(DEFAULT_USER_CONTEXT.outputName);
 
   // eslint-disable-next-line
-  const user: UserContextInterface = {
+  const user = {
     editMode,
-    invertThemeMode,
+    showEditButton,
+    invertTheme,
     activeView,
     inputName,
     outputName,
@@ -58,46 +48,55 @@ const UserContextProvider = ({ children }: { children: any }) => {
     modules,
   };
 
+  function setStorageToState(storage: UserContextInterface) {
+    setEditMode(storage.editMode);
+    setShowEditButton(storage.showEditButton);
+    setInvertTheme(storage.invertThem);
+    setActiveView(storage.activeView);
+    setInputName(storage.inputName);
+    setOutputName(storage.outputName);
+    setViews(storage.views);
+    setModules(storage.modules);
+  }
+
   useEffect(() => {
-    let localStorageItem = JSON.parse(
+    const localStorageItem = JSON.parse(
       localStorage.getItem(LOCAL_STORAGE_ITEM_NAME) || 'null'
     );
     if (localStorageItem) {
-      setModules(localStorageItem.modules);
-      setViews(localStorageItem.views);
-      setEditMode(localStorageItem.editMode);
-      setInvertThemeMode(localStorageItem.invertThemeMode);
-      setActiveView(localStorageItem.activeView);
-      setInputName(localStorageItem.inputName);
-      setOutputName(localStorageItem.outputName);
+      setStorageToState(localStorageItem);
     }
-
-    setIsUseEffectFinished(true);
+    setIsInitialized(true);
     return () => {
       localStorage.setItem(LOCAL_STORAGE_ITEM_NAME, JSON.stringify(user));
     };
     // eslint-disable-next-line
   }, []);
 
-  useMemo(() => {
-    if (isUseEffectFinished) {
-      localStorage.setItem(LOCAL_STORAGE_ITEM_NAME, JSON.stringify(user));
-    }
-  }, [user, isUseEffectFinished]);
+  const debounceMemo = useMemo(
+    () =>
+      throttle((user) => {
+        localStorage.setItem(LOCAL_STORAGE_ITEM_NAME, JSON.stringify(user));
+      }, LOCAL_STORAGE_THROTTLE_WAIT),
+    []
+  );
+
+  useMemo(() => debounceMemo(user), [user]);
 
   const userContextProviderValue: UserContextInterface = {
     modules,
     setModules,
-    updateModule: (module: Module) =>
-      updateModule({ module, setModules, modules }),
-    deleteModule: (module: Module) =>
-      deleteModule({ module, setModules, modules }),
+    updateModule: (id: number, module: ModuleModel) =>
+      updateModule({ id, module, setModules, modules }),
+    deleteModule: (id: number) => deleteModule({ id, setModules, modules }),
     views,
     setViews,
     editMode,
     setEditMode,
-    invertThemeMode,
-    setInvertThemeMode,
+    showEditButton,
+    setShowEditButton,
+    invertTheme,
+    setInvertTheme,
     activeView,
     setActiveView,
     inputName,
