@@ -63,7 +63,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     setFileName,
   };
 
-  function setStorageToState(storage: UserInterface) {
+  function setState(storage: UserInterface) {
     setEditMode(storage.editMode);
     setShowEditButton(storage.showEditButton);
     setInvertTheme(storage.invertTheme);
@@ -80,7 +80,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
       localStorage.getItem(LOCAL_STORAGE_ITEM_NAME) || 'false'
     );
     if (storageItem) {
-      setStorageToState(storageItem);
+      setState(storageItem);
     }
     setIsInitialized(true);
     // cleanup
@@ -111,7 +111,10 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     deleteModule: (id: number) => deleteModule({ id, setModules, modules }),
     saveUserContextAs: (fileName: string) =>
       saveUserContextAs({ fileName, user }),
-    clearLocalStorage: () => clearLocalStorage(LOCAL_STORAGE_ITEM_NAME),
+    clearLocalStorage: () => {
+      clearLocalStorage(LOCAL_STORAGE_ITEM_NAME);
+      setState(DEFAULT_USER_CONTEXT);
+    },
   };
 
   return (
