@@ -139,7 +139,7 @@ function Settings({ restartMidi }: SettingsProps) {
         </div>
       </Modal>
       <FormDialog
-        title="Save file"
+        title="Save setup"
         label="File name"
         successLabel="Save"
         inputValue={fileName}

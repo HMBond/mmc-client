@@ -9,7 +9,7 @@ type MidiButtonProps = MidiButtonConstructorArgs & {
   children: React.ReactNode;
 };
 
-function MidiButton({ channel, note, velocity, children }: MidiButtonProps) {
+function MidiButton({ children, channel, note, velocity }: MidiButtonProps) {
   const { output } = useContext(MidiContext)!;
 
   function handlePlayNote() {
