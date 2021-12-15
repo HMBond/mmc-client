@@ -1,16 +1,19 @@
 import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import { MidiContextInterface } from './interfaces';
 
-export const MidiContext = createContext(null);
+export const MidiContext = createContext<MidiContextInterface | null>(null);
 
-const MidiContextProvider = ({ children }) => {
+type MidiContextProviderProps = { children: React.ReactNode };
+
+const MidiContextProvider = ({ children }: MidiContextProviderProps) => {
   const [input, setInput] = useState({});
   const [inputs, setInputs] = useState(null);
   const [output, setOutput] = useState({});
   const [outputs, setOutputs] = useState(null);
 
   // eslint-disable-next-line
-  const midiContextProviderValue = {
+  const midiContextProviderValue: MidiContextInterface = {
     input,
     setInput,
     inputs,

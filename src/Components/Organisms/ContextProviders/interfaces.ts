@@ -19,3 +19,14 @@ export interface UserContextInterface extends UserInterface {
   deleteModule: (id: number) => void;
   saveUserContextAs: (fileName: string) => void;
 }
+
+export interface MidiContextInterface {
+  input: any;
+  setInput: (value: any) => void;
+  inputs: any;
+  setInputs: (value: any) => void;
+  output: any;
+  setOutput: (value: any) => void;
+  outputs: any;
+  setOutputs: (value: any) => void;
+}

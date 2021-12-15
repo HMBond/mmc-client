@@ -5,7 +5,7 @@ import './Nav.css';
 
 function Nav({ children }) {
   return (
-    <AppBar position="static" color="transparent">
+    <AppBar position="static">
       <div className="nav">{children}</div>
     </AppBar>
   );
