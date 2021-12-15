@@ -14,7 +14,7 @@ type ViewProps = {
 
 function View({ children, view }: ViewProps) {
   const { backgroundColor } = view;
-  const { addModule } = useContext(UserContext)!;
+  const { addModule, editMode } = useContext(UserContext)!;
   function allowDrop(event: React.DragEvent) {
     event.preventDefault();
   }
@@ -45,9 +45,11 @@ function View({ children, view }: ViewProps) {
       onDrop={handleDrop}
       onDragOver={allowDrop}
     >
-      <Fab onClick={handleAddModuleClick}>
-        <AddIcon />
-      </Fab>
+      {editMode && (
+        <Fab onClick={handleAddModuleClick} sx={{ m: '1rem' }}>
+          <AddIcon />
+        </Fab>
+      )}
       {children}
     </div>
   );
