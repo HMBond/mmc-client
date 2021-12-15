@@ -73,6 +73,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
       setStorageToState(localStorageItem);
     }
     setIsInitialized(true);
+    // cleanup
     return () => {
       localStorage.setItem(LOCAL_STORAGE_ITEM_NAME, JSON.stringify(user));
     };

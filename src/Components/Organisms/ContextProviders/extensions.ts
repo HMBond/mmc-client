@@ -6,16 +6,12 @@ import { validate } from './validate';
 type UpdateModuleProps = {
   id: Number;
   module: ModuleModel;
-  setModules: Function;
+  setModules: (value: any) => void;
   modules: ModuleModel[];
 };
 
-export function updateModule({
-  id,
-  module,
-  setModules,
-  modules,
-}: UpdateModuleProps) {
+export function updateModule(args: UpdateModuleProps) {
+  const { id, module, setModules, modules } = args;
   validate(module);
   const otherModules = modules.filter((item) => item.id !== id);
   setModules([...otherModules, module]);
@@ -23,7 +19,7 @@ export function updateModule({
 
 type DeleteModuleProps = {
   id: number;
-  setModules: Function;
+  setModules: (value: any) => void;
   modules: ModuleModel[];
 };
 
@@ -35,7 +31,7 @@ export function deleteModule({ id, setModules, modules }: DeleteModuleProps) {
 type UpdateViewProps = {
   id: number;
   view: ViewModel;
-  setViews: Function;
+  setViews: (value: any) => void;
   views: ViewModel[];
 };
 
