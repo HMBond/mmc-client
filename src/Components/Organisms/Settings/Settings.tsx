@@ -74,7 +74,7 @@ function Settings({ restartMidi }: SettingsProps) {
   }
 
   return (
-    <div className="settings">
+    <div className={`settings ${leftHanded ? 'row-reversed' : ''}`}>
       {showEditButton && (
         <Fab
           color="default"
