@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { Button } from '@mui/material';
-import { UserContext } from '../../';
+import { UserContext } from '../..';
 import './ViewControl.css';
+import { ViewModel } from '../../Organisms/View/View_model';
 
 function ViewControl() {
-  const { views, activeView, setActiveView } = useContext(UserContext);
+  const { views, activeView, setActiveView } = useContext(UserContext)!;
 
-  function handleViewButtonClick(view) {
+  function handleViewButtonClick(view: ViewModel) {
     setActiveView(view);
   }
 

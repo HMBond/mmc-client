@@ -1,4 +1,4 @@
-import React, { useContext, useState, Fragment } from 'react';
+import React, { useContext, useState } from 'react';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Fab from '@mui/material/Fab';
 import CardContent from '@mui/material/CardContent';
@@ -14,7 +14,9 @@ import SaveAsIcon from '@mui/icons-material/SaveAs';
 import { UserContext, MidiSettings, FormDialog } from '../..';
 import './Settings.css';
 
-function Settings({ restartMidi }) {
+type SettingsProps = { restartMidi: Function };
+
+function Settings({ restartMidi }: SettingsProps) {
   const {
     editMode,
     setEditMode,
@@ -26,7 +28,7 @@ function Settings({ restartMidi }) {
     fileName,
     setFileName,
     clearLocalStorage,
-  } = useContext(UserContext);
+  } = useContext(UserContext)!;
   const [open, setOpen] = useState(false);
   const [saveDialogOpen, setSaveDialogOpen] = useState(false);
 
@@ -38,12 +40,13 @@ function Settings({ restartMidi }) {
     setOpen(false);
   }
 
-  function handleSwitchThemeMode(event, checked) {
+  function handleSwitchThemeMode(event: React.ChangeEvent, checked: boolean) {
     setInvertTheme(checked);
   }
 
   function handleShowEditButtonChange() {
     setShowEditButton(!showEditButton);
+    setEditMode(false);
   }
 
   function handleEditClick() {
@@ -54,7 +57,7 @@ function Settings({ restartMidi }) {
     setSaveDialogOpen(true);
   }
 
-  function handleSave(fileName) {
+  function handleSave(fileName: string) {
     saveUserContextAs(fileName);
     setFileName(fileName);
   }
@@ -67,32 +70,29 @@ function Settings({ restartMidi }) {
   return (
     <div className="settings">
       {showEditButton && (
-        <Fragment>
-          <Fab
-            color="info"
-            aria-label="edit"
-            size="large"
-            edge="start"
-            onClick={handleEditClick}
-          >
-            {editMode ? <EditOffIcon /> : <ModeEditIcon />}
-          </Fab>
-          <Fab
-            color="info"
-            aria-label="settings"
-            size="large"
-            edge="start"
-            onClick={handleSaveClick}
-          >
-            <SaveAsIcon />
-          </Fab>
-        </Fragment>
+        <Fab
+          color="default"
+          aria-label="edit"
+          size="large"
+          onClick={handleEditClick}
+        >
+          {editMode ? <EditOffIcon /> : <ModeEditIcon />}
+        </Fab>
+      )}
+      {editMode && (
+        <Fab
+          color="default"
+          aria-label="settings"
+          size="large"
+          onClick={handleSaveClick}
+        >
+          <SaveAsIcon />
+        </Fab>
       )}
       <Fab
-        color="info"
+        color="default"
         aria-label="settings button"
         size="large"
-        edge="start"
         onClick={handleOpenClick}
       >
         <SettingsIcon />
@@ -104,7 +104,7 @@ function Settings({ restartMidi }) {
         aria-labelledby="settings"
         aria-describedby="global and midi settings"
       >
-        <div className="settings__modal-content" open={open}>
+        <div className={`settings__modal-content ${open && 'open'}`}>
           <Card>
             <CardContent sx={{ display: 'grid', gap: 3, width: '20rem' }}>
               <FormControlLabel
@@ -114,7 +114,7 @@ function Settings({ restartMidi }) {
                     onChange={handleShowEditButtonChange}
                   />
                 }
-                label="Show edit/save buttons"
+                label="Show edit button"
               />
               <FormControlLabel
                 control={

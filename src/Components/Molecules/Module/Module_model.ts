@@ -34,7 +34,7 @@ export class ModuleModel implements ModuleInterface {
   };
 }
 
-type MidiButtonConstructorArgs = ModuleConstructorArgs & {
+export type MidiButtonConstructorArgs = ModuleConstructorArgs & {
   channel?: number;
   note?: string;
   velocity?: number;

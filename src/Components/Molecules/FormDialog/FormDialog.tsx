@@ -9,7 +9,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 type FormDialogProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   inputValue: string;
   onSuccess: Function;
   open: boolean;

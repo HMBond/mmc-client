@@ -4,12 +4,12 @@ import Fab from '@mui/material/Fab';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { UserContext } from '../..';
 import { overrideCursor, toPx } from './Module_helpers';
-import { ModuleModel } from './Module_model';
+import { ModuleInterface } from './Module_model';
 import './Module.css';
 
 type ModuleProps = {
   children: React.ReactNode;
-  module: ModuleModel;
+  module: ModuleInterface;
 };
 
 type Position = {

@@ -16,10 +16,12 @@ import {
   MidiSettings,
 } from './Components';
 import './App.css';
+import { ViewModel } from './Components/Organisms/View/View_model';
+import { MidiSliderModel } from './Components/Molecules/Module/Module_model';
 
 function App() {
   const { setInput, setInputs, setOutput, setOutputs } =
-    useContext(MidiContext);
+    useContext(MidiContext)!;
   const {
     activeView,
     views,
@@ -30,18 +32,18 @@ function App() {
     setInputName,
     outputName,
     setOutputName,
-  } = useContext(UserContext);
+  } = useContext(UserContext)!;
 
   const theme = createTheme({
     palette: {
-      mode: invertTheme ^ editMode ? 'light' : 'dark',
+      mode: invertTheme !== editMode ? 'light' : 'dark',
     },
   });
 
   useEffect(() => {
     startMidi();
     return () => {
-      WebMidi.removeListener('portschanged', handleMidiPortChanged);
+      (WebMidi as any).removeListener('portschanged', handleMidiPortChanged);
     };
     // eslint-disable-next-line
   }, []);
@@ -50,10 +52,9 @@ function App() {
     await WebMidi.enable({ sysex: true })
       .then(() => {
         // TODO: try local storage (last) selected devices, otherwise first available:
-        window.midi = WebMidi;
         setInputStates();
         setOutputStates();
-        WebMidi.addListener('portschanged', handleMidiPortChanged);
+        (WebMidi as any).addListener('portschanged', handleMidiPortChanged);
       })
       .catch((error) => console.log(error));
   }
@@ -76,7 +77,7 @@ function App() {
     setOutputName(firstOrDefaultOutput?.name ?? '');
   }
 
-  function handleMidiPortChanged({ port }) {
+  function handleMidiPortChanged({ port }: any) {
     if (port.type === 'input') {
       setInputStates();
       if (port.state === 'disconnected') {
@@ -94,12 +95,12 @@ function App() {
 
   async function handleRestartMidi() {
     if (WebMidi.enabled) {
-      WebMidi.removeListener('portschanged', handleMidiPortChanged);
+      (WebMidi as any).removeListener('portschanged', handleMidiPortChanged);
     }
     await startMidi();
   }
 
-  function getModulesForView(view) {
+  function getModulesForView(view: ViewModel) {
     return modules.filter((item) => view.moduleIds.includes(item.id));
   }
 
@@ -113,7 +114,7 @@ function App() {
             <ViewControl />
           </Nav>
         )}
-        <Carrousel activeView={activeView} viewCount={views.length}>
+        <Carrousel activeView={activeView} views={views}>
           {views &&
             views.map((view) => (
               <View key={view.id} view={view}>
@@ -123,7 +124,9 @@ function App() {
                       <MidiButton {...module}>{module.label}</MidiButton>
                     )}
                     {module.type === 'slider' && (
-                      <MidiSlider module={module}>{module.label}</MidiSlider>
+                      <MidiSlider module={module as MidiSliderModel}>
+                        {module.label}
+                      </MidiSlider>
                     )}
                     {module.type === 'settings' && (
                       <MidiSettings restartMidi={handleRestartMidi} />
