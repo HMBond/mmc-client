@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import './View.css';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
 import { MidiButtonModel } from '../../Molecules/Module/Module_model';
 import { UserContext } from '../..';
 import { ViewModel } from './View_model';
+import { AddModuleButton } from '../../';
 
 type ViewProps = {
   children: React.ReactNode;
@@ -14,7 +13,7 @@ type ViewProps = {
 
 function View({ children, view }: ViewProps) {
   const { backgroundColor } = view;
-  const { addModule, editMode } = useContext(UserContext)!;
+  const { addModule } = useContext(UserContext)!;
   function allowDrop(event: React.DragEvent) {
     event.preventDefault();
   }
@@ -45,11 +44,7 @@ function View({ children, view }: ViewProps) {
       onDrop={handleDrop}
       onDragOver={allowDrop}
     >
-      {editMode && (
-        <Fab onClick={handleAddModuleClick} sx={{ m: '1rem' }}>
-          <AddIcon />
-        </Fab>
-      )}
+      <AddModuleButton onClick={handleAddModuleClick} />
       {children}
     </div>
   );
