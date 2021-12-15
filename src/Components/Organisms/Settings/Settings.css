@@ -9,7 +9,3 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
-.settings__modal-content[open] {
-  transform: translate(-50%, -50%);
-}

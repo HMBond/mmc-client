@@ -104,7 +104,7 @@ function Settings({ restartMidi }: SettingsProps) {
         aria-labelledby="settings"
         aria-describedby="global and midi settings"
       >
-        <div className={`settings__modal-content ${open && 'open'}`}>
+        <div className="settings__modal-content">
           <Card>
             <CardContent sx={{ display: 'grid', gap: 3, width: '20rem' }}>
               <FormControlLabel
