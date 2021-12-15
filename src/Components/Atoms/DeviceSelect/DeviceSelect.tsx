@@ -1,17 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Alert,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
 } from '@mui/material';
 
-function capitalizeFirstLetter(value) {
+function capitalizeFirstLetter(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
-function DeviceSelect({ deviceTypeName, devices, selected, onChange }) {
+type DeviceSelectProps = {
+  deviceTypeName: 'input' | 'output';
+  devices: any[];
+  selected: any;
+  onChange: (event: SelectChangeEvent<any>, child: React.ReactNode) => void;
+};
+
+function DeviceSelect(props: DeviceSelectProps) {
+  const { deviceTypeName, devices, selected, onChange } = props;
   if (!devices || devices.length === 0) {
     return <Alert severity="warning">No {deviceTypeName} devices found!</Alert>;
   } else {
@@ -39,5 +49,12 @@ function DeviceSelect({ deviceTypeName, devices, selected, onChange }) {
     );
   }
 }
+
+DeviceSelect.propTypes = {
+  deviceTypeName: PropTypes.string,
+  devices: PropTypes.array,
+  selected: PropTypes.any,
+  onChange: PropTypes.func,
+};
 
 export default DeviceSelect;
