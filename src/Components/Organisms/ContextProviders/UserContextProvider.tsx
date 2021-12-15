@@ -18,7 +18,7 @@ import {
   LOCAL_STORAGE_ITEM_NAME,
   LOCAL_STORAGE_THROTTLE_WAIT,
   DEFAULT_USER_CONTEXT,
-} from '../../../defaults';
+} from '../../../definitions';
 import { throttle } from 'lodash';
 import { ViewModel } from '../View/View_model';
 

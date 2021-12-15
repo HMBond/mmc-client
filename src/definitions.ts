@@ -8,7 +8,7 @@ export const LOCAL_STORAGE_THROTTLE_WAIT = 500;
 
 export const LOCAL_STORAGE_ITEM_NAME = 'midi-controller-user-setup';
 
-const defaultView: ViewModel = {
+const DEFAULT_VIEW: ViewModel = {
   id: 0,
   label: 'Example',
   backgroundColor: 'indigo',
@@ -21,11 +21,11 @@ export const DEFAULT_USER_CONTEXT: UserInterface = {
   showEditButton: true,
   invertTheme: false,
   leftHanded: false,
-  activeView: defaultView,
+  activeView: DEFAULT_VIEW,
   inputName: '',
   outputName: '',
   fileName: 'my-modular-midi-controller-setup.json',
-  views: [defaultView],
+  views: [DEFAULT_VIEW, DEFAULT_VIEW, DEFAULT_VIEW],
   modules: [
     {
       id: 0,
