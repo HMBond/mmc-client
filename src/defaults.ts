@@ -30,9 +30,13 @@ export const DEFAULT_USER_CONTEXT: UserInterface = {
       id: 0,
       type: 'button',
       label: 'volume',
-      channel: null, // defaults to 1
+      channel: 1,
       note: 'C3', // must unique per channel
-      velocity: null, // defaults to 64
+      velocity: 64,
+      position: {
+        x: 100,
+        y: 100,
+      },
     },
     {
       id: 1,
@@ -40,7 +44,11 @@ export const DEFAULT_USER_CONTEXT: UserInterface = {
       label: 'volume',
       channel: 16, // must be unique
       value: 0.8,
-      orientation: null, // defaults to 'vertical'
+      orientation: 'vertical',
+      position: {
+        x: 200,
+        y: 100,
+      },
     },
   ],
 };

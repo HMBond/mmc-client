@@ -1,7 +1,10 @@
-import { ModuleModel } from '../../Molecules/Module/Module_model';
+import {
+  ModuleInterface,
+  ModuleModel,
+} from '../../Molecules/Module/Module_model';
 import { ViewModel } from '../View/View_model';
 
-export function validate(item: ModuleModel | ViewModel) {
+export function validate(item: ModuleInterface | ViewModel) {
   if (item instanceof ModuleModel) validateModule(item);
   if (item instanceof ViewModel) validateView(item);
 

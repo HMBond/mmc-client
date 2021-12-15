@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { ModuleModel } from '../../Molecules/Module/Module_model';
+import { ModuleInterface } from '../../Molecules/Module/Module_model';
 import {
   UserContextInterface,
   UserContextOrNull,
@@ -11,6 +11,8 @@ import {
   deleteModule,
   saveUserContextAs,
   clearLocalStorage,
+  addModule,
+  updateView,
 } from './extensions';
 import {
   LOCAL_STORAGE_ITEM_NAME,
@@ -18,6 +20,7 @@ import {
   DEFAULT_USER_CONTEXT,
 } from '../../../defaults';
 import { throttle } from 'lodash';
+import { ViewModel } from '../View/View_model';
 
 export const UserContext = createContext<UserContextOrNull>(null);
 
@@ -106,7 +109,13 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const userContextProviderValue: UserContextInterface = {
     ...user,
     ...setters,
-    updateModule: (id: number, module: ModuleModel) =>
+    addModule: (view: ViewModel, module: ModuleInterface) => {
+      addModule({ module, setModules, modules });
+      const updatedView: ViewModel = view;
+      updatedView.moduleIds.push(module.id);
+      updateView({ id: view.id, view: updatedView, setViews, views });
+    },
+    updateModule: (id: number, module: ModuleInterface) =>
       updateModule({ id, module, setModules, modules }),
     deleteModule: (id: number) => deleteModule({ id, setModules, modules }),
     saveUserContextAs: (fileName: string) =>

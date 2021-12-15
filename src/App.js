@@ -116,7 +116,7 @@ function App() {
         <Carrousel activeView={activeView} viewCount={views.length}>
           {views &&
             views.map((view) => (
-              <View key={view.id} {...view}>
+              <View key={view.id} view={view}>
                 {getModulesForView(view).map((module) => (
                   <Module key={module.id} module={module}>
                     {module.type === 'button' && (

@@ -1,19 +1,41 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import './View.css';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import { MidiButtonModel } from '../../Molecules/Module/Module_model';
+import { UserContext } from '../..';
+import { ViewModel } from './View_model';
 
 type ViewProps = {
   children: React.ReactNode;
-  backgroundColor: string;
+  view: ViewModel;
 };
 
-function View({ children, backgroundColor }: ViewProps) {
+function View({ children, view }: ViewProps) {
+  const { backgroundColor } = view;
+  const { addModule } = useContext(UserContext)!;
   function allowDrop(event: React.DragEvent) {
     event.preventDefault();
   }
 
   function handleDrop(event: React.DragEvent) {
     event.preventDefault();
+  }
+
+  function handleAddModuleClick() {
+    const position = {
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2,
+    };
+    const module = new MidiButtonModel({
+      label: 'button 1',
+      position,
+      channel: 1,
+      note: 'C3',
+      velocity: 64,
+    });
+    addModule(view, module);
   }
 
   return (
@@ -23,6 +45,9 @@ function View({ children, backgroundColor }: ViewProps) {
       onDrop={handleDrop}
       onDragOver={allowDrop}
     >
+      <Fab onClick={handleAddModuleClick}>
+        <AddIcon />
+      </Fab>
       {children}
     </div>
   );

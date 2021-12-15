@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Slider, Input } from '@mui/material';
 import { MidiContext, UserContext } from '../..';
-import { ModuleModel } from '../../Molecules/Module/Module_model';
+import { MidiSliderModel } from '../../Molecules/Module/Module_model';
 
 type MidiSliderProps = {
   children?: React.ReactNode;
-  module: ModuleModel;
+  module: MidiSliderModel;
 };
 
 function MidiSlider({

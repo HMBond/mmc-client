@@ -1,13 +1,25 @@
-import { ModuleModel } from '../../Molecules/Module/Module_model';
+import { ModuleInterface } from '../../Molecules/Module/Module_model';
 import { ViewModel } from '../View/View_model';
 import { UserInterface } from './interfaces';
 import { validate } from './validate';
 
+type AddModuleProps = {
+  module: ModuleInterface;
+  setModules: (value: any) => void;
+  modules: ModuleInterface[];
+};
+
+export function addModule(args: AddModuleProps) {
+  const { module, setModules, modules } = args;
+  validate(module);
+  setModules([...modules, module]);
+}
+
 type UpdateModuleProps = {
   id: Number;
-  module: ModuleModel;
+  module: ModuleInterface;
   setModules: (value: any) => void;
-  modules: ModuleModel[];
+  modules: ModuleInterface[];
 };
 
 export function updateModule(args: UpdateModuleProps) {
@@ -20,7 +32,7 @@ export function updateModule(args: UpdateModuleProps) {
 type DeleteModuleProps = {
   id: number;
   setModules: (value: any) => void;
-  modules: ModuleModel[];
+  modules: ModuleInterface[];
 };
 
 export function deleteModule({ id, setModules, modules }: DeleteModuleProps) {
