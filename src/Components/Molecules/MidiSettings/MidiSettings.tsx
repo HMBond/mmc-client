@@ -5,15 +5,14 @@ import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Box from '@mui/system/Box';
 import { MidiContext, DeviceSelect, UserContext } from '../..';
-import { MidiContextInterface } from '../../Organisms/ContextProviders/interfaces';
 import { SelectChangeEvent } from '@mui/material';
 
 type MidiSettingsProps = { restartMidi: Function };
 
 function MidiSettings({ restartMidi }: MidiSettingsProps) {
-  const midiContext: MidiContextInterface = useContext(MidiContext)!;
+  const midiContext = useContext(MidiContext)!;
   const { input, setInput, inputs, output, setOutput, outputs } = midiContext;
-  const { setInputName, setOutputName } = useContext(UserContext);
+  const { setInputName, setOutputName } = useContext(UserContext)!;
 
   function handleInputSelect(event: SelectChangeEvent<string>) {
     const selected = WebMidi.getInputById(event.target.value);

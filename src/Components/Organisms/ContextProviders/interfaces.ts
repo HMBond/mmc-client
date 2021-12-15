@@ -6,18 +6,29 @@ export interface UserInterface {
   invertTheme: boolean;
   showEditButton: boolean;
   activeView: ViewModel;
-  inputName: string;
-  outputName: string;
   views: ViewModel[];
   modules: ModuleModel[];
-  [other: string]: any;
+  inputName: string;
+  outputName: string;
+  fileName: string;
 }
 
+export type UserContextOrNull = UserContextInterface | null;
+
 export interface UserContextInterface extends UserInterface {
+  setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowEditButton: React.Dispatch<React.SetStateAction<boolean>>;
+  setInvertTheme: React.Dispatch<React.SetStateAction<boolean>>;
+  setActiveView: React.Dispatch<React.SetStateAction<ViewModel>>;
+  setViews: React.Dispatch<React.SetStateAction<ViewModel[]>>;
   setModules: React.Dispatch<React.SetStateAction<ModuleModel[]>>;
+  setInputName: React.Dispatch<React.SetStateAction<string>>;
+  setOutputName: React.Dispatch<React.SetStateAction<string>>;
+  setFileName: React.Dispatch<React.SetStateAction<string>>;
   updateModule: (id: number, module: ModuleModel) => void;
   deleteModule: (id: number) => void;
   saveUserContextAs: (fileName: string) => void;
+  clearLocalStorage: () => void;
 }
 
 export interface MidiContextInterface {

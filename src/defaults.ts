@@ -11,7 +11,7 @@ export const LOCAL_STORAGE_ITEM_NAME = 'midi-controller-user-setup';
 const defaultView: ViewModel = {
   id: 0,
   label: 'Example',
-  backgroundColor: 'orange',
+  backgroundColor: 'indigo',
   place: 0,
   moduleIds: [0, 1],
 };

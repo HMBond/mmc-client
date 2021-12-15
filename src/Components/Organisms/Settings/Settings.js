@@ -13,7 +13,6 @@ import EditOffIcon from '@mui/icons-material/EditOff';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import { UserContext, MidiSettings, FormDialog } from '../..';
 import './Settings.css';
-import { LOCAL_STORAGE_ITEM_NAME } from '../../../defaults';
 
 function Settings({ restartMidi }) {
   const {
@@ -26,6 +25,7 @@ function Settings({ restartMidi }) {
     saveUserContextAs,
     fileName,
     setFileName,
+    clearLocalStorage,
   } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [saveDialogOpen, setSaveDialogOpen] = useState(false);
@@ -60,7 +60,8 @@ function Settings({ restartMidi }) {
   }
 
   function handleClearLocalStorage() {
-    localStorage.setItem(LOCAL_STORAGE_ITEM_NAME, 'null');
+    // TODO: Show 'Are you sure? Cancel / OK' dialog
+    clearLocalStorage();
   }
 
   return (
@@ -107,19 +108,25 @@ function Settings({ restartMidi }) {
           <Card>
             <CardContent sx={{ display: 'grid', gap: 3, width: '20rem' }}>
               <FormControlLabel
-                control={<Switch />}
-                checked={showEditButton}
-                onChange={handleShowEditButtonChange}
-                label="Show edit button"
+                control={
+                  <Switch
+                    checked={showEditButton}
+                    onChange={handleShowEditButtonChange}
+                  />
+                }
+                label="Show edit/save buttons"
               />
               <FormControlLabel
-                control={<Switch />}
-                checked={invertTheme}
-                onChange={handleSwitchThemeMode}
+                control={
+                  <Switch
+                    checked={invertTheme}
+                    onChange={handleSwitchThemeMode}
+                  />
+                }
                 label="Perform in light mode"
               />
               <Button variant="contained" onClick={handleClearLocalStorage}>
-                Clear Local Storage
+                Clear All
               </Button>
               <MidiSettings restartMidi={restartMidi} />
             </CardContent>

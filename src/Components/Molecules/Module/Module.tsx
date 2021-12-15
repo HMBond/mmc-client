@@ -18,7 +18,7 @@ type Position = {
 };
 
 function Module({ children, module }: ModuleProps) {
-  const { updateModule, deleteModule, editMode } = useContext(UserContext);
+  const { updateModule, deleteModule, editMode } = useContext(UserContext)!;
   const moduleRef = useRef<HTMLDivElement>(null);
   let startPosition: Position, touchMovePosition: Position;
 

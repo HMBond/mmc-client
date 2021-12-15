@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Box, Slider, Input } from '@mui/material';
 import { MidiContext, UserContext } from '../..';
 import { ModuleModel } from '../../Molecules/Module/Module_model';
-import { UserInterface } from '../../Organisms/ContextProviders/interfaces';
 
 type MidiSliderProps = {
   children?: React.ReactNode;
@@ -16,7 +15,7 @@ function MidiSlider({
   module: { id, channel, label, value, orientation, type },
 }: MidiSliderProps) {
   const { output } = useContext<any>(MidiContext);
-  const { updateModule } = useContext<UserInterface>(UserContext);
+  const { updateModule } = useContext(UserContext)!;
 
   function handleLabelChange() {
     // TODO: update module with new label

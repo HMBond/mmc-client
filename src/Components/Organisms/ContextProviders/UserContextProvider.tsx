@@ -1,8 +1,17 @@
 import React, { createContext, useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { ModuleModel } from '../../Molecules/Module/Module_model';
-import { UserInterface } from './interfaces';
-import { deleteModule, saveUserContextAs, updateModule } from './extensions';
+import {
+  UserContextInterface,
+  UserContextOrNull,
+  UserInterface,
+} from './interfaces';
+import {
+  updateModule,
+  deleteModule,
+  saveUserContextAs,
+  clearLocalStorage,
+} from './extensions';
 import {
   LOCAL_STORAGE_ITEM_NAME,
   LOCAL_STORAGE_THROTTLE_WAIT,
@@ -10,13 +19,11 @@ import {
 } from '../../../defaults';
 import { throttle } from 'lodash';
 
-export const UserContext = createContext<UserInterface>(DEFAULT_USER_CONTEXT);
+export const UserContext = createContext<UserContextOrNull>(null);
 
 const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [isInitialized, setIsInitialized] = useState(false);
 
-  const [modules, setModules] = useState(DEFAULT_USER_CONTEXT.modules);
-  const [views, setViews] = useState(DEFAULT_USER_CONTEXT.views);
   const [editMode, setEditMode] = useState(DEFAULT_USER_CONTEXT.editMode);
   const [showEditButton, setShowEditButton] = useState(
     DEFAULT_USER_CONTEXT.showEditButton
@@ -25,6 +32,8 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     DEFAULT_USER_CONTEXT.invertTheme
   );
   const [activeView, setActiveView] = useState(DEFAULT_USER_CONTEXT.activeView);
+  const [views, setViews] = useState(DEFAULT_USER_CONTEXT.views);
+  const [modules, setModules] = useState(DEFAULT_USER_CONTEXT.modules);
   const [inputName, setInputName] = useState(DEFAULT_USER_CONTEXT.inputName);
   const [outputName, setOutputName] = useState(DEFAULT_USER_CONTEXT.outputName);
   const [fileName, setFileName] = useState(DEFAULT_USER_CONTEXT.fileName);
@@ -35,20 +44,20 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     showEditButton,
     invertTheme,
     activeView,
+    views,
+    modules,
     inputName,
     outputName,
     fileName,
-    views,
-    modules,
   };
 
   const setters = {
-    setModules,
-    setViews,
     setEditMode,
     setShowEditButton,
     setInvertTheme,
     setActiveView,
+    setViews,
+    setModules,
     setInputName,
     setOutputName,
     setFileName,
@@ -57,20 +66,21 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   function setStorageToState(storage: UserInterface) {
     setEditMode(storage.editMode);
     setShowEditButton(storage.showEditButton);
-    setInvertTheme(storage.invertThem);
+    setInvertTheme(storage.invertTheme);
     setActiveView(storage.activeView);
-    setInputName(storage.inputName);
-    setOutputName(storage.outputName);
     setViews(storage.views);
     setModules(storage.modules);
+    setInputName(storage.inputName);
+    setOutputName(storage.outputName);
+    setFileName(storage.fileName);
   }
 
   useEffect(() => {
-    const localStorageItem = JSON.parse(
-      localStorage.getItem(LOCAL_STORAGE_ITEM_NAME) || 'null'
+    const storageItem = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_ITEM_NAME) || 'false'
     );
-    if (localStorageItem) {
-      setStorageToState(localStorageItem);
+    if (storageItem) {
+      setStorageToState(storageItem);
     }
     setIsInitialized(true);
     // cleanup
@@ -93,7 +103,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     [user, isInitialized, debounceMemo]
   );
 
-  const userContextProviderValue: UserInterface = {
+  const userContextProviderValue: UserContextInterface = {
     ...user,
     ...setters,
     updateModule: (id: number, module: ModuleModel) =>
@@ -101,6 +111,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     deleteModule: (id: number) => deleteModule({ id, setModules, modules }),
     saveUserContextAs: (fileName: string) =>
       saveUserContextAs({ fileName, user }),
+    clearLocalStorage: () => clearLocalStorage(LOCAL_STORAGE_ITEM_NAME),
   };
 
   return (

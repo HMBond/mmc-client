@@ -53,3 +53,7 @@ export async function saveUserContextAs({ fileName, user }: SaveUserContextAs) {
   a.download = fileName;
   a.click();
 }
+
+export function clearLocalStorage(itemKey: string) {
+  localStorage.setItem(itemKey, 'null');
+}
