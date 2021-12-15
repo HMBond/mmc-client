@@ -20,6 +20,7 @@ export const DEFAULT_USER_CONTEXT: UserInterface = {
   editMode: false,
   showEditButton: true,
   invertTheme: false,
+  leftHanded: false,
   activeView: defaultView,
   inputName: '',
   outputName: '',

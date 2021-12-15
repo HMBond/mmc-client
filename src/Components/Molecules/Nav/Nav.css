@@ -6,3 +6,7 @@
   padding: 1rem;
   /* z-index: var(--z-index-nav); */
 }
+
+.nav.row-reversed {
+  flex-direction: row-reverse;
+}

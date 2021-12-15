@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
+import { UserContext } from '../..';
 import './Nav.css';
 
 type NavProps = {
@@ -8,9 +9,12 @@ type NavProps = {
 };
 
 function Nav({ children }: NavProps) {
+  const { leftHanded } = useContext(UserContext)!;
   return (
     <AppBar position="static">
-      <div className="nav">{children}</div>
+      <div className={`nav ${leftHanded ? 'row-reversed' : ''}`}>
+        {children}
+      </div>
     </AppBar>
   );
 }

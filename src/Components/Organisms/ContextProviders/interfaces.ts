@@ -5,6 +5,7 @@ export interface UserInterface {
   editMode: boolean;
   invertTheme: boolean;
   showEditButton: boolean;
+  leftHanded: boolean;
   activeView: ViewModel;
   views: ViewModel[];
   modules: ModuleInterface[];
@@ -21,6 +22,7 @@ export interface UserContextInterface
   setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
   setShowEditButton: React.Dispatch<React.SetStateAction<boolean>>;
   setInvertTheme: React.Dispatch<React.SetStateAction<boolean>>;
+  setLeftHanded: React.Dispatch<React.SetStateAction<boolean>>;
   setActiveView: React.Dispatch<React.SetStateAction<ViewModel>>;
   setViews: React.Dispatch<React.SetStateAction<ViewModel[]>>;
   setModules: React.Dispatch<React.SetStateAction<ModuleInterface[]>>;

@@ -9,11 +9,14 @@ type ViewProps = {
 };
 
 function AddModuleButton({ onClick }: ViewProps) {
-  const { editMode } = useContext(UserContext)!;
+  const { editMode, leftHanded } = useContext(UserContext)!;
 
   if (editMode) {
     return (
-      <Fab onClick={onClick} sx={{ m: '1rem' }}>
+      <Fab
+        onClick={onClick}
+        sx={{ m: '1rem', float: leftHanded ? 'none' : 'right' }}
+      >
         <AddIcon />
       </Fab>
     );

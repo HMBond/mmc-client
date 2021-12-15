@@ -34,6 +34,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [invertTheme, setInvertTheme] = useState(
     DEFAULT_USER_CONTEXT.invertTheme
   );
+  const [leftHanded, setLeftHanded] = useState(DEFAULT_USER_CONTEXT.leftHanded);
   const [activeView, setActiveView] = useState(DEFAULT_USER_CONTEXT.activeView);
   const [views, setViews] = useState(DEFAULT_USER_CONTEXT.views);
   const [modules, setModules] = useState(DEFAULT_USER_CONTEXT.modules);
@@ -46,6 +47,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     editMode,
     showEditButton,
     invertTheme,
+    leftHanded,
     activeView,
     views,
     modules,
@@ -58,6 +60,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     setEditMode,
     setShowEditButton,
     setInvertTheme,
+    setLeftHanded,
     setActiveView,
     setViews,
     setModules,
@@ -66,16 +69,13 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     setFileName,
   };
 
-  function setState(storage: UserInterface) {
-    setEditMode(storage.editMode);
-    setShowEditButton(storage.showEditButton);
-    setInvertTheme(storage.invertTheme);
-    setActiveView(storage.activeView);
-    setViews(storage.views);
-    setModules(storage.modules);
-    setInputName(storage.inputName);
-    setOutputName(storage.outputName);
-    setFileName(storage.fileName);
+  function setState(user: UserInterface, setters: Object) {
+    for (const key in setters) {
+      const name = key.slice(3);
+      const camelCaseName = name.slice(0, 1).toLowerCase() + name.slice(1);
+      // @ts-ignore-next-line
+      setters[key](user[camelCaseName]);
+    }
   }
 
   useEffect(() => {
@@ -83,7 +83,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
       localStorage.getItem(LOCAL_STORAGE_ITEM_NAME) || 'false'
     );
     if (storageItem) {
-      setState(storageItem);
+      setState(storageItem, setters);
     }
     setIsInitialized(true);
     // cleanup
@@ -122,7 +122,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
       saveUserContextAs({ fileName, user }),
     clearLocalStorage: () => {
       clearLocalStorage(LOCAL_STORAGE_ITEM_NAME);
-      setState(DEFAULT_USER_CONTEXT);
+      setState(DEFAULT_USER_CONTEXT, setters);
     },
   };
 

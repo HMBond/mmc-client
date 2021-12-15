@@ -21,9 +21,11 @@ function Settings({ restartMidi }: SettingsProps) {
     editMode,
     setEditMode,
     invertTheme,
+    setInvertTheme,
     showEditButton,
     setShowEditButton,
-    setInvertTheme,
+    leftHanded,
+    setLeftHanded,
     saveUserContextAs,
     fileName,
     setFileName,
@@ -40,8 +42,12 @@ function Settings({ restartMidi }: SettingsProps) {
     setOpen(false);
   }
 
-  function handleSwitchThemeMode(event: React.ChangeEvent, checked: boolean) {
+  function handleThemeModeToggle(event: React.ChangeEvent, checked: boolean) {
     setInvertTheme(checked);
+  }
+
+  function handleLeftHandedChange() {
+    setLeftHanded(!leftHanded);
   }
 
   function handleShowEditButtonChange() {
@@ -120,10 +126,19 @@ function Settings({ restartMidi }: SettingsProps) {
                 control={
                   <Switch
                     checked={invertTheme}
-                    onChange={handleSwitchThemeMode}
+                    onChange={handleThemeModeToggle}
                   />
                 }
                 label="Perform in light mode"
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={leftHanded}
+                    onChange={handleLeftHandedChange}
+                  />
+                }
+                label="Left handed"
               />
               <Button variant="contained" onClick={handleClearLocalStorage}>
                 Clear All
