@@ -14,7 +14,7 @@ type ViewProps = {
 
 function View({ children, view }: ViewProps) {
   const { backgroundColor } = view;
-  const { addModule, leftHanded } = useContext(UserContext)!;
+  const { addModule, leftHanded, activeView } = useContext(UserContext)!;
   function allowDrop(event: React.DragEvent) {
     event.preventDefault();
   }
@@ -25,8 +25,8 @@ function View({ children, view }: ViewProps) {
 
   function handleAddModuleClick() {
     const position = {
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2,
+      x: 0.8 * window.innerWidth,
+      y: 0.15 * window.innerHeight,
     };
     const module = new MidiButtonModel({
       label: 'button 1',
@@ -41,7 +41,7 @@ function View({ children, view }: ViewProps) {
   return (
     <div
       style={{ backgroundColor }}
-      className="view"
+      className={`view ${activeView.id === view.id ? '' : 'fade'}`}
       onDrop={handleDrop}
       onDragOver={allowDrop}
     >

@@ -1,4 +1,11 @@
 .view {
+  position: relative;
   overflow: hidden;
   width: 100vw;
+  opacity: 1;
+}
+
+.view.fade {
+  opacity: 0;
+  transition: opacity 0.5s linear;
 }
