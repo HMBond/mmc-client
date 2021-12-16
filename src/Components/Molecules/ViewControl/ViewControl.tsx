@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button } from '@mui/material';
-import { AddButton, UserContext } from '../..';
+import { AddButton, FormDialog, UserContext } from '../..';
 import './ViewControl.css';
 import { ViewModel } from '../../Organisms/View/View_model';
 
@@ -8,14 +8,23 @@ function ViewControl() {
   const { addView, views, activeView, setActiveView, editMode } =
     useContext(UserContext)!;
 
+  const [newViewDialogOpen, setNewViewDialogOpen] = useState(false);
+
   function handleViewButtonClick(view: ViewModel) {
     setActiveView(view);
   }
 
   function handleAddModuleClick() {
-    const label = 'TBD';
+    setNewViewDialogOpen(true);
+  }
+
+  function handleAddClick(label: string) {
     const newView = new ViewModel({ label, backgroundColor: '#002745', views });
     addView(newView, views);
+  }
+
+  function handleClose() {
+    setNewViewDialogOpen(false);
   }
 
   return (
@@ -34,6 +43,15 @@ function ViewControl() {
         );
       })}
       {editMode && <AddButton onClick={handleAddModuleClick} />}
+      <FormDialog
+        title="New view"
+        successLabel="Add"
+        label="Name"
+        placeholder="Please specify view name..."
+        onSuccess={handleAddClick}
+        open={newViewDialogOpen}
+        onClose={handleClose}
+      />
     </div>
   );
 }

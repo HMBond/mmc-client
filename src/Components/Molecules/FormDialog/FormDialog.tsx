@@ -10,8 +10,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 type FormDialogProps = {
   children?: React.ReactNode;
-  inputValue: string;
-  onSuccess: Function;
+  inputValue?: string;
+  placeholder?: string;
+  onSuccess: (value: string) => void;
   open: boolean;
   onClose: (
     event: {},
@@ -26,6 +27,7 @@ type FormDialogProps = {
 function FormDialog({
   children,
   inputValue,
+  placeholder,
   onSuccess,
   open,
   onClose,
@@ -34,7 +36,7 @@ function FormDialog({
   text,
   successLabel,
 }: FormDialogProps) {
-  const [value, setValue] = useState(inputValue);
+  const [value, setValue] = useState(inputValue || '');
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value);
@@ -52,12 +54,13 @@ function FormDialog({
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
-        <DialogContentText>{text}</DialogContentText>
+        {text && <DialogContentText>{text}</DialogContentText>}
         <TextField
           autoFocus
           margin="dense"
           label={label}
           fullWidth
+          placeholder={placeholder}
           variant={'outlined'}
           value={value}
           onChange={handleChange}

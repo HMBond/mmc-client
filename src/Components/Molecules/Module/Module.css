@@ -2,7 +2,6 @@
   position: absolute;
   padding: 0.5rem;
   left: 1rem;
-  z-index: var(--z-index-module);
 }
 
 .module[draggable='true'] {

@@ -4,7 +4,6 @@
   justify-content: space-between;
   gap: 1rem;
   padding: 1rem;
-  /* z-index: var(--z-index-nav); */
 }
 
 .nav.row-reversed {
