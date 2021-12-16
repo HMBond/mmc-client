@@ -17,7 +17,7 @@ import {
 import {
   LOCAL_STORAGE_ITEM_NAME,
   LOCAL_STORAGE_THROTTLE_WAIT,
-  DEFAULT_USER_CONTEXT,
+  USER_CONTEXT,
 } from '../../../definitions';
 import { throttle } from 'lodash';
 
@@ -26,20 +26,18 @@ export const UserContext = createContext<UserContextOrNull>(null);
 const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [isInitialized, setIsInitialized] = useState(false);
 
-  const [editMode, setEditMode] = useState(DEFAULT_USER_CONTEXT.editMode);
+  const [editMode, setEditMode] = useState(USER_CONTEXT.editMode);
   const [showEditButton, setShowEditButton] = useState(
-    DEFAULT_USER_CONTEXT.showEditButton
+    USER_CONTEXT.showEditButton
   );
-  const [invertTheme, setInvertTheme] = useState(
-    DEFAULT_USER_CONTEXT.invertTheme
-  );
-  const [leftHanded, setLeftHanded] = useState(DEFAULT_USER_CONTEXT.leftHanded);
-  const [activeView, setActiveView] = useState(DEFAULT_USER_CONTEXT.activeView);
-  const [views, setViews] = useState(DEFAULT_USER_CONTEXT.views);
-  const [modules, setModules] = useState(DEFAULT_USER_CONTEXT.modules);
-  const [inputName, setInputName] = useState(DEFAULT_USER_CONTEXT.inputName);
-  const [outputName, setOutputName] = useState(DEFAULT_USER_CONTEXT.outputName);
-  const [fileName, setFileName] = useState(DEFAULT_USER_CONTEXT.fileName);
+  const [invertTheme, setInvertTheme] = useState(USER_CONTEXT.invertTheme);
+  const [leftHanded, setLeftHanded] = useState(USER_CONTEXT.leftHanded);
+  const [activeView, setActiveView] = useState(USER_CONTEXT.activeView);
+  const [views, setViews] = useState(USER_CONTEXT.views);
+  const [modules, setModules] = useState(USER_CONTEXT.modules);
+  const [inputName, setInputName] = useState(USER_CONTEXT.inputName);
+  const [outputName, setOutputName] = useState(USER_CONTEXT.outputName);
+  const [fileName, setFileName] = useState(USER_CONTEXT.fileName);
 
   // eslint-disable-next-line
   const user = {
@@ -120,7 +118,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
     saveUserContextAs: (fileName) => saveUserContextAs({ fileName, user }),
     clearLocalStorage: () => {
       clearLocalStorage(LOCAL_STORAGE_ITEM_NAME);
-      setState(DEFAULT_USER_CONTEXT, setters);
+      setState(USER_CONTEXT, setters);
     },
     addView: (view, views) => addView({ view, views, setViews }),
   };
