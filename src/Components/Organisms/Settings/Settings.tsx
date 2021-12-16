@@ -73,6 +73,10 @@ function Settings({ restartMidi }: SettingsProps) {
     clearLocalStorage();
   }
 
+  function handleClose() {
+    setOpen(false);
+  }
+
   return (
     <div className={`settings ${leftHanded ? 'row-reversed' : ''}`}>
       {showEditButton && (
@@ -160,7 +164,7 @@ function Settings({ restartMidi }: SettingsProps) {
         inputValue={fileName}
         onSuccess={handleSave}
         open={saveDialogOpen}
-        setOpen={setSaveDialogOpen}
+        onClose={handleClose}
       />
     </div>
   );

@@ -13,9 +13,13 @@ type FormDialogProps = {
   inputValue: string;
   onSuccess: Function;
   open: boolean;
-  setOpen: Function;
+  onClose: (
+    event: {},
+    reason: 'backdropClick' | 'escapeKeyDown' | 'cancelClick'
+  ) => void;
   title: string;
   label: string;
+  text?: string;
   successLabel: string;
 };
 
@@ -24,31 +28,31 @@ function FormDialog({
   inputValue,
   onSuccess,
   open,
-  setOpen,
+  onClose,
   title,
   label,
+  text,
   successLabel,
 }: FormDialogProps) {
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   const [value, setValue] = useState(inputValue);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value);
   }
 
+  function handleCancelClick(event: React.MouseEvent) {
+    onClose(event, 'cancelClick');
+  }
+
   function handleSuccess() {
     onSuccess(value);
-    setOpen(false);
   }
 
   return (
-    <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
-        <DialogContentText>{children}</DialogContentText>
+        <DialogContentText>{text}</DialogContentText>
         <TextField
           autoFocus
           margin="dense"
@@ -58,9 +62,10 @@ function FormDialog({
           value={value}
           onChange={handleChange}
         />
+        {children}
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleCancelClick}>Cancel</Button>
         <Button onClick={handleSuccess}>{successLabel}</Button>
       </DialogActions>
     </Dialog>
