@@ -4,7 +4,8 @@ import './View.css';
 import { MidiButtonModel } from '../../Molecules/Module/Module_model';
 import { UserContext } from '../..';
 import { ViewModel } from './View_model';
-import { AddModuleButton } from '../../';
+import { AddButton } from '../../';
+import { Box } from '@mui/material';
 
 type ViewProps = {
   children: React.ReactNode;
@@ -13,7 +14,7 @@ type ViewProps = {
 
 function View({ children, view }: ViewProps) {
   const { backgroundColor } = view;
-  const { addModule } = useContext(UserContext)!;
+  const { addModule, leftHanded } = useContext(UserContext)!;
   function allowDrop(event: React.DragEvent) {
     event.preventDefault();
   }
@@ -44,7 +45,9 @@ function View({ children, view }: ViewProps) {
       onDrop={handleDrop}
       onDragOver={allowDrop}
     >
-      <AddModuleButton onClick={handleAddModuleClick} />
+      <Box sx={{ m: '1rem', float: leftHanded ? 'none' : 'right' }}>
+        <AddButton onClick={handleAddModuleClick} />
+      </Box>
       {children}
     </div>
   );

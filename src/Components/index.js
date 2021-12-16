@@ -1,4 +1,4 @@
-import AddModuleButton from './Atoms/AddModuleButton/AddModuleButton';
+import AddButton from './Atoms/AddButton/AddButton';
 import DeviceSelect from './Atoms/DeviceSelect/DeviceSelect';
 import MidiButton from './Atoms/MidiButton/MidiButton';
 import MidiSlider from './Atoms/MidiSlider/MidiSlider';
@@ -19,7 +19,7 @@ import UserContextProvider, {
 import View from './Organisms/View/View';
 
 export {
-  AddModuleButton,
+  AddButton,
   DeviceSelect,
   MidiButton,
   MidiSettings,

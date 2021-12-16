@@ -8,23 +8,20 @@ type ViewProps = {
   onClick: React.MouseEventHandler;
 };
 
-function AddModuleButton({ onClick }: ViewProps) {
-  const { editMode, leftHanded } = useContext(UserContext)!;
+function AddButton({ onClick }: ViewProps) {
+  const { editMode } = useContext(UserContext)!;
 
   if (editMode) {
     return (
-      <Fab
-        onClick={onClick}
-        sx={{ m: '1rem', float: leftHanded ? 'none' : 'right' }}
-      >
+      <Fab onClick={onClick}>
         <AddIcon />
       </Fab>
     );
   } else return null;
 }
 
-AddModuleButton.propTypes = {
+AddButton.propTypes = {
   onClick: PropTypes.func.isRequired,
 };
 
-export default AddModuleButton;
+export default AddButton;
