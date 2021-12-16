@@ -12,7 +12,7 @@ const VIEW: ViewModel = {
   id: 0,
   label: 'Main',
   backgroundColor: 'indigo',
-  place: 0,
+  place: 1, // place starts from first place
   moduleIds: [0, 1],
 };
 
