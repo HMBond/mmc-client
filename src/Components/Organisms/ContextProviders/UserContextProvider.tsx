@@ -120,7 +120,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
       clearLocalStorage(LOCAL_STORAGE_ITEM_NAME);
       setState(USER_CONTEXT, setters);
     },
-    addView: (view, views) => addView({ view, views, setViews }),
+    addView: (view) => addView({ view, views, setViews }),
   };
 
   return (

@@ -37,7 +37,7 @@ export interface UserContextExtensions {
   deleteModule: (id: number) => void;
   saveUserContextAs: (fileName: string) => void;
   clearLocalStorage: () => void;
-  addView: (view: ViewModel, views: ViewModel[]) => void;
+  addView: (view: ViewModel) => void;
 }
 
 export interface MidiContextInterface {

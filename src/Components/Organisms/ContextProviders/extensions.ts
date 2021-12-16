@@ -48,7 +48,11 @@ type AddViewArgs = {
 
 export function addView({ view, views, setViews }: AddViewArgs) {
   validate(view);
-  setViews([...views, view]);
+  setViews(
+    [...views, view].sort((a: ViewModel, b: ViewModel) => {
+      return a.place - b.place;
+    })
+  );
 }
 
 type UpdateViewArgs = {

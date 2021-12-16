@@ -20,7 +20,8 @@ function ViewControl() {
 
   function handleAddClick(label: string) {
     const newView = new ViewModel({ label, backgroundColor: '#002745', views });
-    addView(newView, views);
+    addView(newView);
+    setNewViewDialogOpen(false);
   }
 
   function handleClose() {
