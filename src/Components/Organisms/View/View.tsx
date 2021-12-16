@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import './View.css';
-import { MidiButtonModel } from '../../Molecules/Module/Module_model';
+import { MidiButtonModel } from '../../../Types/Module';
 import { UserContext } from '../..';
-import { ViewModel } from './View_model';
+import { View as ViewModel } from '../../../Types/View';
 import { AddButton } from '../../';
 import { Box } from '@mui/material';
 

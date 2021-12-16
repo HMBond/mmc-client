@@ -1,5 +1,5 @@
-import { UserInterface } from './Components/Organisms/ContextProviders/interfaces';
-import { ViewModel } from './Components/Organisms/View/View_model';
+import { UserInterface } from './Types/interfaces';
+import { View } from './Types/View';
 
 export const MIDI_MIN = 0;
 export const MIDI_MAX = 127;
@@ -8,7 +8,7 @@ export const LOCAL_STORAGE_THROTTLE_WAIT = 500;
 
 export const LOCAL_STORAGE_ITEM_NAME = 'midi-controller-user-setup';
 
-const VIEW: ViewModel = {
+const PAGE: View = {
   id: 0,
   label: 'Main',
   backgroundColor: 'indigo',
@@ -21,11 +21,11 @@ export const USER_CONTEXT: UserInterface = {
   showEditButton: true,
   invertTheme: false,
   leftHanded: false,
-  activeView: VIEW,
+  activeView: PAGE,
   inputName: '',
   outputName: '',
   fileName: 'my-modular-midi-controller-setup.json',
-  views: [VIEW],
+  views: [PAGE],
   modules: [
     {
       id: 0,

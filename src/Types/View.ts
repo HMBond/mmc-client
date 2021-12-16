@@ -1,10 +1,10 @@
 type ViewConstructorArgs = {
   label: string;
   backgroundColor: string;
-  views: ViewModel[];
+  views: View[];
 };
 
-export class ViewModel {
+export class View {
   constructor({ label, backgroundColor, views }: ViewConstructorArgs) {
     if (backgroundColor) this.backgroundColor = backgroundColor;
     if (label) this.label = label;

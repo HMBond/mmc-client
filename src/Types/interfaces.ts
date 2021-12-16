@@ -1,13 +1,13 @@
-import { ModuleInterface } from '../../Molecules/Module/Module_model';
-import { ViewModel } from '../View/View_model';
+import { ModuleInterface } from './Module';
+import { View } from './View';
 
 export interface UserInterface {
   editMode: boolean;
   invertTheme: boolean;
   showEditButton: boolean;
   leftHanded: boolean;
-  activeView: ViewModel;
-  views: ViewModel[];
+  activeView: View;
+  views: View[];
   modules: ModuleInterface[];
   inputName: string;
   outputName: string;
@@ -23,8 +23,8 @@ export interface UserContextInterface
   setShowEditButton: React.Dispatch<React.SetStateAction<boolean>>;
   setInvertTheme: React.Dispatch<React.SetStateAction<boolean>>;
   setLeftHanded: React.Dispatch<React.SetStateAction<boolean>>;
-  setActiveView: React.Dispatch<React.SetStateAction<ViewModel>>;
-  setViews: React.Dispatch<React.SetStateAction<ViewModel[]>>;
+  setActiveView: React.Dispatch<React.SetStateAction<View>>;
+  setViews: React.Dispatch<React.SetStateAction<View[]>>;
   setModules: React.Dispatch<React.SetStateAction<ModuleInterface[]>>;
   setInputName: React.Dispatch<React.SetStateAction<string>>;
   setOutputName: React.Dispatch<React.SetStateAction<string>>;
@@ -32,12 +32,12 @@ export interface UserContextInterface
 }
 
 export interface UserContextExtensions {
-  addModule: (view: ViewModel, module: ModuleInterface) => void;
+  addModule: (view: View, module: ModuleInterface) => void;
   updateModule: (id: number, module: ModuleInterface) => void;
   deleteModule: (id: number) => void;
   saveUserContextAs: (fileName: string) => void;
   clearLocalStorage: () => void;
-  addView: (view: ViewModel) => void;
+  addView: (view: View) => void;
 }
 
 export interface MidiContextInterface {

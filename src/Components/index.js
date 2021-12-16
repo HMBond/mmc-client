@@ -5,7 +5,7 @@ import MidiSlider from './Atoms/MidiSlider/MidiSlider';
 import MidiSettings from './Molecules/MidiSettings/MidiSettings';
 import FormDialog from './Molecules/FormDialog/FormDialog';
 import LaunchPad from './Molecules/LaunchPad/LaunchPad';
-import Module from './Molecules/Module/Module';
+import Placer from './Molecules/Placer/Placer';
 import Nav from './Molecules/Nav/Nav';
 import ViewControl from './Molecules/ViewControl/ViewControl';
 import Carrousel from './Organisms/Carrousel/Carrousel';
@@ -26,7 +26,7 @@ export {
   MidiSlider,
   FormDialog,
   LaunchPad,
-  Module,
+  Placer,
   Nav,
   ViewControl,
   Carrousel,

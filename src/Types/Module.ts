@@ -18,7 +18,7 @@ export interface ModuleInterface {
   [other: string]: any;
 }
 
-export class ModuleModel implements ModuleInterface {
+export class Module implements ModuleInterface {
   constructor({ label, position, type }: ModuleConstructorArgs) {
     if (type) this.type = type;
     if (label) this.label = label;
@@ -41,7 +41,7 @@ export type MidiButtonConstructorArgs = ModuleConstructorArgs & {
   velocity?: number;
 };
 
-export class MidiButtonModel extends ModuleModel {
+export class MidiButtonModel extends Module {
   constructor(args: MidiButtonConstructorArgs) {
     super({ ...args, type: 'button' });
     if (args.channel) this.channel = args.channel;
@@ -60,7 +60,7 @@ type MidiSliderConstructorArgs = ModuleConstructorArgs & {
   orientation: 'horizontal' | 'vertical';
 };
 
-export class MidiSliderModel extends ModuleModel {
+export class MidiSliderModel extends Module {
   constructor(args: MidiSliderConstructorArgs) {
     super({ ...args, type: 'slider' });
     if (args.channel) if (this.channel) this.channel = args.channel;

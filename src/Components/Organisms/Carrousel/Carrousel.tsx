@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ViewModel } from '../View/View_model';
+import { View } from '../../../Types/View';
 import './Carrousel.css';
 
 type CarrouselProps = {
   children: React.ReactNode;
-  activeView: ViewModel;
-  views: ViewModel[];
+  activeView: View;
+  views: View[];
 };
 
 function Carrousel({ children, activeView, views }: CarrouselProps) {

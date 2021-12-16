@@ -4,7 +4,7 @@ import {
   UserContextInterface,
   UserContextOrNull,
   UserInterface,
-} from './interfaces';
+} from '../../../Types/interfaces';
 import {
   updateModule,
   deleteModule,
@@ -110,7 +110,7 @@ const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
       addModule({ module, setModules, modules });
       const updatedView = view;
       updatedView.moduleIds.push(module.id);
-      updateView({ id: view.id, view: updatedView, setViews, views });
+      updateView({ id: view.id, view: updatedView, views, setViews });
     },
     updateModule: (id, module) =>
       updateModule({ id, module, setModules, modules }),

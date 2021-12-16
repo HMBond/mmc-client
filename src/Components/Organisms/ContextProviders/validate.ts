@@ -1,14 +1,11 @@
-import {
-  ModuleInterface,
-  ModuleModel,
-} from '../../Molecules/Module/Module_model';
-import { ViewModel } from '../View/View_model';
+import { ModuleInterface, Module } from '../../../Types/Module';
+import { View } from '../../../Types/View';
 
-export function validate(item: ModuleInterface | ViewModel) {
-  if (item instanceof ModuleModel) validateModule(item);
-  if (item instanceof ViewModel) validateView(item);
+export function validate(item: ModuleInterface | View) {
+  if (item instanceof Module) validateModule(item);
+  if (item instanceof View) validateView(item);
 
-  function validateModule(module: ModuleModel) {
+  function validateModule(module: Module) {
     // example
     const validId = module.id !== -1;
     if (!validId)
@@ -17,7 +14,7 @@ export function validate(item: ModuleInterface | ViewModel) {
       );
   }
 
-  function validateView(view: ViewModel) {
+  function validateView(view: View) {
     // example
     const validId = view.id !== -1;
     if (!validId)

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import Fab from '@mui/material/Fab';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { UserContext } from '../..';
-import { overrideCursor, toPx } from './Module_helpers';
-import { ModuleInterface } from './Module_model';
-import './Module.css';
+import { overrideCursor, toPx } from './Placer_helpers';
+import { ModuleInterface } from '../../../Types/Module';
+import './Placer.css';
 
 type ModuleProps = {
   children: React.ReactNode;
@@ -17,7 +17,7 @@ type Position = {
   y: number;
 };
 
-function Module({ children, module }: ModuleProps) {
+function Placer({ children, module }: ModuleProps) {
   const { updateModule, deleteModule, editMode } = useContext(UserContext)!;
   const moduleRef = useRef<HTMLDivElement>(null);
   let startPosition: Position, touchMovePosition: Position;
@@ -111,11 +111,11 @@ function Module({ children, module }: ModuleProps) {
   );
 }
 
-Module.propTypes = {
+Placer.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
 };
 
-export default Module;
+export default Placer;

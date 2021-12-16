@@ -5,7 +5,7 @@ import {
   Carrousel,
   LaunchPad,
   MidiButton,
-  Module,
+  Placer,
   Nav,
   Settings,
   View,
@@ -16,8 +16,8 @@ import {
   MidiSettings,
 } from './Components';
 import './App.css';
-import { ViewModel } from './Components/Organisms/View/View_model';
-import { MidiSliderModel } from './Components/Molecules/Module/Module_model';
+import { View as ViewModel } from './Types/View';
+import { MidiSliderModel } from './Types/Module';
 
 function App() {
   const { setInput, setInputs, setOutput, setOutputs } =
@@ -119,7 +119,7 @@ function App() {
             views.map((view) => (
               <View key={view.id} view={view}>
                 {getModulesForView(view).map((module) => (
-                  <Module key={module.id} module={module}>
+                  <Placer key={module.id} module={module}>
                     {module.type === 'button' && (
                       <MidiButton {...module}>{module.label}</MidiButton>
                     )}
@@ -131,7 +131,7 @@ function App() {
                     {module.type === 'settings' && (
                       <MidiSettings restartMidi={handleRestartMidi} />
                     )}
-                  </Module>
+                  </Placer>
                 ))}
               </View>
             ))}

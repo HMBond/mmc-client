@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Button } from '@mui/material';
 import { AddButton, FormDialog, UserContext } from '../..';
 import './ViewControl.css';
-import { ViewModel } from '../../Organisms/View/View_model';
+import { View } from '../../../Types/View';
 
 function ViewControl() {
   const { addView, views, activeView, setActiveView, editMode } =
@@ -10,7 +10,7 @@ function ViewControl() {
 
   const [newViewDialogOpen, setNewViewDialogOpen] = useState(false);
 
-  function handleViewButtonClick(view: ViewModel) {
+  function handleViewButtonClick(view: View) {
     setActiveView(view);
   }
 
@@ -19,7 +19,7 @@ function ViewControl() {
   }
 
   function handleAddClick(label: string) {
-    const newView = new ViewModel({ label, backgroundColor: '#002745', views });
+    const newView = new View({ label, backgroundColor: '#002745', views });
     addView(newView);
     setNewViewDialogOpen(false);
   }
