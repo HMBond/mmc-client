@@ -3,51 +3,62 @@ import { ViewModel } from '../View/View_model';
 import { UserInterface } from './interfaces';
 import { validate } from './validate';
 
-type AddModuleProps = {
+type AddModuleArgs = {
   module: ModuleInterface;
-  setModules: (value: any) => void;
   modules: ModuleInterface[];
+  setModules: (value: any) => void;
 };
 
-export function addModule(args: AddModuleProps) {
+export function addModule(args: AddModuleArgs) {
   const { module, setModules, modules } = args;
   validate(module);
   setModules([...modules, module]);
 }
 
-type UpdateModuleProps = {
+type UpdateModuleArgs = {
   id: Number;
   module: ModuleInterface;
-  setModules: (value: any) => void;
   modules: ModuleInterface[];
+  setModules: (value: any) => void;
 };
 
-export function updateModule(args: UpdateModuleProps) {
+export function updateModule(args: UpdateModuleArgs) {
   const { id, module, setModules, modules } = args;
   validate(module);
   const otherModules = modules.filter((item) => item.id !== id);
   setModules([...otherModules, module]);
 }
 
-type DeleteModuleProps = {
+type DeleteModuleArgs = {
   id: number;
-  setModules: (value: any) => void;
   modules: ModuleInterface[];
+  setModules: (value: any) => void;
 };
 
-export function deleteModule({ id, setModules, modules }: DeleteModuleProps) {
+export function deleteModule({ id, modules, setModules }: DeleteModuleArgs) {
   const otherModules = modules.filter((item) => item.id !== id);
   setModules([...otherModules]);
 }
 
-type UpdateViewProps = {
-  id: number;
+type AddViewArgs = {
   view: ViewModel;
-  setViews: (value: any) => void;
   views: ViewModel[];
+  setViews: (value: any) => void;
 };
 
-export function updateView({ id, view, setViews, views }: UpdateViewProps) {
+export function addView({ view, views, setViews }: AddViewArgs) {
+  validate(view);
+  setViews([...views, view]);
+}
+
+type UpdateViewArgs = {
+  id: number;
+  view: ViewModel;
+  views: ViewModel[];
+  setViews: (value: any) => void;
+};
+
+export function updateView({ id, view, views, setViews }: UpdateViewArgs) {
   validate(view);
   const otherviews = views.filter((item) => item.id !== id);
   setViews([...otherviews, view]);

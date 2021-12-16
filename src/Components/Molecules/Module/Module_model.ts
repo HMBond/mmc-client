@@ -25,13 +25,14 @@ export class ModuleModel implements ModuleInterface {
     if (position) this.position = position;
     this.id = Date.now();
   }
-  id = -1;
+  id;
   label = 'new module';
   type: 'button' | 'slider' | 'settings' | 'module' = 'module';
   position = {
     x: 0,
     y: 0,
   };
+  [other: string]: any;
 }
 
 export type MidiButtonConstructorArgs = ModuleConstructorArgs & {

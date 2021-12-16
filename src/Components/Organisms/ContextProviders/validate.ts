@@ -9,6 +9,7 @@ export function validate(item: ModuleInterface | ViewModel) {
   if (item instanceof ViewModel) validateView(item);
 
   function validateModule(module: ModuleModel) {
+    // example
     const validId = module.id !== -1;
     if (!validId)
       throw Error(
@@ -17,6 +18,7 @@ export function validate(item: ModuleInterface | ViewModel) {
   }
 
   function validateView(view: ViewModel) {
+    // example
     const validId = view.id !== -1;
     if (!validId)
       throw Error(

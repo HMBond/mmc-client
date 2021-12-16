@@ -1,14 +1,21 @@
 import React, { useContext } from 'react';
 import { Button } from '@mui/material';
-import { UserContext } from '../..';
+import { AddButton, UserContext } from '../..';
 import './ViewControl.css';
 import { ViewModel } from '../../Organisms/View/View_model';
 
 function ViewControl() {
-  const { views, activeView, setActiveView } = useContext(UserContext)!;
+  const { addView, views, activeView, setActiveView, editMode } =
+    useContext(UserContext)!;
 
   function handleViewButtonClick(view: ViewModel) {
     setActiveView(view);
+  }
+
+  function handleAddModuleClick() {
+    const label = 'TBD';
+    const newView = new ViewModel({ label, backgroundColor: '#002745', views });
+    addView(newView, views);
   }
 
   return (
@@ -26,6 +33,7 @@ function ViewControl() {
           </Button>
         );
       })}
+      {editMode && <AddButton onClick={handleAddModuleClick} />}
     </div>
   );
 }
