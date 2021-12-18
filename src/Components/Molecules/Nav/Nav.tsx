@@ -11,10 +11,11 @@ type NavProps = {
 function Nav({ children }: NavProps) {
   const { leftHanded } = useContext(UserContext)!;
   return (
-    <AppBar position="static">
-      <div className={`nav ${leftHanded ? 'row-reversed' : ''}`}>
-        {children}
-      </div>
+    <AppBar
+      position="static"
+      className={`nav ${leftHanded ? 'row-reversed' : ''}`}
+    >
+      {children}
     </AppBar>
   );
 }

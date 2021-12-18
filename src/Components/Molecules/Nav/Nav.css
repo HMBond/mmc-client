@@ -1,11 +1,11 @@
-.nav {
-  display: flex;
+header.nav {
   flex-direction: row;
   justify-content: space-between;
   gap: 1rem;
   padding: 1rem;
+  z-index: var(--z-index-nav);
 }
 
-.nav.row-reversed {
+header.nav.row-reversed {
   flex-direction: row-reverse;
 }
