@@ -93,7 +93,7 @@ export default function WMC() {
     }
   }
 
-  async function handleRestartMidi() {
+  async function handleRestartMidi(): Promise<void> {
     if (WebMidi.enabled) {
       (WebMidi as any).removeListener('portschanged', handleMidiPortChanged);
     }

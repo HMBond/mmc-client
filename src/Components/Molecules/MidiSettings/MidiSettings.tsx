@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import { MidiContext, DeviceSelect, UserContext } from '../..';
 import { SelectChangeEvent } from '@mui/material';
 
-type MidiSettingsProps = { restartMidi: () => void };
+type MidiSettingsProps = { restartMidi: () => Promise<void> };
 
 function MidiSettings({ restartMidi }: MidiSettingsProps) {
   const midiContext = useContext(MidiContext)!;
