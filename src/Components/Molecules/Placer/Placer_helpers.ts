@@ -1,5 +1,6 @@
-import React from 'react';
-export function overrideCursor(event: DragEvent | React.DragEvent) {
+import { DragEvent } from 'react';
+
+export function overrideCursor(event: DragEvent) {
   if (!event || !event.dataTransfer) {
     console.error('No DragEvent passed to overrideCursor');
     return;

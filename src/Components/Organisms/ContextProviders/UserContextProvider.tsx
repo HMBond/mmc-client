@@ -1,4 +1,5 @@
-import React, { createContext, useState, useEffect, useMemo } from 'react';
+import React, { createContext, ReactNode } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
   UserContextInterface,
@@ -18,12 +19,12 @@ import {
   LOCAL_STORAGE_ITEM_NAME,
   LOCAL_STORAGE_THROTTLE_WAIT,
   USER_CONTEXT,
-} from '../../../definitions';
+} from '../../definitions';
 import { throttle } from 'lodash';
 
 export const UserContext = createContext<UserContextOrNull>(null);
 
-const UserContextProvider = ({ children }: { children: React.ReactNode }) => {
+const UserContextProvider = ({ children }: { children: ReactNode }) => {
   const [isInitialized, setIsInitialized] = useState(false);
 
   const [editMode, setEditMode] = useState(USER_CONTEXT.editMode);

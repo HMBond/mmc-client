@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import {
   Alert,
@@ -17,7 +17,7 @@ type DeviceSelectProps = {
   deviceTypeName: 'input' | 'output';
   devices: any[];
   selected: any;
-  onChange: (event: SelectChangeEvent<any>, child: React.ReactNode) => void;
+  onChange: (event: SelectChangeEvent<string>, child: ReactNode) => void;
 };
 
 function DeviceSelect(props: DeviceSelectProps) {

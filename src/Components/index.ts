@@ -17,6 +17,7 @@ import UserContextProvider, {
   UserContext,
 } from './Organisms/ContextProviders/UserContextProvider';
 import View from './Organisms/View/View';
+import WMC from './WMC';
 
 export {
   AddButton,
@@ -36,4 +37,5 @@ export {
   UserContextProvider,
   UserContext,
   View,
+  WMC,
 };

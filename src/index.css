@@ -10,6 +10,7 @@ html {
   height: 100%;
   font-size: 1.3em;
   background-color: black;
+  color: white;
 }
 
 body {
@@ -22,8 +23,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#app,
 #root {
   height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
 }
 
 code {

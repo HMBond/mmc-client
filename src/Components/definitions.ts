@@ -1,5 +1,5 @@
-import { UserInterface } from './Types/interfaces';
-import { View } from './Types/View';
+import { UserInterface } from '../Types/interfaces';
+import { View } from '../Types/View';
 
 export const MIDI_MIN = 0;
 export const MIDI_MAX = 127;

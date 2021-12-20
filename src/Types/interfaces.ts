@@ -1,3 +1,4 @@
+import React from 'react';
 import { ModuleInterface } from './Module';
 import { View } from './View';
 
@@ -19,16 +20,16 @@ export type UserContextOrNull = UserContextInterface | null;
 export interface UserContextInterface
   extends UserInterface,
     UserContextExtensions {
-  setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowEditButton: React.Dispatch<React.SetStateAction<boolean>>;
-  setInvertTheme: React.Dispatch<React.SetStateAction<boolean>>;
-  setLeftHanded: React.Dispatch<React.SetStateAction<boolean>>;
-  setActiveView: React.Dispatch<React.SetStateAction<View>>;
-  setViews: React.Dispatch<React.SetStateAction<View[]>>;
-  setModules: React.Dispatch<React.SetStateAction<ModuleInterface[]>>;
-  setInputName: React.Dispatch<React.SetStateAction<string>>;
-  setOutputName: React.Dispatch<React.SetStateAction<string>>;
-  setFileName: React.Dispatch<React.SetStateAction<string>>;
+  setEditMode: (value: boolean) => void;
+  setShowEditButton: (value: boolean) => void;
+  setInvertTheme: (value: boolean) => void;
+  setLeftHanded: (value: boolean) => void;
+  setActiveView: (value: View) => void;
+  setViews: (value: View[]) => void;
+  setModules: (value: ModuleInterface[]) => void;
+  setInputName: (value: string) => void;
+  setOutputName: (value: string) => void;
+  setFileName: (value: string) => void;
 }
 
 export interface UserContextExtensions {

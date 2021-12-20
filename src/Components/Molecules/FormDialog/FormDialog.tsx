@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, MouseEvent, ChangeEvent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -9,9 +9,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 type FormDialogProps = {
-  children?: React.ReactNode;
+  children?: ReactNode;
   inputValue?: string;
-  placeholder?: string;
   onSuccess: (value: string) => void;
   open: boolean;
   onClose: (
@@ -27,7 +26,6 @@ type FormDialogProps = {
 function FormDialog({
   children,
   inputValue,
-  placeholder,
   onSuccess,
   open,
   onClose,
@@ -38,11 +36,11 @@ function FormDialog({
 }: FormDialogProps) {
   const [value, setValue] = useState(inputValue || '');
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setValue(event.target.value);
   }
 
-  function handleCancelClick(event: React.MouseEvent) {
+  function handleCancelClick(event: MouseEvent) {
     onClose(event, 'cancelClick');
   }
 
@@ -51,7 +49,7 @@ function FormDialog({
   }
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth keepMounted>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         {text && <DialogContentText>{text}</DialogContentText>}
@@ -60,7 +58,6 @@ function FormDialog({
           margin="dense"
           label={label}
           fullWidth
-          placeholder={placeholder}
           variant={'outlined'}
           value={value}
           onChange={handleChange}

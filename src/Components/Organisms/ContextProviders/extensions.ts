@@ -7,7 +7,7 @@ import {
   UpdateModuleArgs,
   UpdateViewArgs,
 } from '../../../Types/extensionTypes';
-import { sortViewsByPlace } from '../../../helpers';
+import { sortViewsByPlace } from '../../helpers';
 
 export function addModule(args: AddModuleArgs) {
   const { module, setModules, modules } = args;

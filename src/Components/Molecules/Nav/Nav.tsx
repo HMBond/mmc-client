@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
+import { useContext, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
 import { UserContext } from '../..';
 import './Nav.css';
 
 type NavProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 function Nav({ children }: NavProps) {

@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import { useContext, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
 import { MidiContext } from '../..';
-import { midiRawNumber } from '../../../propTypeValidators';
+import { midiRawNumber } from '../../propTypeValidators';
 import { MidiButtonConstructorArgs } from '../../../Types/Module';
 
 type MidiButtonProps = MidiButtonConstructorArgs & {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 function MidiButton({ children, channel, note, velocity }: MidiButtonProps) {

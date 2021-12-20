@@ -1,10 +1,10 @@
-import React, { createContext, useState } from 'react';
+import { createContext, useState, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { MidiContextInterface } from '../../../Types/interfaces';
 
 export const MidiContext = createContext<MidiContextInterface | null>(null);
 
-type MidiContextProviderProps = { children: React.ReactNode };
+type MidiContextProviderProps = { children: ReactNode };
 
 const MidiContextProvider = ({ children }: MidiContextProviderProps) => {
   const [input, setInput] = useState({});

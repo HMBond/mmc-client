@@ -1,10 +1,10 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { View } from '../../../Types/View';
 import './Carrousel.css';
 
 type CarrouselProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   activeView: View;
   views: View[];
 };

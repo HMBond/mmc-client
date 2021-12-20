@@ -1,13 +1,12 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { WebMidi } from 'webmidi';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
-import Box from '@mui/system/Box';
 import { MidiContext, DeviceSelect, UserContext } from '../..';
 import { SelectChangeEvent } from '@mui/material';
 
-type MidiSettingsProps = { restartMidi: Function };
+type MidiSettingsProps = { restartMidi: () => void };
 
 function MidiSettings({ restartMidi }: MidiSettingsProps) {
   const midiContext = useContext(MidiContext)!;
@@ -34,7 +33,7 @@ function MidiSettings({ restartMidi }: MidiSettingsProps) {
     return <Alert severity="error">WebMidi is not enabled!</Alert>;
   } else {
     return (
-      <Box sx={{ display: 'grid', gap: 3 }}>
+      <>
         <Button variant="contained" onClick={async () => await restartMidi()}>
           Restart MIDI
         </Button>
@@ -50,7 +49,7 @@ function MidiSettings({ restartMidi }: MidiSettingsProps) {
           selected={output}
           onChange={handleOutputSelect}
         />
-      </Box>
+      </>
     );
   }
 }

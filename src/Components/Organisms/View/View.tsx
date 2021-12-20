@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext, DragEvent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import './View.css';
 import { MidiButtonModel } from '../../../Types/Module';
@@ -8,18 +8,18 @@ import { AddButton } from '../../';
 import { Box } from '@mui/material';
 
 type ViewProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   view: ViewModel;
 };
 
 function View({ children, view }: ViewProps) {
   const { backgroundColor } = view;
   const { addModule, leftHanded, activeView } = useContext(UserContext)!;
-  function allowDrop(event: React.DragEvent) {
+  function allowDrop(event: DragEvent) {
     event.preventDefault();
   }
 
-  function handleDrop(event: React.DragEvent) {
+  function handleDrop(event: DragEvent) {
     event.preventDefault();
   }
 

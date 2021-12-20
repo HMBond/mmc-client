@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Button } from '@mui/material';
 import { AddButton, FormDialog, UserContext } from '../..';
 import './ViewControl.css';
@@ -48,7 +48,6 @@ function ViewControl() {
         title="New view"
         successLabel="Add"
         label="Name"
-        placeholder="Please specify view name..."
         onSuccess={handleAddClick}
         open={newViewDialogOpen}
         onClose={handleClose}

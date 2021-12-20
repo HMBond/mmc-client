@@ -1,4 +1,11 @@
-import React, { useContext, useRef } from 'react';
+import {
+  useContext,
+  useRef,
+  MouseEvent,
+  DragEvent,
+  TouchEvent,
+  ReactNode,
+} from 'react';
 import PropTypes from 'prop-types';
 import Fab from '@mui/material/Fab';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -8,7 +15,7 @@ import { ModuleInterface } from '../../../Types/Module';
 import './Placer.css';
 
 type ModuleProps = {
-  children: React.ReactNode;
+  children: ReactNode;
   module: ModuleInterface;
 };
 
@@ -22,7 +29,7 @@ function Placer({ children, module }: ModuleProps) {
   const moduleRef = useRef<HTMLDivElement>(null);
   let startPosition: Position, touchMovePosition: Position;
 
-  function handleDragStart(event: React.DragEvent) {
+  function handleDragStart(event: DragEvent) {
     overrideCursor(event);
     startPosition = {
       x: event.clientX,
@@ -30,14 +37,14 @@ function Placer({ children, module }: ModuleProps) {
     };
   }
 
-  function handleTouchStart(event: React.TouchEvent) {
+  function handleTouchStart(event: TouchEvent) {
     startPosition = {
       x: event.touches[0].clientX,
       y: event.touches[0].clientY,
     };
   }
 
-  function handleTouchMove(event: React.TouchEvent) {
+  function handleTouchMove(event: TouchEvent) {
     if (moduleRef == null) {
       throw Error('module reference is not set...');
     }
@@ -51,12 +58,12 @@ function Placer({ children, module }: ModuleProps) {
     current.style.top = toPx(y);
   }
 
-  function handleTouchEnd(event: React.TouchEvent) {
+  function handleTouchEnd(event: TouchEvent) {
     const newModule = { ...module, position: touchMovePosition };
     updateModule(newModule.id, newModule);
   }
 
-  function handleDragEnd(event: React.DragEvent) {
+  function handleDragEnd(event: DragEvent) {
     // TODO: if(event.altKey) insert new copy of this placer at newPosition
     if (moduleRef == null) {
       throw Error('module reference is not set...');
@@ -75,7 +82,7 @@ function Placer({ children, module }: ModuleProps) {
     }
   }
 
-  function handleDeleteClick(event: React.MouseEvent<HTMLButtonElement>) {
+  function handleDeleteClick(event: MouseEvent) {
     deleteModule(module.id);
   }
 

@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
+import { useContext, MouseEvent } from 'react';
 import PropTypes from 'prop-types';
 import Fab from '@mui/material/Fab';
+//import AddIcon from '@mui/icons-material/Add';
 import AddIcon from '@mui/icons-material/Add';
 import { UserContext } from '../..';
 
 type ViewProps = {
-  onClick: React.MouseEventHandler;
+  onClick: (event: MouseEvent) => void;
 };
 
 function AddButton({ onClick }: ViewProps) {
