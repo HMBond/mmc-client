@@ -3,21 +3,8 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import EditOffIcon from '@mui/icons-material/EditOff';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Divider,
-  Fab,
-  FormControlLabel,
-  Switch,
-} from '@mui/material';
-import { UserContext, MidiSettings, FormDialog } from '../..';
+import { Button, Fab, FormControlLabel, Switch } from '@mui/material';
+import { UserContext, MidiSettings, FormDialog, Dialog } from '../..';
 import './Settings.css';
 
 type SettingsProps = { restartMidi: () => void };
@@ -115,16 +102,19 @@ function Settings({ restartMidi }: SettingsProps) {
         <SettingsIcon />
       </Fab>
       <Dialog
-        keepMounted
+        title="Settings"
         open={open}
         onClose={handleCloseClick}
+        dividers
         aria-labelledby="settings"
         aria-describedby="global and midi settings"
-        fullWidth
-        maxWidth={'sm'}
+        actions={
+          <Button color="warning" onClick={handleClearLocalStorage}>
+            Clear All
+          </Button>
+        }
       >
-        <DialogTitle>Settings</DialogTitle>
-        <DialogContent dividers={true} className="settings__dialog-content">
+        <div className="settings__dialog-content">
           <div className={'settings__general'}>
             <FormControlLabel
               control={
@@ -155,20 +145,14 @@ function Settings({ restartMidi }: SettingsProps) {
             />
           </div>
           <MidiSettings restartMidi={restartMidi} />
-        </DialogContent>
-        <DialogActions>
-          <Button color="warning" onClick={handleClearLocalStorage}>
-            Clear All
-          </Button>
-          <Button onClick={handleCloseClick}>Close</Button>
-        </DialogActions>
+        </div>
       </Dialog>
       <FormDialog
         title="Save setup"
         label="File name"
-        successLabel="Save"
+        submitLabel="Save"
         inputValue={fileName}
-        onSuccess={handleSave}
+        onSubmit={handleSave}
         open={saveDialogOpen}
         onClose={handleSaveDialogClose}
       />

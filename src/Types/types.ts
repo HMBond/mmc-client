@@ -1,6 +1,13 @@
 import { ModuleInterface } from './Module';
-import { UserInterface } from './interfaces';
+import { UserInterface, UserContextInterface } from './interfaces';
 import { View } from './View';
+
+export type UserContextOrNull = UserContextInterface | null;
+
+export interface Position {
+  x: number;
+  y: number;
+}
 
 export type AddModuleArgs = {
   module: ModuleInterface;

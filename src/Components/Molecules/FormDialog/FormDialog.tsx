@@ -11,7 +11,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 type FormDialogProps = {
   children?: ReactNode;
   inputValue?: string;
-  onSuccess: (value: string) => void;
+  onSubmit: (value: string) => void;
   open: boolean;
   onClose: (
     event: {},
@@ -20,19 +20,19 @@ type FormDialogProps = {
   title: string;
   label: string;
   text?: string;
-  successLabel: string;
+  submitLabel: string;
 };
 
 function FormDialog({
   children,
   inputValue,
-  onSuccess,
+  onSubmit,
   open,
   onClose,
   title,
   label,
   text,
-  successLabel,
+  submitLabel = 'OK',
 }: FormDialogProps) {
   const [value, setValue] = useState(inputValue || '');
 
@@ -44,8 +44,8 @@ function FormDialog({
     onClose(event, 'cancelClick');
   }
 
-  function handleSuccess() {
-    onSuccess(value);
+  function handleSubmit() {
+    onSubmit(value);
   }
 
   return (
@@ -66,7 +66,7 @@ function FormDialog({
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCancelClick}>Cancel</Button>
-        <Button onClick={handleSuccess}>{successLabel}</Button>
+        <Button onClick={handleSubmit}>{submitLabel}</Button>
       </DialogActions>
     </Dialog>
   );
@@ -78,12 +78,11 @@ FormDialog.propTypes = {
     PropTypes.node,
   ]),
   inputValue: PropTypes.string,
-  onSuccess: PropTypes.func,
+  onSubmit: PropTypes.func,
   open: PropTypes.bool,
-  setOpen: PropTypes.func,
   title: PropTypes.string,
   label: PropTypes.string,
-  successLabel: PropTypes.string,
+  submitLabel: PropTypes.string,
 };
 
 export default FormDialog;

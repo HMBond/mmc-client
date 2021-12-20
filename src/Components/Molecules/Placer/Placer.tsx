@@ -12,16 +12,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { UserContext } from '../..';
 import { overrideCursor, toPx } from './Placer_helpers';
 import { ModuleInterface } from '../../../Types/Module';
+import { Position } from '../../../Types/types';
 import './Placer.css';
 
 type ModuleProps = {
   children: ReactNode;
   module: ModuleInterface;
-};
-
-type Position = {
-  x: number;
-  y: number;
 };
 
 function Placer({ children, module }: ModuleProps) {

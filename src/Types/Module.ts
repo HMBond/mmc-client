@@ -1,3 +1,5 @@
+import { Position } from './types';
+
 type ModuleConstructorArgs = {
   label?: string;
   position?: {
@@ -11,10 +13,7 @@ export interface ModuleInterface {
   id: number;
   label: string;
   type: 'button' | 'slider' | 'settings' | 'module';
-  position: {
-    x: number;
-    y: number;
-  };
+  position: Position;
   [other: string]: any;
 }
 

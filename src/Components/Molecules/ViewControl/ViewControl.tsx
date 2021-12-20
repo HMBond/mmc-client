@@ -46,9 +46,9 @@ function ViewControl() {
       {editMode && <AddButton onClick={handleAddModuleClick} />}
       <FormDialog
         title="New view"
-        successLabel="Add"
+        submitLabel="Add"
         label="Name"
-        onSuccess={handleAddClick}
+        onSubmit={handleAddClick}
         open={newViewDialogOpen}
         onClose={handleClose}
       />

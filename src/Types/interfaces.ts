@@ -15,8 +15,6 @@ export interface UserInterface {
   fileName: string;
 }
 
-export type UserContextOrNull = UserContextInterface | null;
-
 export interface UserContextInterface
   extends UserInterface,
     UserContextExtensions {

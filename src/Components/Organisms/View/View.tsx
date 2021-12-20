@@ -1,8 +1,8 @@
-import { useContext, DragEvent, ReactNode } from 'react';
+import { useContext, DragEvent, ReactNode, useState } from 'react';
 import PropTypes from 'prop-types';
 import './View.css';
 import { MidiButtonModel } from '../../../Types/Module';
-import { UserContext } from '../..';
+import { Dialog, UserContext } from '../..';
 import { View as ViewModel } from '../../../Types/View';
 import { AddButton } from '../../';
 import { Box } from '@mui/material';
@@ -15,15 +15,21 @@ type ViewProps = {
 function View({ children, view }: ViewProps) {
   const { backgroundColor } = view;
   const { addModule, leftHanded, activeView } = useContext(UserContext)!;
+  const [open, setOpen] = useState(false);
+
   function allowDrop(event: DragEvent) {
     event.preventDefault();
   }
 
-  function handleDrop(event: DragEvent) {
-    event.preventDefault();
+  function handleCloseDialog() {
+    setOpen(false);
   }
 
   function handleAddModuleClick() {
+    setOpen(true);
+  }
+
+  function handleAddModule() {
     const position = {
       x: 0.8 * window.innerWidth,
       y: 0.15 * window.innerHeight,
@@ -39,17 +45,28 @@ function View({ children, view }: ViewProps) {
   }
 
   return (
-    <div
-      style={{ backgroundColor }}
-      className={`view ${activeView.id === view.id ? '' : 'fade'}`}
-      onDrop={handleDrop}
-      onDragOver={allowDrop}
-    >
-      <Box sx={{ m: '1rem', float: leftHanded ? 'none' : 'right' }}>
-        <AddButton onClick={handleAddModuleClick} />
-      </Box>
-      {children}
-    </div>
+    <>
+      <div
+        style={{ backgroundColor }}
+        className={`view ${activeView.id === view.id ? '' : 'fade'}`}
+        onDrop={allowDrop}
+        onDragOver={allowDrop}
+      >
+        <Box sx={{ m: '1rem', float: leftHanded ? 'none' : 'right' }}>
+          <AddButton onClick={handleAddModuleClick} />
+        </Box>
+        {children}
+      </div>
+      <Dialog
+        title="New module"
+        submitLabel="Add"
+        open={open}
+        onClose={handleCloseDialog}
+        onSubmit={handleAddModule}
+      >
+        <h1>test</h1>
+      </Dialog>
+    </>
   );
 }
 
