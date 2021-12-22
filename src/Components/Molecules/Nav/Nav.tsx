@@ -9,7 +9,7 @@ type NavProps = {
 };
 
 function Nav({ children }: NavProps) {
-  const { leftHanded } = useContext(UserContext)!;
+  const { leftHanded } = useContext(UserContext) || {};
   return (
     <AppBar
       position="static"

@@ -1,25 +1,18 @@
-import { useContext, ReactNode } from 'react';
-import PropTypes from 'prop-types';
-import { Box, Slider, Input } from '@mui/material';
+import { useContext } from 'react';
+import { Box, Slider } from '@mui/material';
 import { MidiContext, UserContext } from '../..';
 import { MidiSliderModel } from '../../../Types/Module';
 
 type MidiSliderProps = {
-  children?: ReactNode;
   module: MidiSliderModel;
 };
 
 function MidiSlider({
-  children,
   module,
   module: { id, channel, label, value, orientation, type },
 }: MidiSliderProps) {
   const { output } = useContext<any>(MidiContext);
-  const { updateModule } = useContext(UserContext)!;
-
-  function handleLabelChange() {
-    // TODO: update module with new label
-  }
+  const { updateModule } = useContext(UserContext) || {};
 
   function handlePitchbend(event: Event, value: number | number[]) {
     output?.channels[channel].sendPitchBend(value);
@@ -32,7 +25,6 @@ function MidiSlider({
 
   return (
     <Box sx={{ height: 250 }}>
-      {false && <Input value={label} onChange={handleLabelChange} />}
       <Slider
         disabled={!output}
         orientation={orientation ? orientation : 'vertical'}
@@ -45,12 +37,5 @@ function MidiSlider({
     </Box>
   );
 }
-
-MidiSlider.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
-};
 
 export default MidiSlider;

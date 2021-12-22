@@ -2,7 +2,6 @@ import { MouseEvent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
-  TextField,
   Dialog as MuiDialog,
   DialogActions,
   DialogContent,
@@ -16,7 +15,7 @@ type DialogProps = {
   onSubmit?: () => void;
   open: boolean;
   onClose: (
-    event: {},
+    event: object,
     reason: 'backdropClick' | 'escapeKeyDown' | 'cancelClick'
   ) => void;
   title: string;
@@ -24,7 +23,7 @@ type DialogProps = {
   actions?: ReactNode;
   submitLabel?: string;
   dividers?: boolean;
-  [prop: string]: any;
+  [prop: string]: unknown;
 };
 
 function Dialog({

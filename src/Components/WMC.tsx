@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react';
-import { WebMidi, Input, Output } from 'webmidi';
+import { WebMidi } from 'webmidi';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {
   Carrousel,
@@ -20,7 +20,7 @@ import { MidiSliderModel } from '../Types/Module';
 
 export default function WMC() {
   const { setInput, setInputs, setOutput, setOutputs } =
-    useContext(MidiContext)!;
+    useContext(MidiContext) || {};
   const {
     activeView,
     views,
@@ -29,9 +29,8 @@ export default function WMC() {
     invertTheme,
     inputName,
     setInputName,
-    outputName,
     setOutputName,
-  } = useContext(UserContext)!;
+  } = useContext(UserContext) || {};
 
   const theme = createTheme({
     palette: {
@@ -58,49 +57,50 @@ export default function WMC() {
   }
 
   function setInputStates() {
-    setInputs(WebMidi.inputs);
-    const preferredInput = WebMidi.getInputByName(inputName);
-    const firstOrDefaultInput: Input = preferredInput
-      ? preferredInput
-      : WebMidi.inputs[0];
-    setInput(firstOrDefaultInput);
-    setInputName(firstOrDefaultInput?.name ?? '');
+    setInputs && setInputs(WebMidi.inputs);
+    const preferredInput = inputName && WebMidi.getInputByName(inputName);
+    const firstOrDefault = preferredInput ? preferredInput : WebMidi.inputs[0];
+    if (!firstOrDefault) return;
+    setInput && setInput(firstOrDefault);
+    setInputName && setInputName(firstOrDefault.name);
   }
 
   function setOutputStates() {
-    setOutputs(WebMidi.outputs);
-    const preferredOutput = WebMidi.getOutputByName(inputName);
-    const firstOrDefaultOutput: Output = preferredOutput
+    setOutputs && setOutputs(WebMidi.outputs);
+    const preferredOutput = inputName && WebMidi.getOutputByName(inputName);
+    const firstOrDefault = preferredOutput
       ? preferredOutput
       : WebMidi.outputs[0];
-    setOutput(firstOrDefaultOutput);
-    setOutputName(firstOrDefaultOutput?.name ?? '');
+    setOutput && setOutput(firstOrDefault);
+    setOutputName && setOutputName(firstOrDefault.name);
   }
 
   function handleMidiPortChanged({ port }: any) {
     if (port.type === 'input') {
       setInputStates();
       if (port.state === 'disconnected') {
-        setInput({});
+        setInput && setInput({});
       }
     }
 
     if (port.type === 'output') {
       setOutputStates();
       if (port.state === 'disconnected') {
-        setOutput({});
+        setOutput && setOutput({});
       }
     }
   }
 
-  async function handleRestartMidi(): Promise<void> {
+  async function handleRestartMidi() {
     if (WebMidi.enabled) {
       (WebMidi as any).removeListener('portschanged', handleMidiPortChanged);
     }
     await startMidi();
+    return;
   }
 
   function getModulesForView(view: ViewModel) {
+    if (!modules) return [];
     return modules.filter((item) => view.moduleIds.includes(item.id));
   }
 
@@ -121,9 +121,7 @@ export default function WMC() {
                     <MidiButton {...module}>{module.label}</MidiButton>
                   )}
                   {module.type === 'slider' && (
-                    <MidiSlider module={module as MidiSliderModel}>
-                      {module.label}
-                    </MidiSlider>
+                    <MidiSlider module={module as MidiSliderModel} />
                   )}
                   {module.type === 'settings' && (
                     <MidiSettings restartMidi={handleRestartMidi} />

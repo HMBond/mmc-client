@@ -1,4 +1,3 @@
-import React from 'react';
 import { ModuleInterface } from './Module';
 import { View } from './View';
 

@@ -6,12 +6,12 @@ import { View } from '../../../Types/View';
 
 function ViewControl() {
   const { addView, views, activeView, setActiveView, editMode } =
-    useContext(UserContext)!;
+    useContext(UserContext) || {};
 
   const [newViewDialogOpen, setNewViewDialogOpen] = useState(false);
 
   function handleViewButtonClick(view: View) {
-    setActiveView(view);
+    setActiveView && setActiveView(view);
   }
 
   function handleAddModuleClick() {
@@ -19,8 +19,16 @@ function ViewControl() {
   }
 
   function handleAddClick(label: string) {
-    const newView = new View({ label, backgroundColor: '#002745', views });
-    addView(newView);
+    if (!views) {
+      throw Error('Can not add view, while there are no views existing');
+      return;
+    }
+    const newView = new View({
+      label,
+      backgroundColor: '#002745',
+      currentViewCount: views.length,
+    });
+    addView && addView(newView);
     setNewViewDialogOpen(false);
   }
 
@@ -30,19 +38,20 @@ function ViewControl() {
 
   return (
     <div className="view-control">
-      {views.map((view) => {
-        return (
-          <Button
-            disableElevation
-            color={activeView.id === view.id ? 'warning' : 'secondary'}
-            variant="contained"
-            onClick={() => handleViewButtonClick(view)}
-            key={view.id}
-          >
-            {view.label}
-          </Button>
-        );
-      })}
+      {views &&
+        views.map((view) => {
+          return (
+            <Button
+              disableElevation
+              color={activeView?.id === view.id ? 'warning' : 'secondary'}
+              variant="contained"
+              onClick={() => handleViewButtonClick(view)}
+              key={view.id}
+            >
+              {view.label}
+            </Button>
+          );
+        })}
       {editMode && <AddButton onClick={handleAddModuleClick} />}
       <FormDialog
         title="New view"

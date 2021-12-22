@@ -23,7 +23,7 @@ function Settings({ restartMidi }: SettingsProps) {
     fileName,
     setFileName,
     clearLocalStorage,
-  } = useContext(UserContext)!;
+  } = useContext(UserContext) || {};
   const [open, setOpen] = useState(false);
   const [saveDialogOpen, setSaveDialogOpen] = useState(false);
 
@@ -36,20 +36,20 @@ function Settings({ restartMidi }: SettingsProps) {
   }
 
   function handleThemeModeToggle(event: ChangeEvent, checked: boolean) {
-    setInvertTheme(checked);
+    setInvertTheme && setInvertTheme(checked);
   }
 
   function handleLeftHandedChange() {
-    setLeftHanded(!leftHanded);
+    setLeftHanded && setLeftHanded(!leftHanded);
   }
 
   function handleShowEditButtonChange() {
-    setShowEditButton(!showEditButton);
-    setEditMode(false);
+    setShowEditButton && setShowEditButton(!showEditButton);
+    setEditMode && setEditMode(false);
   }
 
   function handleEditButtonClick() {
-    setEditMode(!editMode);
+    setEditMode && setEditMode(!editMode);
   }
 
   function handleSaveButtonClick() {
@@ -61,14 +61,14 @@ function Settings({ restartMidi }: SettingsProps) {
   }
 
   function handleSave(fileName: string) {
-    saveUserContextAs(fileName);
-    setFileName(fileName);
+    saveUserContextAs && saveUserContextAs(fileName);
+    setFileName && setFileName(fileName);
     setSaveDialogOpen(false);
   }
 
   function handleClearLocalStorage() {
     // TODO: Show 'Are you sure? Cancel / OK' dialog
-    clearLocalStorage();
+    clearLocalStorage && clearLocalStorage();
   }
 
   return (

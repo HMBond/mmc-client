@@ -1,4 +1,3 @@
-import React from 'react';
 import { MidiButton } from '../..';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import StopIcon from '@mui/icons-material/Stop';

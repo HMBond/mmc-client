@@ -1,7 +1,7 @@
-import React, { createContext, ReactNode } from 'react';
+import { createContext, ReactNode } from 'react';
 import { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { UserContextInterface, UserInterface } from '../../../Types/interfaces';
+import { UserContextInterface } from '../../../Types/interfaces';
 import { UserContextOrNull } from '../../../Types/types';
 
 import {
@@ -65,12 +65,15 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
     setFileName,
   };
 
-  function setState(user: UserInterface, setters: Object) {
+  function setState(
+    user: { [key: string]: any },
+    setters: { [key: string]: any }
+  ) {
     for (const key in setters) {
       const name = key.slice(3);
       const camelCaseName = name.slice(0, 1).toLowerCase() + name.slice(1);
-      // @ts-ignore-next-line
-      setters[key](user[camelCaseName]);
+      const setter = setters[key];
+      setter && setter(user[camelCaseName]);
     }
   }
 

@@ -16,7 +16,7 @@ export type AddModuleArgs = {
 };
 
 export type UpdateModuleArgs = {
-  id: Number;
+  id: number;
   module: ModuleInterface;
   modules: ModuleInterface[];
   setModules: (value: any) => void;

@@ -48,9 +48,9 @@ export class MidiButtonModel extends Module {
     if (args.velocity || args.velocity === 0) this.velocity = args.velocity;
   }
   label = 'new button';
-  channel: number = 1;
-  note: string = 'C3';
-  velocity: number = 64;
+  channel = 1;
+  note = 'C3';
+  velocity = 64;
 }
 
 type MidiSliderConstructorArgs = ModuleConstructorArgs & {
@@ -62,12 +62,12 @@ type MidiSliderConstructorArgs = ModuleConstructorArgs & {
 export class MidiSliderModel extends Module {
   constructor(args: MidiSliderConstructorArgs) {
     super({ ...args, type: 'slider' });
-    if (args.channel) if (this.channel) this.channel = args.channel;
-    if (this.value || this.value === 0) this.value = args.value!;
-    if (this.orientation) this.orientation = args.orientation;
+    if (args.channel) this.channel = args.channel;
+    if (args.value) this.value = args.value;
+    if (args.orientation) this.orientation = args.orientation;
   }
   label = 'new slider';
-  channel: number = 1;
-  value: number = 0.8;
+  channel = 1;
+  value = 0.8;
   orientation: 'horizontal' | 'vertical' = 'vertical';
 }

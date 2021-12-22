@@ -1,30 +1,30 @@
-.module {
+.placer {
   position: absolute;
   padding: 0.5rem;
   left: 1rem;
 }
 
-.module[draggable='true'] {
+.placer[draggable='true'] {
   touch-action: none;
 }
 
-.module[draggable='true']:hover {
+.placer[draggable='true']:hover {
   background: #ffffff80;
   cursor: move;
 }
 
-.module[draggable='true']:hover > *:not(.module__controls) {
+.placer[draggable='true']:hover > *:not(.placer__controls) {
   pointer-events: none;
 }
 
-.module[draggable='true']:active {
+.placer[draggable='true']:active {
   opacity: 0.5;
   background: white;
   box-shadow: 1px 4px 5px -1px #454545;
   transform: translate(-1px, -4px);
 }
 
-.module__controls {
+.placer__controls {
   position: absolute;
   right: 0;
   top: 0;
@@ -32,11 +32,11 @@
   transform: translate(50%, -50%);
 }
 
-.module[draggable='true']:hover > .module__controls {
+.placer[draggable='true']:hover > .placer__controls {
   opacity: 1;
   pointer-events: all;
 }
 
-.module[draggable='true']:active > .module__controls {
+.placer[draggable='true']:active > .placer__controls {
   visibility: hidden;
 }

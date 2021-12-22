@@ -10,7 +10,7 @@ type MidiButtonProps = MidiButtonConstructorArgs & {
 };
 
 function MidiButton({ children, channel, note, velocity }: MidiButtonProps) {
-  const { output } = useContext(MidiContext)!;
+  const { output } = useContext(MidiContext) || {};
 
   function handlePlayNote() {
     output.channels[channel ? channel : 1].playNote(note, {

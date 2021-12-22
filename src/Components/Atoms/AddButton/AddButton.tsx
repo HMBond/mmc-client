@@ -10,7 +10,7 @@ type ViewProps = {
 };
 
 function AddButton({ onClick }: ViewProps) {
-  const { editMode } = useContext(UserContext)!;
+  const { editMode } = useContext(UserContext) || {};
 
   if (editMode) {
     return (

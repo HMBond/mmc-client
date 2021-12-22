@@ -14,7 +14,7 @@ type ViewProps = {
 
 function View({ children, view }: ViewProps) {
   const { backgroundColor } = view;
-  const { addModule, leftHanded, activeView } = useContext(UserContext)!;
+  const { addModule, leftHanded, activeView } = useContext(UserContext) || {};
   const [open, setOpen] = useState(false);
 
   function allowDrop(event: DragEvent) {
@@ -41,14 +41,14 @@ function View({ children, view }: ViewProps) {
       note: 'C3',
       velocity: 64,
     });
-    addModule(view, module);
+    addModule && addModule(view, module);
   }
 
   return (
     <>
       <div
         style={{ backgroundColor }}
-        className={`view ${activeView.id === view.id ? '' : 'fade'}`}
+        className={`view ${activeView?.id !== view.id ? 'fade' : ''}`}
         onDrop={allowDrop}
         onDragOver={allowDrop}
       >

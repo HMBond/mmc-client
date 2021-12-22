@@ -14,7 +14,7 @@ type FormDialogProps = {
   onSubmit: (value: string) => void;
   open: boolean;
   onClose: (
-    event: {},
+    event: object,
     reason: 'backdropClick' | 'escapeKeyDown' | 'cancelClick'
   ) => void;
   title: string;

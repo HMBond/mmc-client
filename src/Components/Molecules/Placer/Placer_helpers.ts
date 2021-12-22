@@ -5,7 +5,7 @@ export function overrideCursor(event: DragEvent) {
     console.error('No DragEvent passed to overrideCursor');
     return;
   }
-  const dataTransfer: DataTransfer = event.dataTransfer!;
+  const dataTransfer: DataTransfer = event.dataTransfer;
   if (event.altKey) {
     dataTransfer.effectAllowed = 'copyMove';
   } else {

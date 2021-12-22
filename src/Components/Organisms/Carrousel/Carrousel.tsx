@@ -5,14 +5,19 @@ import './Carrousel.css';
 
 type CarrouselProps = {
   children: ReactNode;
-  activeView: View;
-  views: View[];
+  activeView?: View;
+  views?: View[];
 };
 
 function Carrousel({ children, activeView, views }: CarrouselProps) {
-  const style = {
-    transform: `translateX(-${((activeView.place - 1) * 100) / views.length}%)`,
-  };
+  const style =
+    activeView && views
+      ? {
+          transform: `translateX(-${
+            ((activeView.place - 1) * 100) / views.length
+          }%)`,
+        }
+      : {};
 
   return (
     <div className="carrousel">

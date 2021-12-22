@@ -1,14 +1,18 @@
 type ViewConstructorArgs = {
   label: string;
   backgroundColor: string;
-  views: View[];
+  currentViewCount: number;
 };
 
 export class View {
-  constructor({ label, backgroundColor, views }: ViewConstructorArgs) {
+  constructor({
+    label,
+    backgroundColor,
+    currentViewCount,
+  }: ViewConstructorArgs) {
     if (backgroundColor) this.backgroundColor = backgroundColor;
     if (label) this.label = label;
-    this.place = views.length + 1;
+    this.place = currentViewCount + 1;
     this.id = Date.now();
   }
   id;

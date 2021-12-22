@@ -15,14 +15,15 @@ import { ModuleInterface } from '../../../Types/Module';
 import { Position } from '../../../Types/types';
 import './Placer.css';
 
-type ModuleProps = {
+type PlacerProps = {
   children: ReactNode;
   module: ModuleInterface;
 };
 
-function Placer({ children, module }: ModuleProps) {
-  const { updateModule, deleteModule, editMode } = useContext(UserContext)!;
-  const moduleRef = useRef<HTMLDivElement>(null);
+function Placer({ children, module }: PlacerProps) {
+  const { updateModule, deleteModule, editMode } =
+    useContext(UserContext) || {};
+  const placerRef = useRef<HTMLDivElement>(null);
   let startPosition: Position, touchMovePosition: Position;
 
   function handleDragStart(event: DragEvent) {
@@ -41,45 +42,57 @@ function Placer({ children, module }: ModuleProps) {
   }
 
   function handleTouchMove(event: TouchEvent) {
-    if (moduleRef == null) {
-      throw Error('module reference is not set...');
+    if (placerRef == null) {
+      throw Error('placer reference is not set...');
     }
     if (event.touches.length === 0) return;
     if (!startPosition) return;
-    const current: HTMLElement = moduleRef.current!;
-    const parent: HTMLElement = current.parentElement!;
+    const current = placerRef.current;
+    if (!current) {
+      throw Error('placerRef has no dom element (current)');
+      return;
+    }
+    const parent = current.parentElement;
+    if (!parent) {
+      throw Error('placerRef.current has no parentElement');
+      return;
+    }
     const x = event.touches[0].clientX - parent.getBoundingClientRect().left;
     const y = event.touches[0].clientY - parent.getBoundingClientRect().top;
     current.style.left = toPx(x);
     current.style.top = toPx(y);
   }
 
-  function handleTouchEnd(event: TouchEvent) {
+  function handleTouchEnd() {
     const newModule = { ...module, position: touchMovePosition };
-    updateModule(newModule.id, newModule);
+    updateModule && updateModule(newModule.id, newModule);
   }
 
   function handleDragEnd(event: DragEvent) {
     // TODO: if(event.altKey) insert new copy of this placer at newPosition
-    if (moduleRef == null) {
-      throw Error('module reference is not set...');
+    if (placerRef == null) {
+      throw Error('placerRef is not set...');
     } else {
       const distance = {
         x: event.clientX - startPosition.x,
         y: event.clientY - startPosition.y,
       };
-      const current: HTMLDivElement = moduleRef.current!;
+      const current = placerRef.current;
+      if (!current) {
+        throw Error('placerRef has no dom element (current)');
+        return;
+      }
       const newPosition = {
         x: distance.x + current.offsetLeft,
         y: distance.y + current.offsetTop,
       };
       const newModule = { ...module, position: newPosition };
-      updateModule(newModule.id, newModule);
+      updateModule && updateModule(newModule.id, newModule);
     }
   }
 
-  function handleDeleteClick(event: MouseEvent) {
-    deleteModule(module.id);
+  function handleDeleteClick() {
+    deleteModule && deleteModule(module.id);
   }
 
   const modulePositionStyle = {
@@ -89,7 +102,7 @@ function Placer({ children, module }: ModuleProps) {
 
   return (
     <div
-      className="module"
+      className="placer"
       style={modulePositionStyle}
       draggable={editMode}
       onDragStart={handleDragStart}
@@ -97,10 +110,10 @@ function Placer({ children, module }: ModuleProps) {
       onDragEndCapture={handleDragEnd}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      ref={moduleRef}
+      ref={placerRef}
     >
       {children}
-      <div className="module__controls">
+      <div className="placer__controls">
         <Fab
           color="secondary"
           size="small"
