@@ -1,8 +1,8 @@
 import { createContext, ReactNode } from 'react';
 import { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { UserContextInterface } from '../../../Types/interfaces';
-import { UserContextOrNull } from '../../../Types/types';
+import { UserContextInterface } from '../../../types/interfaces';
+import { UserContextOrNull } from '../../../types/types';
 
 import {
   updateModule,

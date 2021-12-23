@@ -1,5 +1,5 @@
-import { ModuleInterface, Module } from '../../../Types/Module';
-import { View } from '../../../Types/View';
+import { ModuleInterface, Module } from '../../../types/Module';
+import { View } from '../../../types/View';
 
 export function validate(item: ModuleInterface | View) {
   if (item instanceof Module) validateModule(item);

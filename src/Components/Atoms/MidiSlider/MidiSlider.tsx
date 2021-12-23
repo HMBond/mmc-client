@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Box, Slider } from '@mui/material';
 import { MidiContext, UserContext } from '../..';
-import { MidiSliderModel } from '../../../Types/Module';
+import { MidiSliderModel } from '../../../types/Module';
 
 type MidiSliderProps = {
   module: MidiSliderModel;

@@ -11,8 +11,8 @@ import Fab from '@mui/material/Fab';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { UserContext } from '../..';
 import { overrideCursor, toPx } from './Placer_helpers';
-import { ModuleInterface } from '../../../Types/Module';
-import { Position } from '../../../Types/types';
+import { ModuleInterface } from '../../../types/Module';
+import { Position } from '../../../types/types';
 import './Placer.css';
 
 type PlacerProps = {

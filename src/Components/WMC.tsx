@@ -14,9 +14,9 @@ import {
   UserContext,
   MidiSlider,
   MidiSettings,
-} from './';
-import { View as ViewModel } from '../Types/View';
-import { MidiSliderModel } from '../Types/Module';
+} from '.';
+import { View as ViewModel } from '../types/View';
+import { MidiSliderModel } from '../types/Module';
 
 export default function WMC() {
   const { setInput, setInputs, setOutput, setOutputs } =

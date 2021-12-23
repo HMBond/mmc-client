@@ -7,8 +7,6 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/jsx-runtime',
     'plugin:@typescript-eslint/recommended',
-    'react-app',
-    'react-app/jest',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -22,5 +20,10 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
   },
-  ignorePatterns: ['.eslintrc.js', './dist/*.js', 'main.js'],
+  ignorePatterns: [
+    '.eslintrc.js',
+    './dist/*.js',
+    './release/*.js',
+    'public/electron.js',
+  ],
 };

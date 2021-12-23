@@ -3,12 +3,17 @@ const path = require('path');
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    minWidth: 800,
+    minHeight: 600,
+    fullscreen: true,
   });
 
-  // win.loadFile(path.join(__dirname, 'dist/index.html'));
-  win.loadFile('dist/index.html');
+  // win.loadURL(
+  //   isDev
+  //     ? 'http://localhost:3000'
+  //     : `file://${path.join(__dirname, '../dist/index.html')}`
+  // );
+  win.loadURL(`file://${path.join(__dirname, '../dist/index.html')}`);
 }
 
 app.on('window-all-closed', function () {

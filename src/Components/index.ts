@@ -1,23 +1,23 @@
-import AddButton from './Atoms/AddButton/AddButton';
-import DeviceSelect from './Atoms/DeviceSelect/DeviceSelect';
-import MidiButton from './Atoms/MidiButton/MidiButton';
-import MidiSlider from './Atoms/MidiSlider/MidiSlider';
-import MidiSettings from './Molecules/MidiSettings/MidiSettings';
-import Dialog from './Molecules/Dialog/Dialog';
-import FormDialog from './Molecules/FormDialog/FormDialog';
-import LaunchPad from './Molecules/LaunchPad/LaunchPad';
-import Placer from './Molecules/Placer/Placer';
-import Nav from './Molecules/Nav/Nav';
-import ViewControl from './Molecules/ViewControl/ViewControl';
-import Carrousel from './Organisms/Carrousel/Carrousel';
+import AddButton from './atoms/AddButton/AddButton';
+import DeviceSelect from './atoms/DeviceSelect/DeviceSelect';
+import MidiButton from './atoms/MidiButton/MidiButton';
+import MidiSlider from './atoms/MidiSlider/MidiSlider';
+import MidiSettings from './molecules/MidiSettings/MidiSettings';
+import Dialog from './molecules/Dialog/Dialog';
+import FormDialog from './molecules/FormDialog/FormDialog';
+import LaunchPad from './molecules/LaunchPad/LaunchPad';
+import Placer from './molecules/Placer/Placer';
+import Nav from './molecules/Nav/Nav';
+import ViewControl from './molecules/ViewControl/ViewControl';
+import Carrousel from './organisms/Carrousel/Carrousel';
 import MidiContextProvider, {
   MidiContext,
-} from './Organisms/ContextProviders/MidiContextProvider';
-import Settings from './Organisms/Settings/Settings';
+} from './organisms/ContextProviders/MidiContextProvider';
+import Settings from './organisms/Settings/Settings';
 import UserContextProvider, {
   UserContext,
-} from './Organisms/ContextProviders/UserContextProvider';
-import View from './Organisms/View/View';
+} from './organisms/ContextProviders/UserContextProvider';
+import View from './organisms/View/View';
 import WMC from './WMC';
 
 export {

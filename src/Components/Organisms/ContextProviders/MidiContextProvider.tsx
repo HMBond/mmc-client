@@ -1,6 +1,6 @@
 import { createContext, useState, ReactNode } from 'react';
 import PropTypes from 'prop-types';
-import { MidiContextInterface } from '../../../Types/interfaces';
+import { MidiContextInterface } from '../../../types/interfaces';
 
 export const MidiContext = createContext<MidiContextInterface | null>(null);
 

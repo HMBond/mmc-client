@@ -1,10 +1,10 @@
 import { useContext, DragEvent, ReactNode, useState } from 'react';
 import PropTypes from 'prop-types';
 import './View.css';
-import { MidiButtonModel } from '../../../Types/Module';
+import { MidiButtonModel } from '../../../types/Module';
 import { Dialog, UserContext } from '../..';
-import { View as ViewModel } from '../../../Types/View';
-import { AddButton } from '../../';
+import { View as ViewModel } from '../../../types/View';
+import { AddButton } from '../..';
 import { Box } from '@mui/material';
 
 type ViewProps = {

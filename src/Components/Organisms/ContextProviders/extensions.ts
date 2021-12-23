@@ -6,7 +6,7 @@ import {
   SaveUserContextAs,
   UpdateModuleArgs,
   UpdateViewArgs,
-} from '../../../Types/types';
+} from '../../../types/types';
 import { sortViewsByPlace } from '../../helpers';
 
 export function addModule(args: AddModuleArgs) {
