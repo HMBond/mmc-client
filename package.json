@@ -11,9 +11,9 @@
     "preview": "vite preview --host",
     "build": "tsc --noEmit && vite build && electron-builder --config electron-builder.yml",
     "build-electron": "electron-builder --config electron-builder.yml --dir",
-    "lint": "eslint --config '.eslintrc.js'",
+    "lint": "eslint --config .eslintrc.js",
     "electron-dev": "concurrently dev electron-dev-task",
-    "electron-dev-task": "wait-on http://169.254.18.178:3000 && electron ."
+    "electron-dev-task": "wait-on http://localhost:3000 && electron ."
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",

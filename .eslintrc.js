@@ -20,10 +20,4 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
   },
-  ignorePatterns: [
-    '.eslintrc.js',
-    './dist/*.js',
-    './release/*.js',
-    'public/electron.js',
-  ],
 };

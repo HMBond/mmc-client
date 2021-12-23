@@ -1,0 +1,5 @@
+release
+.eslintrc.js
+dist/
+release/
+electron.js
