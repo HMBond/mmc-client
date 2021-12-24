@@ -9,7 +9,7 @@ type MidiSliderProps = {
 
 function MidiSlider({
   module,
-  module: { id, channel, label, value, orientation, type },
+  module: { id, channel, value, orientation },
 }: MidiSliderProps) {
   const { output } = useContext<any>(MidiContext);
   const { updateModule } = useContext(UserContext) || {};

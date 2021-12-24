@@ -1,5 +1,4 @@
-release
 .eslintrc.js
-dist/
 release/
+dist/
 electron.js
