@@ -4,10 +4,10 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import EditOffIcon from '@mui/icons-material/EditOff';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import { Button, Fab, FormControlLabel, Switch } from '@mui/material';
-import { UserContext, MidiSettings, FormDialog, Dialog } from '../..';
+import { UserContext, MidiSettings, SaveDialog, Dialog } from '../..';
 import './Settings.css';
 
-type SettingsProps = { restartMidi: () => void };
+type SettingsProps = { restartMidi: () => Promise<any> };
 
 function Settings({ restartMidi }: SettingsProps) {
   const {
@@ -105,52 +105,45 @@ function Settings({ restartMidi }: SettingsProps) {
         title="Settings"
         open={open}
         onClose={handleCloseClick}
-        dividers
         aria-labelledby="settings"
         aria-describedby="global and midi settings"
         actions={
-          <Button color="warning" onClick={handleClearLocalStorage}>
-            Clear All
-          </Button>
+          <>
+            <Button onClick={async () => await restartMidi()}>
+              Restart MIDI
+            </Button>
+            <Button color="warning" onClick={handleClearLocalStorage}>
+              Clear All
+            </Button>
+          </>
         }
       >
-        <div className="settings__dialog-content">
-          <div className={'settings__general'}>
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={showEditButton}
-                  onChange={handleShowEditButtonChange}
-                />
-              }
-              label="Show edit button"
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={invertTheme}
-                  onChange={handleThemeModeToggle}
-                />
-              }
-              label="Perform in light mode"
-            />
-            <FormControlLabel
-              control={
-                <Switch
-                  checked={leftHanded}
-                  onChange={handleLeftHandedChange}
-                />
-              }
-              label="Left handed"
-            />
-          </div>
-          <MidiSettings restartMidi={restartMidi} />
+        <div className="settings__general">
+          <FormControlLabel
+            control={
+              <Switch
+                checked={showEditButton}
+                onChange={handleShowEditButtonChange}
+              />
+            }
+            label="Show edit button"
+          />
+          <FormControlLabel
+            control={
+              <Switch checked={invertTheme} onChange={handleThemeModeToggle} />
+            }
+            label="Perform in light mode"
+          />
+          <FormControlLabel
+            control={
+              <Switch checked={leftHanded} onChange={handleLeftHandedChange} />
+            }
+            label="Left handed"
+          />
         </div>
+        <MidiSettings />
       </Dialog>
-      <FormDialog
-        title="Save setup"
-        label="File name"
-        submitLabel="Save"
+      <SaveDialog
         inputValue={fileName}
         onSubmit={handleSave}
         open={saveDialogOpen}

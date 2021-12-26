@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { Button } from '@mui/material';
-import { AddButton, FormDialog, UserContext } from '../..';
+import { AddButton, AddViewDialog, UserContext } from '../..';
 import './ViewControl.css';
 import { View } from '../../../types/View';
 
@@ -53,10 +53,7 @@ function ViewControl() {
           );
         })}
       {editMode && <AddButton onClick={handleAddModuleClick} />}
-      <FormDialog
-        title="New view"
-        submitLabel="Add"
-        label="Name"
+      <AddViewDialog
         onSubmit={handleAddClick}
         open={newViewDialogOpen}
         onClose={handleClose}

@@ -7,11 +7,6 @@
   flex-direction: row-reverse;
 }
 
-.settings__dialog-content {
-  display: grid;
-  gap: 1rem;
-}
-
 .settings__general {
   display: grid;
 }

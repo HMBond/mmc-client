@@ -1,17 +1,14 @@
-import { useContext } from 'react';
+import { useContext, ChangeEvent } from 'react';
 import { WebMidi } from 'webmidi';
-import PropTypes from 'prop-types';
-import { Alert, Button, SelectChangeEvent } from '@mui/material';
+import { Alert, Typography } from '@mui/material';
 import { MidiContext, DeviceSelect, UserContext } from '../..';
 
-type MidiSettingsProps = { restartMidi: () => void };
-
-function MidiSettings({ restartMidi }: MidiSettingsProps) {
+function MidiSettings({ label }: { label?: string }) {
   const { input, setInput, inputs, output, setOutput, outputs } =
     useContext(MidiContext) || {};
   const { setInputName, setOutputName } = useContext(UserContext) || {};
 
-  function handleInputSelect(event: SelectChangeEvent<string>) {
+  function handleInputSelect(event: ChangeEvent<HTMLSelectElement>) {
     const selected = WebMidi.getInputById(event.target.value);
     if (!selected)
       throw Error(`WebMidi can not find ${event.target.value} in inputs`);
@@ -19,7 +16,7 @@ function MidiSettings({ restartMidi }: MidiSettingsProps) {
     setInputName && setInputName(selected.name);
   }
 
-  function handleOutputSelect(event: SelectChangeEvent<string>) {
+  function handleOutputSelect(event: ChangeEvent<HTMLSelectElement>) {
     const selected = WebMidi.getOutputById(event.target.value);
     if (!selected)
       throw Error(`WebMidi can not find ${event.target.value} in outputs`);
@@ -32,17 +29,15 @@ function MidiSettings({ restartMidi }: MidiSettingsProps) {
   } else {
     return (
       <>
-        <Button variant="contained" onClick={async () => await restartMidi()}>
-          Restart MIDI
-        </Button>
+        {label && <Typography>{label}</Typography>}
         <DeviceSelect
-          deviceTypeName="input"
+          deviceType="input"
           devices={inputs}
           selected={input}
           onChange={handleInputSelect}
         />
         <DeviceSelect
-          deviceTypeName="output"
+          deviceType="output"
           devices={outputs}
           selected={output}
           onChange={handleOutputSelect}
@@ -51,9 +46,5 @@ function MidiSettings({ restartMidi }: MidiSettingsProps) {
     );
   }
 }
-
-MidiSettings.propTypes = {
-  restartMidi: PropTypes.func,
-};
 
 export default MidiSettings;

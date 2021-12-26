@@ -1,4 +1,7 @@
+import { DEFAULT_VELOCITY } from '../components/definitions';
 import { Position } from './types';
+
+export type SliderOrientation = 'horizontal' | 'vertical';
 
 type ModuleConstructorArgs = {
   label?: string;
@@ -6,13 +9,16 @@ type ModuleConstructorArgs = {
     x: number;
     y: number;
   };
-  type?: 'button' | 'slider' | 'settings' | 'module';
+  type?: ModuleType;
 };
+
+export const moduleTypes = ['Button', 'Slider', 'Settings'] as const;
+export type ModuleType = typeof moduleTypes[number];
 
 export interface ModuleInterface {
   id: number;
   label: string;
-  type: 'button' | 'slider' | 'settings' | 'module';
+  type: ModuleType;
   position: Position;
   [other: string]: any;
 }
@@ -26,23 +32,23 @@ export class Module implements ModuleInterface {
   }
   id;
   label = 'new module';
-  type: 'button' | 'slider' | 'settings' | 'module' = 'module';
+  type: ModuleType = 'Settings';
   position = {
-    x: 0,
-    y: 0,
+    x: -1,
+    y: -1,
   };
   [other: string]: any;
 }
 
-export type MidiButtonConstructorArgs = ModuleConstructorArgs & {
+export type ButtonModuleConstructorArgs = ModuleConstructorArgs & {
   channel?: number;
   note?: string;
   velocity?: number;
 };
 
-export class MidiButtonModel extends Module {
-  constructor(args: MidiButtonConstructorArgs) {
-    super({ ...args, type: 'button' });
+export class ButtonModule extends Module {
+  constructor(args: ButtonModuleConstructorArgs) {
+    super({ ...args, type: 'Button' });
     if (args.channel) this.channel = args.channel;
     if (args.note) this.note = args.note;
     if (args.velocity || args.velocity === 0) this.velocity = args.velocity;
@@ -50,18 +56,18 @@ export class MidiButtonModel extends Module {
   label = 'new button';
   channel = 1;
   note = 'C3';
-  velocity = 64;
+  velocity = DEFAULT_VELOCITY;
 }
 
-type MidiSliderConstructorArgs = ModuleConstructorArgs & {
+type SliderModuleConstructorArgs = ModuleConstructorArgs & {
   channel?: number;
   value?: number;
-  orientation: 'horizontal' | 'vertical';
+  orientation: SliderOrientation;
 };
 
-export class MidiSliderModel extends Module {
-  constructor(args: MidiSliderConstructorArgs) {
-    super({ ...args, type: 'slider' });
+export class SliderModule extends Module {
+  constructor(args: SliderModuleConstructorArgs) {
+    super({ ...args, type: 'Slider' });
     if (args.channel) this.channel = args.channel;
     if (args.value) this.value = args.value;
     if (args.orientation) this.orientation = args.orientation;
@@ -69,5 +75,5 @@ export class MidiSliderModel extends Module {
   label = 'new slider';
   channel = 1;
   value = 0.8;
-  orientation: 'horizontal' | 'vertical' = 'vertical';
+  orientation: SliderOrientation = 'vertical';
 }

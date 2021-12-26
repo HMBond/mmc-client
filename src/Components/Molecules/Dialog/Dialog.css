@@ -1,0 +1,8 @@
+.dialog__content {
+  display: grid;
+  gap: 1rem;
+}
+
+.dialog__left-actions {
+  margin-right: auto;
+}

@@ -1,8 +1,8 @@
-import { useContext, DragEvent, ReactNode, useState } from 'react';
+import { useContext, MouseEvent, DragEvent, ReactNode, useState } from 'react';
 import PropTypes from 'prop-types';
 import './View.css';
-import { MidiButtonModel } from '../../../types/Module';
-import { Dialog, UserContext } from '../..';
+import { ModuleInterface, ModuleType } from '../../../types/Module';
+import { AddModuleDialog, ModuleTypeSelector, UserContext } from '../..';
 import { View as ViewModel } from '../../../types/View';
 import { AddButton } from '../..';
 import { Box } from '@mui/material';
@@ -15,33 +15,35 @@ type ViewProps = {
 function View({ children, view }: ViewProps) {
   const { backgroundColor } = view;
   const { addModule, leftHanded, activeView } = useContext(UserContext) || {};
+  const [showModuleTypeSelector, setShowModuleTypeSelector] = useState(false);
+  const [moduleType, setModuleType] = useState<ModuleType>();
   const [open, setOpen] = useState(false);
 
   function allowDrop(event: DragEvent) {
     event.preventDefault();
   }
 
+  function handleAddButtonClick(event: MouseEvent) {
+    event.stopPropagation();
+    setShowModuleTypeSelector(true);
+  }
+
+  function handleBackdropClick() {
+    setShowModuleTypeSelector(false);
+  }
+
+  function handleModuleChoice(type: ModuleType) {
+    setModuleType(type);
+    setOpen(true);
+  }
+
   function handleCloseDialog() {
     setOpen(false);
   }
 
-  function handleAddModuleClick() {
-    setOpen(true);
-  }
-
-  function handleAddModule() {
-    const position = {
-      x: 0.8 * window.innerWidth,
-      y: 0.15 * window.innerHeight,
-    };
-    const module = new MidiButtonModel({
-      label: 'button 1',
-      position,
-      channel: 1,
-      note: 'C3',
-      velocity: 64,
-    });
+  function handleAddModuleSubmit(module: ModuleInterface) {
     addModule && addModule(view, module);
+    setOpen(false);
   }
 
   return (
@@ -51,21 +53,25 @@ function View({ children, view }: ViewProps) {
         className={`view ${activeView?.id !== view.id ? 'fade' : ''}`}
         onDrop={allowDrop}
         onDragOver={allowDrop}
+        onClick={handleBackdropClick}
       >
         <Box sx={{ m: '1rem', float: leftHanded ? 'none' : 'right' }}>
-          <AddButton onClick={handleAddModuleClick} />
+          {showModuleTypeSelector ? (
+            <ModuleTypeSelector handleModuleChoice={handleModuleChoice} />
+          ) : (
+            <AddButton onClick={handleAddButtonClick} />
+          )}
         </Box>
         {children}
       </div>
-      <Dialog
-        title="New module"
-        submitLabel="Add"
-        open={open}
-        onClose={handleCloseDialog}
-        onSubmit={handleAddModule}
-      >
-        <h1>test</h1>
-      </Dialog>
+      {moduleType && (
+        <AddModuleDialog
+          open={open}
+          type={moduleType}
+          onClose={handleCloseDialog}
+          onSubmit={handleAddModuleSubmit}
+        />
+      )}
     </>
   );
 }

@@ -8,7 +8,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
-import { Box } from '@mui/system';
+import './Dialog.css';
 
 type DialogProps = {
   children?: ReactNode;
@@ -16,7 +16,7 @@ type DialogProps = {
   open: boolean;
   onClose: (
     event: object,
-    reason: 'backdropClick' | 'escapeKeyDown' | 'cancelClick'
+    reason: 'backdropClick' | 'escapeKeyDown' | 'closeClick'
   ) => void;
   title: string;
   text?: string;
@@ -26,20 +26,22 @@ type DialogProps = {
   [prop: string]: unknown;
 };
 
-function Dialog({
-  children,
-  onSubmit,
-  open,
-  onClose,
-  title,
-  text,
-  actions,
-  submitLabel = 'OK',
-  dividers,
-  ...props
-}: DialogProps) {
-  function handleCancelClick(event: MouseEvent) {
-    onClose(event, 'cancelClick');
+function Dialog(props: DialogProps) {
+  const {
+    children,
+    onSubmit,
+    open,
+    onClose,
+    title,
+    text,
+    actions,
+    submitLabel = 'OK',
+    dividers,
+    ...restProps
+  } = props;
+
+  function handleCloseClick(event: MouseEvent) {
+    onClose(event, 'closeClick');
   }
 
   return (
@@ -48,17 +50,16 @@ function Dialog({
       onClose={onClose}
       maxWidth="sm"
       fullWidth
-      keepMounted
-      {...props}
+      {...restProps}
     >
       <DialogTitle>{title}</DialogTitle>
-      <DialogContent dividers={dividers}>
+      <DialogContent dividers={dividers} className="dialog__content">
         {text && <DialogContentText>{text}</DialogContentText>}
         {children}
       </DialogContent>
       <DialogActions>
-        <Box sx={{ mr: 'auto' }}>{actions}</Box>
-        <Button onClick={handleCancelClick}>Cancel</Button>
+        <div className="dialog__left-actions">{actions}</div>
+        <Button onClick={handleCloseClick}>Close</Button>
         {onSubmit && <Button onClick={onSubmit}>{submitLabel}</Button>}
       </DialogActions>
     </MuiDialog>

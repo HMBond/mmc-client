@@ -1,8 +1,11 @@
 import { UserInterface } from '../types/interfaces';
 import { View } from '../types/View';
 
+export const MIDI_CHANNELS = Array.from({ length: 16 }, (_, i) => i + 1);
 export const MIDI_MIN = 0;
 export const MIDI_MAX = 127;
+
+export const DEFAULT_VELOCITY = 64;
 
 export const LOCAL_STORAGE_THROTTLE_WAIT = 500;
 
@@ -29,11 +32,11 @@ export const USER_CONTEXT: UserInterface = {
   modules: [
     {
       id: 0,
-      type: 'button',
+      type: 'Button',
       label: 'Kick',
       channel: 1,
-      note: 'C3', // must unique per channel
-      velocity: 64,
+      note: 'C3',
+      velocity: DEFAULT_VELOCITY,
       position: {
         x: 100,
         y: 100,
@@ -41,9 +44,9 @@ export const USER_CONTEXT: UserInterface = {
     },
     {
       id: 1,
-      type: 'slider',
+      type: 'Slider',
       label: 'volume',
-      channel: 16, // must be unique
+      channel: 16,
       value: 0.8,
       orientation: 'vertical',
       position: {
