@@ -8,9 +8,14 @@
 
 html {
   height: 100%;
-  font-size: 1.3em;
   background-color: black;
   color: white;
+}
+
+@media only screen and (min-width: 1000px) {
+  html {
+    font-size: 1.3em;
+  }
 }
 
 body {
