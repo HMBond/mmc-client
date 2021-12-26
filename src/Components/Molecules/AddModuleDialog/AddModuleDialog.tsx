@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import { ModuleType } from '../../../types/Module';
 import AddModuleDialogBase, { BaseProps } from './AddModuleDialogBase';
-import AddButtonDialog from './AddButtonDialog';
-import AddSliderDialog from './AddSliderDialog';
+import AddButtonModuleDialog from './AddButtonModuleDialog';
+import AddSliderModuleDialog from './AddSliderModuleDialog';
 
 AddModuleDialog.propTypes = {
   onSubmit: PropTypes.func,
@@ -18,10 +18,10 @@ function AddModuleDialog(props: BaseProps & Props) {
   const { type } = props;
   switch (type) {
     case 'Button':
-      return <AddButtonDialog {...props} />;
+      return <AddButtonModuleDialog {...props} />;
       break;
     case 'Slider':
-      return <AddSliderDialog {...props} />;
+      return <AddSliderModuleDialog {...props} />;
       break;
     case 'Settings':
       return (

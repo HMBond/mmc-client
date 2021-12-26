@@ -29,7 +29,7 @@ function MidiSettings({ label }: { label?: string }) {
   } else {
     return (
       <>
-        {label && <Typography>{label}</Typography>}
+        {label && <Typography component="label">{label}</Typography>}
         <DeviceSelect
           deviceType="input"
           devices={inputs}

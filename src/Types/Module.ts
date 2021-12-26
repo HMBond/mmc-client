@@ -53,7 +53,6 @@ export class ButtonModule extends Module {
     if (args.note) this.note = args.note;
     if (args.velocity || args.velocity === 0) this.velocity = args.velocity;
   }
-  label = 'new button';
   channel = 1;
   note = 'C3';
   velocity = DEFAULT_VELOCITY;

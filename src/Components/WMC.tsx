@@ -16,7 +16,7 @@ import {
   MidiSettings,
 } from '.';
 import { View as ViewModel } from '../types/View';
-import { SliderModule } from '../types/Module';
+import { ButtonModule, SliderModule } from '../types/Module';
 
 export default function WMC() {
   const { setInput, setInputs, setOutput, setOutputs } =
@@ -118,10 +118,12 @@ export default function WMC() {
               {getModulesForView(view).map((module) => (
                 <Placer key={module.id} module={module}>
                   {module.type === 'Button' && (
-                    <MidiButton {...module}>{module.label}</MidiButton>
+                    <MidiButton {...(module as ButtonModule)}>
+                      {module.label}
+                    </MidiButton>
                   )}
                   {module.type === 'Slider' && (
-                    <MidiSlider module={module as SliderModule} />
+                    <MidiSlider {...(module as SliderModule)} />
                   )}
                   {module.type === 'Settings' && (
                     <MidiSettings label={module.label} />

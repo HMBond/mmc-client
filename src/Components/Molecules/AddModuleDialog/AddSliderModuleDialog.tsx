@@ -13,13 +13,13 @@ import {
 import { UserContextOrNull } from '../../../types/types';
 import { UserContext } from '../..';
 
-AddSliderDialog.propTypes = {
+AddSliderModuleDialog.propTypes = {
   onSubmit: PropTypes.func,
   open: PropTypes.bool,
   onClose: PropTypes.func,
 };
 
-function AddSliderDialog(props: BaseProps) {
+function AddSliderModuleDialog(props: BaseProps) {
   const { modules } = useContext<UserContextOrNull>(UserContext) || {};
   const [channel, setChannel] = useState<number>(1);
   const [orientation, setOrientation] = useState<SliderOrientation>('vertical');
@@ -92,4 +92,4 @@ function AddSliderDialog(props: BaseProps) {
   );
 }
 
-export default AddSliderDialog;
+export default AddSliderModuleDialog;

@@ -19,13 +19,13 @@ import {
 import { UserContextOrNull } from '../../../types/types';
 import { UserContext } from '../..';
 
-AddButtonDialog.propTypes = {
+AddButtonModuleDialog.propTypes = {
   onSubmit: PropTypes.func,
   open: PropTypes.bool,
   onClose: PropTypes.func,
 };
 
-function AddButtonDialog(props: BaseProps) {
+function AddButtonModuleDialog(props: BaseProps) {
   const { modules } = useContext<UserContextOrNull>(UserContext) || {};
 
   const getUsedChannels = (): number[] => {
@@ -122,4 +122,4 @@ function AddButtonDialog(props: BaseProps) {
   );
 }
 
-export default AddButtonDialog;
+export default AddButtonModuleDialog;
