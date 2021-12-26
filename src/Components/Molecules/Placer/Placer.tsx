@@ -33,7 +33,8 @@ function Placer({ children, module }: PlacerProps) {
   const { updateModule, deleteModule, editMode } =
     useContext(UserContext) || {};
   const placerRef = useRef<HTMLDivElement>(null);
-  let startPosition: Position, touchMovePosition: Position;
+  let startPosition: Position;
+  let touchMovePosition: Position = { x: 0, y: 0 };
 
   function handleDragStart(event: DragEvent) {
     overrideCursor(event);
@@ -44,6 +45,7 @@ function Placer({ children, module }: PlacerProps) {
   }
 
   function handleTouchStart(event: TouchEvent) {
+    if (!editMode) return;
     startPosition = {
       x: event.touches[0].clientX,
       y: event.touches[0].clientY,
@@ -51,6 +53,7 @@ function Placer({ children, module }: PlacerProps) {
   }
 
   function handleTouchMove(event: TouchEvent) {
+    if (!editMode) return;
     if (placerRef == null) {
       throw Error('placer reference is not set...');
     }
@@ -83,23 +86,23 @@ function Placer({ children, module }: PlacerProps) {
     // TODO: if(event.altKey) insert new copy of this placer at newPosition
     if (placerRef == null) {
       throw Error('placerRef is not set...');
-    } else {
-      const distance = {
-        x: event.clientX - startPosition.x,
-        y: event.clientY - startPosition.y,
-      };
-      const current = placerRef.current;
-      if (!current) {
-        throw Error('placerRef has no dom element (current)');
-        return;
-      }
-      const newPosition = {
-        x: distance.x + current.offsetLeft,
-        y: distance.y + current.offsetTop,
-      };
-      const newModule = { ...module, position: newPosition };
-      updateModule && updateModule(newModule.id, newModule);
+      return;
     }
+    const current = placerRef.current;
+    if (!current) {
+      throw Error('placerRef has no dom element (current)');
+      return;
+    }
+    const distance = {
+      x: event.clientX - startPosition.x,
+      y: event.clientY - startPosition.y,
+    };
+    const newPosition = {
+      x: distance.x + current.offsetLeft,
+      y: distance.y + current.offsetTop,
+    };
+    const newModule = { ...module, position: newPosition };
+    updateModule && updateModule(newModule.id, newModule);
   }
 
   function handleDeleteClick() {
