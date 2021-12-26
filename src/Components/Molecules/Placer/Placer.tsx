@@ -13,6 +13,22 @@ type PlacerProps = {
   module: ModuleInterface;
 };
 
+Placer.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+  module: PropTypes.shape({
+    id: PropTypes.number,
+    label: PropTypes.string,
+    type: PropTypes.string,
+    position: PropTypes.shape({
+      x: PropTypes.number,
+      y: PropTypes.number,
+    }),
+  }),
+};
+
 function Placer({ children, module }: PlacerProps) {
   const { updateModule, deleteModule, editMode } =
     useContext(UserContext) || {};
@@ -50,15 +66,17 @@ function Placer({ children, module }: PlacerProps) {
       throw Error('placerRef.current has no parentElement');
       return;
     }
-    const x = event.touches[0].clientX - parent.getBoundingClientRect().left;
-    const y = event.touches[0].clientY - parent.getBoundingClientRect().top;
-    current.style.left = toPx(x);
-    current.style.top = toPx(y);
+    touchMovePosition = {
+      x: event.touches[0].clientX - parent.getBoundingClientRect().left,
+      y: event.touches[0].clientY - parent.getBoundingClientRect().top,
+    };
+    current.style.left = toPx(touchMovePosition.x);
+    current.style.top = toPx(touchMovePosition.y);
   }
 
   function handleTouchEnd() {
     const newModule = { ...module, position: touchMovePosition };
-    updateModule && updateModule(newModule.id, newModule);
+    updateModule && updateModule(module.id, newModule);
   }
 
   function handleDragEnd(event: DragEvent) {
@@ -89,8 +107,8 @@ function Placer({ children, module }: PlacerProps) {
   }
 
   const modulePositionStyle = {
-    left: module?.position?.x,
-    top: module?.position?.y,
+    left: module.position.x,
+    top: module.position.y,
   };
 
   return (
@@ -119,12 +137,5 @@ function Placer({ children, module }: PlacerProps) {
     </div>
   );
 }
-
-Placer.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
-};
 
 export default Placer;
