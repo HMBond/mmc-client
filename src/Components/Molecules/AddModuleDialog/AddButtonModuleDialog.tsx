@@ -94,7 +94,6 @@ function AddButtonModuleDialog(props: BaseProps) {
       </FormControl>
       <FormControl component="fieldset" fullWidth>
         <TextField
-          autoFocus
           margin="dense"
           label="Note"
           fullWidth

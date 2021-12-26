@@ -1,4 +1,4 @@
-import { MouseEvent, ReactNode } from 'react';
+import { FormEvent, MouseEvent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -40,6 +40,11 @@ function Dialog(props: DialogProps) {
     ...restProps
   } = props;
 
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    onSubmit && onSubmit();
+  }
+
   function handleCloseClick(event: MouseEvent) {
     onClose(event, 'closeClick');
   }
@@ -52,16 +57,18 @@ function Dialog(props: DialogProps) {
       fullWidth
       {...restProps}
     >
-      <DialogTitle>{title}</DialogTitle>
-      <DialogContent dividers={dividers} className="dialog__content">
-        {text && <DialogContentText>{text}</DialogContentText>}
-        {children}
-      </DialogContent>
-      <DialogActions>
-        <div className="dialog__left-actions">{actions}</div>
-        <Button onClick={handleCloseClick}>Close</Button>
-        {onSubmit && <Button onClick={onSubmit}>{submitLabel}</Button>}
-      </DialogActions>
+      <form onSubmit={handleSubmit}>
+        <DialogTitle>{title}</DialogTitle>
+        <DialogContent dividers={dividers} className="dialog__content">
+          {text && <DialogContentText>{text}</DialogContentText>}
+          {children}
+        </DialogContent>
+        <DialogActions>
+          <div className="dialog__left-actions">{actions}</div>
+          <Button onClick={handleCloseClick}>Close</Button>
+          {onSubmit && <Button type="submit">{submitLabel}</Button>}
+        </DialogActions>
+      </form>
     </MuiDialog>
   );
 }
