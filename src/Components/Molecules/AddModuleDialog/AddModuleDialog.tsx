@@ -27,7 +27,7 @@ function AddModuleDialog(props: BaseProps & Props) {
       return (
         <AddModuleDialogBase
           {...props}
-          title="Add Settings Module"
+          title="New Settings"
         ></AddModuleDialogBase>
       );
       break;
