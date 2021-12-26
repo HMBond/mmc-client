@@ -1,4 +1,4 @@
-import { View } from '../types/View';
+import { View } from '../types/view';
 
 export function sortViewsByPlace(views: View[]): View[] {
   return views.sort((a: View, b: View) => {

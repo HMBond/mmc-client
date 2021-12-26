@@ -1,6 +1,6 @@
-import { ModuleInterface } from './Module';
+import { ModuleInterface } from './modules';
 import { UserInterface, UserContextInterface } from './interfaces';
-import { View } from './View';
+import { View } from './view';
 
 export type UserContextOrNull = UserContextInterface | null;
 

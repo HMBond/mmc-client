@@ -1,7 +1,11 @@
 import { ChangeEvent, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import AddModuleDialogBase, { BaseProps } from './AddModuleDialogBase';
-import { Module, SliderModule, SliderOrientation } from '../../../types/Module';
+import {
+  Module,
+  SliderModule,
+  SliderOrientation,
+} from '../../../types/modules';
 import { MIDI_CHANNELS } from '../../definitions';
 import {
   FormControl,

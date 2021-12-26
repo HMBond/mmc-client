@@ -1,9 +1,9 @@
 import { useContext, MouseEvent, DragEvent, ReactNode, useState } from 'react';
 import PropTypes from 'prop-types';
 import './View.css';
-import { ModuleInterface, ModuleType } from '../../../types/Module';
+import { ModuleInterface, ModuleType } from '../../../types/modules';
 import { AddModuleDialog, ModuleTypeSelector, UserContext } from '../..';
-import { View as ViewModel } from '../../../types/View';
+import { View as ViewModel } from '../../../types/view';
 import { AddButton } from '../..';
 import { Box } from '@mui/material';
 

@@ -1,5 +1,5 @@
-import { ModuleInterface } from './Module';
-import { View } from './View';
+import { ModuleInterface } from './modules';
+import { View } from './view';
 
 export interface UserInterface {
   editMode: boolean;

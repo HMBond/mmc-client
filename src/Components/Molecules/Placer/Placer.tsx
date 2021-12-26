@@ -4,7 +4,7 @@ import Fab from '@mui/material/Fab';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { UserContext } from '../..';
 import { overrideCursor, toPx } from './Placer_helpers';
-import { ModuleInterface } from '../../../types/Module';
+import { ModuleInterface } from '../../../types/modules';
 import { Position } from '../../../types/types';
 import './Placer.css';
 

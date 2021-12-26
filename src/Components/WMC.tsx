@@ -15,8 +15,8 @@ import {
   MidiSlider,
   MidiSettings,
 } from '.';
-import { View as ViewModel } from '../types/View';
-import { ButtonModule, SliderModule } from '../types/Module';
+import { View as ViewModel } from '../types/view';
+import { ButtonModule, SliderModule } from '../types/modules';
 
 export default function WMC() {
   const { setInput, setInputs, setOutput, setOutputs } =

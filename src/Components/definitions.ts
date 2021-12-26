@@ -1,5 +1,5 @@
 import { UserInterface } from '../types/interfaces';
-import { View } from '../types/View';
+import { View } from '../types/view';
 
 export const MIDI_CHANNELS = Array.from({ length: 16 }, (_, i) => i + 1);
 export const MIDI_MIN = 0;

@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { Button } from '@mui/material';
 import { AddButton, AddViewDialog, UserContext } from '../..';
 import './ViewControl.css';
-import { View } from '../../../types/View';
+import { View } from '../../../types/view';
 
 function ViewControl() {
   const { addView, views, activeView, setActiveView, editMode } =

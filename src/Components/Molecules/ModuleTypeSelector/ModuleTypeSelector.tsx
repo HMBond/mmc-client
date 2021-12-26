@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { ModuleType, moduleTypes } from '../../../types/Module';
+import { ModuleType, moduleTypes } from '../../../types/modules';
 import { Button, ButtonGroup } from '@mui/material';
 
 ModuleTypeSelector.propTypes = {

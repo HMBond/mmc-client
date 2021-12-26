@@ -2,7 +2,7 @@ import { useState, ChangeEvent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
 import { Dialog } from '../..';
-import { Module } from '../../../types/Module';
+import { Module } from '../../../types/modules';
 import { FormControl } from '@mui/material';
 
 export type BaseProps = {

@@ -1,7 +1,7 @@
 import { ChangeEvent, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import AddModuleDialogBase, { BaseProps } from './AddModuleDialogBase';
-import { ButtonModule, Module } from '../../../types/Module';
+import { ButtonModule, Module } from '../../../types/modules';
 import {
   DEFAULT_VELOCITY,
   MIDI_CHANNELS,

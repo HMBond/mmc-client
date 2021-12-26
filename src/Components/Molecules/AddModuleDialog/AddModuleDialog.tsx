@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { ModuleType } from '../../../types/Module';
+import { ModuleType } from '../../../types/modules';
 import AddModuleDialogBase, { BaseProps } from './AddModuleDialogBase';
 import AddButtonModuleDialog from './AddButtonModuleDialog';
 import AddSliderModuleDialog from './AddSliderModuleDialog';
