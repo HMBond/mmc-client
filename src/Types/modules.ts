@@ -71,7 +71,6 @@ export class SliderModule extends Module {
     if (args.value) this.value = args.value;
     if (args.orientation) this.orientation = args.orientation;
   }
-  label = 'new slider';
   channel = 1;
   value = 0.8;
   orientation: SliderOrientation = 'vertical';
