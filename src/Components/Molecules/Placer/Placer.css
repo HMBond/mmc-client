@@ -13,10 +13,6 @@
   cursor: move;
 }
 
-.placer[draggable='true']:hover > *:not(.placer__controls) {
-  pointer-events: none;
-}
-
 .placer[draggable='true']:active {
   opacity: 0.5;
   background: white;

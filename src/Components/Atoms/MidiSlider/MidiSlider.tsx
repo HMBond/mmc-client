@@ -6,7 +6,7 @@ import { SliderModule } from '../../../types/modules';
 function MidiSlider(module: SliderModule) {
   const { id, channel, value, orientation, label } = module;
   const { output } = useContext<any>(MidiContext);
-  const { updateModule } = useContext(UserContext) || {};
+  const { updateModule, editMode } = useContext(UserContext) || {};
 
   function handleChange(event: Event, value: number | number[]) {
     output?.channels[channel].sendPitchBend(value);
@@ -23,7 +23,7 @@ function MidiSlider(module: SliderModule) {
     <Box sx={style}>
       {label && <Typography component="label">{label}</Typography>}
       <Slider
-        disabled={!output}
+        disabled={!output || editMode}
         orientation={orientation ? orientation : 'vertical'}
         value={value}
         onChange={handleChange}

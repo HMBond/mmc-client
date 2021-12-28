@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Fab from '@mui/material/Fab';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { UserContext } from '../..';
-import { overrideCursor, toPx } from './Placer_helpers';
+import { getElements, overrideCursor, toPx } from './Placer_helpers';
 import { ModuleInterface } from '../../../types/modules';
 import { Position } from '../../../types/types';
 import './Placer.css';
@@ -54,30 +54,19 @@ function Placer({ children, module }: PlacerProps) {
 
   function handleTouchMove(event: TouchEvent) {
     if (!editMode) return;
-    if (placerRef == null) {
-      throw Error('placer reference is not set...');
-    }
     if (event.touches.length === 0) return;
-    if (!startPosition) return;
-    const current = placerRef.current;
-    if (!current) {
-      throw Error('placerRef has no dom element (current)');
-      return;
-    }
-    const parent = current.parentElement;
-    if (!parent) {
-      throw Error('placerRef.current has no parentElement');
-      return;
-    }
+    const { current, parent } = getElements(placerRef);
     touchPosition = {
       x: event.touches[0].clientX - parent.getBoundingClientRect().left,
       y: event.touches[0].clientY - parent.getBoundingClientRect().top,
     };
+
     current.style.left = toPx(touchPosition.x);
     current.style.top = toPx(touchPosition.y);
   }
 
   function handleTouchEnd() {
+    if (!editMode) return;
     if (touchPosition === module.position) return;
     const newModule = { ...module, position: touchPosition };
     updateModule && updateModule(module.id, newModule);
@@ -85,22 +74,14 @@ function Placer({ children, module }: PlacerProps) {
 
   function handleDragEnd(event: DragEvent) {
     // TODO: if(event.altKey) insert new copy of this placer at newPosition
-    if (placerRef == null) {
-      throw Error('placerRef is not set...');
-      return;
-    }
-    const current = placerRef.current;
-    if (!current) {
-      throw Error('placerRef has no dom element (current)');
-      return;
-    }
+    const { current } = getElements(placerRef);
     const distance = {
       x: event.clientX - startPosition.x,
       y: event.clientY - startPosition.y,
     };
     const newPosition = {
-      x: distance.x + current.offsetLeft,
-      y: distance.y + current.offsetTop,
+      x: current.offsetLeft + distance.x,
+      y: current.offsetTop + distance.y,
     };
     const newModule = { ...module, position: newPosition };
     updateModule && updateModule(newModule.id, newModule);
@@ -110,7 +91,7 @@ function Placer({ children, module }: PlacerProps) {
     deleteModule && deleteModule(module.id);
   }
 
-  const modulePositionStyle = {
+  const style = {
     left: module.position.x,
     top: module.position.y,
   };
@@ -118,7 +99,7 @@ function Placer({ children, module }: PlacerProps) {
   return (
     <div
       className="placer"
-      style={modulePositionStyle}
+      style={style}
       draggable={editMode}
       onDragStart={handleDragStart}
       onTouchStart={handleTouchStart}

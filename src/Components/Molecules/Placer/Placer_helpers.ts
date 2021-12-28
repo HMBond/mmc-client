@@ -1,4 +1,4 @@
-import { DragEvent } from 'react';
+import { DragEvent, RefObject } from 'react';
 
 export function overrideCursor(event: DragEvent) {
   if (!event || !event.dataTransfer) {
@@ -18,4 +18,22 @@ export function overrideCursor(event: DragEvent) {
  */
 export function toPx(value: number): string {
   return value.toString() + 'px';
+}
+
+export function getElements(reference: RefObject<HTMLDivElement>): {
+  current: HTMLDivElement;
+  parent: HTMLElement;
+} {
+  if (reference == null) {
+    throw Error('reference is not set...');
+  }
+  const current = reference.current;
+  if (!current) {
+    throw Error('reference has no dom element (current)');
+  }
+  const parent = current.parentElement;
+  if (!parent) {
+    throw Error('referenced element has no parentElement');
+  }
+  return { current, parent };
 }
