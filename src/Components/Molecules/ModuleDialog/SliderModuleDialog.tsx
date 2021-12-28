@@ -1,6 +1,6 @@
 import { ChangeEvent, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import AddModuleDialogBase, { BaseProps } from './AddModuleDialogBase';
+import ModuleDialogBase, { BaseProps } from './ModuleDialogBase';
 import {
   Module,
   SliderModule,
@@ -17,13 +17,13 @@ import {
 import { UserContextOrNull } from '../../../types/types';
 import { UserContext } from '../..';
 
-AddSliderModuleDialog.propTypes = {
+SliderModuleDialog.propTypes = {
   onSubmit: PropTypes.func,
   open: PropTypes.bool,
   onClose: PropTypes.func,
 };
 
-function AddSliderModuleDialog(props: BaseProps) {
+function SliderModuleDialog(props: BaseProps) {
   const { modules } = useContext<UserContextOrNull>(UserContext) || {};
   const [channel, setChannel] = useState<number>(1);
   const [orientation, setOrientation] = useState<SliderOrientation>('vertical');
@@ -59,7 +59,7 @@ function AddSliderModuleDialog(props: BaseProps) {
   }
 
   return (
-    <AddModuleDialogBase {...props} onSubmit={handleSubmit} title="New Slider">
+    <ModuleDialogBase {...props} onSubmit={handleSubmit} title="New Slider">
       <FormControl component="fieldset" fullWidth>
         <InputLabel variant="standard" htmlFor="module-channel-select">
           Channel
@@ -92,8 +92,8 @@ function AddSliderModuleDialog(props: BaseProps) {
         <ToggleButton value="vertical">Vertical</ToggleButton>
         <ToggleButton value="horizontal">Horizontal</ToggleButton>
       </ToggleButtonGroup>
-    </AddModuleDialogBase>
+    </ModuleDialogBase>
   );
 }
 
-export default AddSliderModuleDialog;
+export default SliderModuleDialog;

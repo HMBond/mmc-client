@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
 import { Dialog } from '../..';
 
-AddViewDialog.propTypes = {
+ViewDialog.propTypes = {
   onSubmit: PropTypes.func,
   open: PropTypes.bool,
   onClose: PropTypes.func,
@@ -18,15 +18,15 @@ type Props = {
   ) => void;
 };
 
-function AddViewDialog({ onSubmit, open, onClose }: Props) {
-  const [value, setValue] = useState('');
+function ViewDialog({ onSubmit, open, onClose }: Props) {
+  const [label, setLabel] = useState('');
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    setValue(event.target.value);
+    setLabel(event.target.value);
   }
 
   function handleSubmit() {
-    onSubmit(value);
+    onSubmit(label);
   }
 
   return (
@@ -43,11 +43,11 @@ function AddViewDialog({ onSubmit, open, onClose }: Props) {
         label="Name"
         fullWidth
         variant={'standard'}
-        value={value}
+        value={label}
         onChange={handleChange}
       />
     </Dialog>
   );
 }
 
-export default AddViewDialog;
+export default ViewDialog;

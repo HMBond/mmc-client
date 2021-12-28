@@ -2,7 +2,7 @@ import { useContext, MouseEvent, DragEvent, ReactNode, useState } from 'react';
 import PropTypes from 'prop-types';
 import './View.css';
 import { ModuleInterface, ModuleType } from '../../../types/modules';
-import { AddModuleDialog, ModuleTypeSelector, UserContext } from '../..';
+import { ModuleDialog, ModuleTypeSelector, UserContext } from '../..';
 import { View as ViewModel } from '../../../types/view';
 import { AddButton } from '../..';
 import { Box } from '@mui/material';
@@ -65,7 +65,7 @@ function View({ children, view }: ViewProps) {
         {children}
       </div>
       {moduleType && (
-        <AddModuleDialog
+        <ModuleDialog
           open={open}
           type={moduleType}
           onClose={handleCloseDialog}

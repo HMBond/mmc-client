@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 import { Button } from '@mui/material';
-import { AddButton, AddViewDialog, UserContext } from '../..';
+import { AddButton, ViewDialog, UserContext } from '../..';
 import './ViewControl.css';
 import { View } from '../../../types/view';
 
@@ -8,14 +8,14 @@ function ViewControl() {
   const { addView, views, activeView, setActiveView, editMode } =
     useContext(UserContext) || {};
 
-  const [newViewDialogOpen, setNewViewDialogOpen] = useState(false);
+  const [viewDialogOpen, setViewDialogOpen] = useState(false);
 
   function handleViewButtonClick(view: View) {
     setActiveView && setActiveView(view);
   }
 
   function handleAddModuleClick() {
-    setNewViewDialogOpen(true);
+    setViewDialogOpen(true);
   }
 
   function handleAddClick(label: string) {
@@ -29,11 +29,11 @@ function ViewControl() {
       currentViewCount: views.length,
     });
     addView && addView(newView);
-    setNewViewDialogOpen(false);
+    setViewDialogOpen(false);
   }
 
   function handleClose() {
-    setNewViewDialogOpen(false);
+    setViewDialogOpen(false);
   }
 
   return (
@@ -53,9 +53,9 @@ function ViewControl() {
           );
         })}
       {editMode && <AddButton onClick={handleAddModuleClick} />}
-      <AddViewDialog
+      <ViewDialog
         onSubmit={handleAddClick}
-        open={newViewDialogOpen}
+        open={viewDialogOpen}
         onClose={handleClose}
       />
     </div>

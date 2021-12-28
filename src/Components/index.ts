@@ -2,8 +2,8 @@ import AddButton from './atoms/AddButton/AddButton';
 import DeviceSelect from './atoms/DeviceSelect/DeviceSelect';
 import MidiButton from './atoms/MidiButton/MidiButton';
 import MidiSlider from './atoms/MidiSlider/MidiSlider';
-import AddModuleDialog from './molecules/AddModuleDialog/AddModuleDialog';
-import AddViewDialog from './molecules/AddViewDialog/AddViewDialog';
+import ModuleDialog from './molecules/ModuleDialog/ModuleDialog';
+import ViewDialog from './molecules/ViewDialog/ViewDialog';
 import Dialog from './molecules/Dialog/Dialog';
 import LaunchPad from './molecules/LaunchPad/LaunchPad';
 import MidiSettings from './molecules/MidiSettings/MidiSettings';
@@ -28,8 +28,8 @@ export {
   DeviceSelect,
   MidiButton,
   MidiSlider,
-  AddModuleDialog,
-  AddViewDialog,
+  ModuleDialog,
+  ViewDialog,
   Dialog,
   LaunchPad,
   MidiSettings,

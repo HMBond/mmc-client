@@ -19,7 +19,7 @@ type Props = {
   title: string;
 };
 
-function AddModuleDialogBase({
+function ModuleDialogBase({
   children,
   title,
   onSubmit,
@@ -68,11 +68,11 @@ function AddModuleDialogBase({
   );
 }
 
-AddModuleDialogBase.propTypes = {
+ModuleDialogBase.propTypes = {
   title: PropTypes.string,
   onSubmit: PropTypes.func,
   open: PropTypes.bool,
   onClose: PropTypes.func,
 };
 
-export default AddModuleDialogBase;
+export default ModuleDialogBase;

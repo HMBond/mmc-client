@@ -1,6 +1,6 @@
 import { ChangeEvent, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import AddModuleDialogBase, { BaseProps } from './AddModuleDialogBase';
+import ModuleDialogBase, { BaseProps } from './ModuleDialogBase';
 import { ButtonModule, Module } from '../../../types/modules';
 import {
   DEFAULT_VELOCITY,
@@ -19,13 +19,13 @@ import {
 import { UserContextOrNull } from '../../../types/types';
 import { UserContext } from '../..';
 
-AddButtonModuleDialog.propTypes = {
+ButtonModuleDialog.propTypes = {
   onSubmit: PropTypes.func,
   open: PropTypes.bool,
   onClose: PropTypes.func,
 };
 
-function AddButtonModuleDialog(props: BaseProps) {
+function ButtonModuleDialog(props: BaseProps) {
   const { modules } = useContext<UserContextOrNull>(UserContext) || {};
 
   const getUsedChannels = (): number[] => {
@@ -68,7 +68,7 @@ function AddButtonModuleDialog(props: BaseProps) {
   }
 
   return (
-    <AddModuleDialogBase {...props} onSubmit={handleSubmit} title="New Button">
+    <ModuleDialogBase {...props} onSubmit={handleSubmit} title="New Button">
       <FormControl component="fieldset" fullWidth>
         <InputLabel variant="standard" htmlFor="module-channel-select">
           Channel
@@ -117,8 +117,8 @@ function AddButtonModuleDialog(props: BaseProps) {
           step={1}
         />
       </FormControl>
-    </AddModuleDialogBase>
+    </ModuleDialogBase>
   );
 }
 
-export default AddButtonModuleDialog;
+export default ButtonModuleDialog;
