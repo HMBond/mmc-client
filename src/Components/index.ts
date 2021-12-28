@@ -5,6 +5,7 @@ import MidiSlider from './atoms/MidiSlider/MidiSlider';
 import ModuleDialog from './molecules/ModuleDialog/ModuleDialog';
 import ViewDialog from './molecules/ViewDialog/ViewDialog';
 import Dialog from './molecules/Dialog/Dialog';
+import FloatingButtons from './molecules/FloatingButtons/FloatingButtons';
 import LaunchPad from './molecules/LaunchPad/LaunchPad';
 import MidiSettings from './molecules/MidiSettings/MidiSettings';
 import Nav from './molecules/Nav/Nav';
@@ -31,6 +32,7 @@ export {
   ModuleDialog,
   ViewDialog,
   Dialog,
+  FloatingButtons,
   LaunchPad,
   MidiSettings,
   Nav,

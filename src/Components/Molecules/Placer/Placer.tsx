@@ -1,17 +1,10 @@
 import { useContext, useRef, DragEvent, TouchEvent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
-import Fab from '@mui/material/Fab';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { UserContext } from '../..';
+import { FloatingButtons, UserContext } from '../..';
 import { getElements, overrideCursor, toPx } from './Placer_helpers';
 import { ModuleInterface } from '../../../types/modules';
 import { Position } from '../../../types/types';
 import './Placer.css';
-
-type PlacerProps = {
-  children: ReactNode;
-  module: ModuleInterface;
-};
 
 Placer.propTypes = {
   children: PropTypes.oneOfType([
@@ -29,9 +22,13 @@ Placer.propTypes = {
   }),
 };
 
-function Placer({ children, module }: PlacerProps) {
-  const { updateModule, deleteModule, editMode } =
-    useContext(UserContext) || {};
+type Props = {
+  children: ReactNode;
+  module: ModuleInterface;
+};
+
+function Placer({ children, module }: Props) {
+  const { updateModule, editMode } = useContext(UserContext) || {};
   const placerRef = useRef<HTMLDivElement>(null);
   let startPosition: Position;
   let touchPosition: Position = { x: 0, y: 0 };
@@ -87,10 +84,6 @@ function Placer({ children, module }: PlacerProps) {
     updateModule && updateModule(newModule.id, newModule);
   }
 
-  function handleDeleteClick() {
-    deleteModule && deleteModule(module.id);
-  }
-
   const style = {
     left: module.position.x,
     top: module.position.y,
@@ -109,16 +102,7 @@ function Placer({ children, module }: PlacerProps) {
       ref={placerRef}
     >
       {children}
-      <div className="placer__controls">
-        <Fab
-          color="secondary"
-          size="small"
-          aria-label="delete"
-          onClick={handleDeleteClick}
-        >
-          <DeleteIcon />
-        </Fab>
-      </div>
+      <FloatingButtons module={module} />
     </div>
   );
 }

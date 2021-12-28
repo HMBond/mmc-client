@@ -20,19 +20,13 @@
   transform: translate(-1px, -4px);
 }
 
-.placer__controls {
-  position: absolute;
-  right: 0;
-  top: 0;
-  opacity: 0;
-  transform: translate(50%, -50%);
-}
-
-.placer[draggable='true']:hover > .placer__controls {
+.placer[draggable='true']:hover > .floating-buttons {
   opacity: 1;
   pointer-events: all;
 }
 
-.placer[draggable='true']:active > .placer__controls {
-  visibility: hidden;
+.placer[draggable='true']:active > .floating-buttons {
+  /* visibility: hidden; */
+  opacity: 0;
+  pointer-events: none;
 }
