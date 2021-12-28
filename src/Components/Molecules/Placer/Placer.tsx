@@ -34,7 +34,7 @@ function Placer({ children, module }: PlacerProps) {
     useContext(UserContext) || {};
   const placerRef = useRef<HTMLDivElement>(null);
   let startPosition: Position;
-  let touchMovePosition: Position = { x: 0, y: 0 };
+  let touchPosition: Position = { x: 0, y: 0 };
 
   function handleDragStart(event: DragEvent) {
     overrideCursor(event);
@@ -46,7 +46,7 @@ function Placer({ children, module }: PlacerProps) {
 
   function handleTouchStart(event: TouchEvent) {
     if (!editMode) return;
-    startPosition = {
+    touchPosition = {
       x: event.touches[0].clientX,
       y: event.touches[0].clientY,
     };
@@ -69,16 +69,17 @@ function Placer({ children, module }: PlacerProps) {
       throw Error('placerRef.current has no parentElement');
       return;
     }
-    touchMovePosition = {
+    touchPosition = {
       x: event.touches[0].clientX - parent.getBoundingClientRect().left,
       y: event.touches[0].clientY - parent.getBoundingClientRect().top,
     };
-    current.style.left = toPx(touchMovePosition.x);
-    current.style.top = toPx(touchMovePosition.y);
+    current.style.left = toPx(touchPosition.x);
+    current.style.top = toPx(touchPosition.y);
   }
 
   function handleTouchEnd() {
-    const newModule = { ...module, position: touchMovePosition };
+    if (touchPosition === module.position) return;
+    const newModule = { ...module, position: touchPosition };
     updateModule && updateModule(module.id, newModule);
   }
 
