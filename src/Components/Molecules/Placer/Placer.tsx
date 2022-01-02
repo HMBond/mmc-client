@@ -1,6 +1,6 @@
 import { useContext, useRef, DragEvent, TouchEvent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
-import { FloatingButtons, UserContext } from '../..';
+import { ModuleActions, UserContext } from '../..';
 import { getElements, overrideCursor, toPx } from './Placer_helpers';
 import { ModuleInterface } from '../../../types/modules';
 import { Position } from '../../../types/types';
@@ -102,7 +102,7 @@ function Placer({ children, module }: Props) {
       ref={placerRef}
     >
       {children}
-      <FloatingButtons module={module} />
+      <ModuleActions module={module} />
     </div>
   );
 }

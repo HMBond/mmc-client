@@ -4,9 +4,9 @@ import { Fab } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { UserContext } from '../..';
 import { ModuleInterface } from '../../../types/modules';
-import './FloatingButtons.css';
+import './ModuleActions.css';
 
-FloatingButtons.propTypes = {
+ModuleActions.propTypes = {
   module: PropTypes.shape({
     id: PropTypes.number,
     label: PropTypes.string,
@@ -22,7 +22,7 @@ type Props = {
   module: ModuleInterface;
 };
 
-function FloatingButtons({ module }: Props) {
+function ModuleActions({ module }: Props) {
   const { deleteModule } = useContext(UserContext) || {};
 
   function handleDeleteClick() {
@@ -30,7 +30,7 @@ function FloatingButtons({ module }: Props) {
   }
 
   return (
-    <div className="floating-buttons">
+    <div className="module-actions">
       <Fab
         color="secondary"
         size="small"
@@ -43,4 +43,4 @@ function FloatingButtons({ module }: Props) {
   );
 }
 
-export default FloatingButtons;
+export default ModuleActions;
