@@ -2,15 +2,15 @@ import PropTypes from 'prop-types';
 import { ModuleType, moduleTypes } from '../../../types/modules';
 import { Button, ButtonGroup } from '@mui/material';
 
-ModuleTypeSelector.propTypes = {
+ModuleTypeMenu.propTypes = {
   handleModuleChoice: PropTypes.func.isRequired,
 };
 
-type ModuleTypeSelectorProps = {
+type ModuleTypeMenuProps = {
   handleModuleChoice: (type: ModuleType) => void;
 };
 
-function ModuleTypeSelector({ handleModuleChoice }: ModuleTypeSelectorProps) {
+function ModuleTypeMenu({ handleModuleChoice }: ModuleTypeMenuProps) {
   return (
     <ButtonGroup
       orientation="vertical"
@@ -26,4 +26,4 @@ function ModuleTypeSelector({ handleModuleChoice }: ModuleTypeSelectorProps) {
   );
 }
 
-export default ModuleTypeSelector;
+export default ModuleTypeMenu;

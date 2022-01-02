@@ -2,7 +2,7 @@ import { useContext, MouseEvent, DragEvent, ReactNode, useState } from 'react';
 import PropTypes from 'prop-types';
 import './View.css';
 import { ModuleInterface, ModuleType } from '../../../types/modules';
-import { ModuleDialog, ModuleTypeSelector, UserContext } from '../..';
+import { ModuleDialog, ModuleTypeMenu, UserContext } from '../..';
 import { View as ViewModel } from '../../../types/view';
 import { AddButton } from '../..';
 import { Box } from '@mui/material';
@@ -15,7 +15,7 @@ type ViewProps = {
 function View({ children, view }: ViewProps) {
   const { backgroundColor } = view;
   const { addModule, leftHanded, activeView } = useContext(UserContext) || {};
-  const [showModuleTypeSelector, setShowModuleTypeSelector] = useState(false);
+  const [showModuleTypeMenu, setShowModuleTypeMenu] = useState(false);
   const [moduleType, setModuleType] = useState<ModuleType>();
   const [open, setOpen] = useState(false);
 
@@ -25,11 +25,11 @@ function View({ children, view }: ViewProps) {
 
   function handleAddButtonClick(event: MouseEvent) {
     event.stopPropagation();
-    setShowModuleTypeSelector(true);
+    setShowModuleTypeMenu(true);
   }
 
   function handleBackdropClick() {
-    setShowModuleTypeSelector(false);
+    setShowModuleTypeMenu(false);
   }
 
   function handleModuleChoice(type: ModuleType) {
@@ -56,8 +56,8 @@ function View({ children, view }: ViewProps) {
         onClick={handleBackdropClick}
       >
         <Box sx={{ m: '1rem', float: leftHanded ? 'none' : 'right' }}>
-          {showModuleTypeSelector ? (
-            <ModuleTypeSelector handleModuleChoice={handleModuleChoice} />
+          {showModuleTypeMenu ? (
+            <ModuleTypeMenu handleModuleChoice={handleModuleChoice} />
           ) : (
             <AddButton onClick={handleAddButtonClick} />
           )}

@@ -12,7 +12,7 @@ import Nav from './molecules/Nav/Nav';
 import Placer from './molecules/Placer/Placer';
 import SaveDialog from './molecules/SaveDialog/SaveDialog';
 import ViewControl from './molecules/ViewControl/ViewControl';
-import ModuleTypeSelector from './molecules/ModuleTypeSelector/ModuleTypeSelector';
+import ModuleTypeMenu from './molecules/ModuleTypeMenu/ModuleTypeMenu';
 import Carrousel from './organisms/Carrousel/Carrousel';
 import MidiContextProvider, {
   MidiContext,
@@ -39,7 +39,7 @@ export {
   Placer,
   SaveDialog,
   ViewControl,
-  ModuleTypeSelector,
+  ModuleTypeMenu,
   Carrousel,
   MidiContextProvider,
   MidiContext,
