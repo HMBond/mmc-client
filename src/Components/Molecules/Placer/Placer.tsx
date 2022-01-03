@@ -1,8 +1,13 @@
 import { useContext, useRef, DragEvent, TouchEvent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { ModuleActions, UserContext } from '../..';
-import { getElements, overrideCursor, toPx } from './Placer_helpers';
-import { ModuleInterface } from '../../../types/modules';
+import {
+  getElements,
+  overrideCursor,
+  toPx,
+  getNewPosition,
+} from './Placer_helpers';
+import { Module, ModuleInterface } from '../../../types/modules';
 import { Position } from '../../../types/types';
 import './Placer.css';
 
@@ -28,7 +33,8 @@ type Props = {
 };
 
 function Placer({ children, module }: Props) {
-  const { updateModule, editMode } = useContext(UserContext) || {};
+  const { editMode, activeView, addModule, updateModule } =
+    useContext(UserContext) || {};
   const placerRef = useRef<HTMLDivElement>(null);
   let startPosition: Position;
   let touchPosition: Position = { x: 0, y: 0 };
@@ -70,18 +76,24 @@ function Placer({ children, module }: Props) {
   }
 
   function handleDragEnd(event: DragEvent) {
-    // TODO: if(event.altKey) insert new copy of this placer at newPosition
-    const { current } = getElements(placerRef);
-    const distance = {
-      x: event.clientX - startPosition.x,
-      y: event.clientY - startPosition.y,
-    };
-    const newPosition = {
-      x: current.offsetLeft + distance.x,
-      y: current.offsetTop + distance.y,
-    };
-    const newModule = { ...module, position: newPosition };
-    updateModule && updateModule(newModule.id, newModule);
+    const newPosition = getNewPosition(event, placerRef, startPosition);
+    const {
+      dataTransfer: { effectAllowed },
+    } = event;
+    // alt-key on dragstart sets effectAllowed to 'copyMove'
+    if (effectAllowed === 'copyMove' && activeView !== undefined) {
+      // create copy with new id
+      let newModule = new Module({
+        label: module.label,
+        position: newPosition,
+        type: module.type,
+      });
+      newModule = { ...module, ...newModule };
+      addModule && addModule(activeView, newModule);
+    } else {
+      const newModule = { ...module, position: newPosition };
+      updateModule && updateModule(module.id, newModule);
+    }
   }
 
   const style = {

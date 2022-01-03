@@ -1,4 +1,5 @@
 import { DragEvent, RefObject } from 'react';
+import { Position } from '../../../types/types';
 
 export function overrideCursor(event: DragEvent) {
   if (!event || !event.dataTransfer) {
@@ -36,4 +37,21 @@ export function getElements(reference: RefObject<HTMLDivElement>): {
     throw Error('referenced element has no parentElement');
   }
   return { current, parent };
+}
+
+export function getNewPosition(
+  event: DragEvent<Element>,
+  placerRef: RefObject<HTMLDivElement>,
+  startPosition: Position
+): Position {
+  const { current } = getElements(placerRef);
+  const distance = {
+    x: event.clientX - startPosition.x,
+    y: event.clientY - startPosition.y,
+  };
+  const newPosition = {
+    x: current.offsetLeft + distance.x,
+    y: current.offsetTop + distance.y,
+  };
+  return newPosition;
 }
