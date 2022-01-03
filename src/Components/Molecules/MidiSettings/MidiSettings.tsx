@@ -6,7 +6,8 @@ import { MidiContext, DeviceSelect, UserContext } from '../..';
 function MidiSettings({ label }: { label?: string }) {
   const { input, setInput, inputs, output, setOutput, outputs } =
     useContext(MidiContext) || {};
-  const { setInputName, setOutputName } = useContext(UserContext) || {};
+  const { setInputName, setOutputName, editMode } =
+    useContext(UserContext) || {};
 
   function handleInputSelect(event: ChangeEvent<HTMLSelectElement>) {
     const selected = WebMidi.getInputById(event.target.value);
@@ -35,12 +36,14 @@ function MidiSettings({ label }: { label?: string }) {
           devices={inputs}
           selected={input}
           onChange={handleInputSelect}
+          disabled={editMode}
         />
         <DeviceSelect
           deviceType="output"
           devices={outputs}
           selected={output}
           onChange={handleOutputSelect}
+          disabled={editMode}
         />
       </>
     );

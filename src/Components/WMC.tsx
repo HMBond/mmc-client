@@ -104,6 +104,7 @@ export default function WMC() {
     return modules.filter((item) => view.moduleIds.includes(item.id));
   }
 
+  if (!activeView) return null;
   return (
     <ThemeProvider theme={theme}>
       <Nav>

@@ -6,15 +6,24 @@ function capitalizeFirstLetter(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
+DeviceSelect.propTypes = {
+  deviceType: PropTypes.string,
+  devices: PropTypes.array,
+  selected: PropTypes.any,
+  onChange: PropTypes.func,
+  disabled: PropTypes.bool,
+};
+
 type DeviceSelectProps = {
   deviceType: 'input' | 'output';
   devices: any[];
   selected: any;
   onChange: ChangeEventHandler<HTMLSelectElement>;
+  disabled?: boolean;
 };
 
 function DeviceSelect(props: DeviceSelectProps) {
-  const { deviceType, devices, selected, onChange } = props;
+  const { deviceType, devices, selected, onChange, disabled } = props;
   if (!devices || devices.length === 0) {
     return <Alert severity="warning">No {deviceType} devices found!</Alert>;
   } else {
@@ -31,6 +40,7 @@ function DeviceSelect(props: DeviceSelectProps) {
             inputProps={{
               onChange,
             }}
+            disabled={disabled}
           >
             {devices.map((device) => (
               <option key={device.id} value={device.id}>
@@ -43,12 +53,5 @@ function DeviceSelect(props: DeviceSelectProps) {
     );
   }
 }
-
-DeviceSelect.propTypes = {
-  deviceType: PropTypes.string,
-  devices: PropTypes.array,
-  selected: PropTypes.any,
-  onChange: PropTypes.func,
-};
 
 export default DeviceSelect;
