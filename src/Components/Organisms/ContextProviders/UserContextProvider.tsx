@@ -15,10 +15,10 @@ import {
 } from './extensions';
 import {
   LOCAL_STORAGE_ITEM_NAME,
-  LOCAL_STORAGE_THROTTLE_WAIT,
+  LOCAL_STORAGE_DEBOUNCE_WAIT,
   USER_CONTEXT,
 } from '../../definitions';
-import { throttle } from 'lodash';
+import { debounce } from 'lodash';
 
 export const UserContext = createContext<UserContextOrNull>(null);
 
@@ -94,9 +94,9 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
 
   const debounceMemo = useMemo(
     () =>
-      throttle((user) => {
+      debounce((user) => {
         localStorage.setItem(LOCAL_STORAGE_ITEM_NAME, JSON.stringify(user));
-      }, LOCAL_STORAGE_THROTTLE_WAIT),
+      }, LOCAL_STORAGE_DEBOUNCE_WAIT),
     []
   );
 
