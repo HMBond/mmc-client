@@ -127,7 +127,7 @@ export default function WMC() {
                     <MidiSlider {...(module as SliderModule)} />
                   )}
                   {module.type === 'Settings' && (
-                    <MidiSettings label={module.label} />
+                    <MidiSettings module={module as SliderModule} />
                   )}
                 </Placer>
               ))}
