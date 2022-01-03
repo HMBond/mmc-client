@@ -87,6 +87,7 @@ function View({ children, view }: ViewProps) {
         onDragOver={allowDrop}
         onClick={handleBackdropClick}
       >
+        {children}
         <Box sx={{ m: '1rem', float: leftHanded ? 'none' : 'right' }}>
           {showModuleTypeMenu ? (
             <ModuleTypeMenu handleModuleChoice={handleModuleChoice} />
@@ -94,7 +95,6 @@ function View({ children, view }: ViewProps) {
             <AddButton onClick={handleAddButtonClick} />
           )}
         </Box>
-        {children}
       </div>
       {freshModule && (
         <ModuleDialog
