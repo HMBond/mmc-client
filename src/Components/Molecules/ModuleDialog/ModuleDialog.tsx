@@ -1,21 +1,11 @@
-import PropTypes from 'prop-types';
-import { ModuleType } from '../../../types/modules';
-import ModuleDialogBase, { BaseProps } from './ModuleDialogBase';
+import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';
 import ButtonModuleDialog from './ButtonModuleDialog';
 import SliderModuleDialog from './SliderModuleDialog';
 
-ModuleDialog.propTypes = {
-  onSubmit: PropTypes.func,
-  open: PropTypes.bool,
-  onClose: PropTypes.func,
-};
+ModuleDialog.propTypes = basePropTypes;
 
-type Props = {
-  type: ModuleType;
-};
-
-function ModuleDialog(props: BaseProps & Props) {
-  const { type } = props;
+function ModuleDialog(props: BaseProps) {
+  const { type } = props.module;
   switch (type) {
     case 'Button':
       return <ButtonModuleDialog {...props} />;
@@ -24,9 +14,7 @@ function ModuleDialog(props: BaseProps & Props) {
       return <SliderModuleDialog {...props} />;
       break;
     case 'Settings':
-      return (
-        <ModuleDialogBase {...props} title="New Settings"></ModuleDialogBase>
-      );
+      return <ModuleDialogBase {...props}></ModuleDialogBase>;
       break;
 
     default:

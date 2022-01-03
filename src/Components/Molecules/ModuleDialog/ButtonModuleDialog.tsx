@@ -1,13 +1,4 @@
 import { ChangeEvent, useContext, useState } from 'react';
-import PropTypes from 'prop-types';
-import ModuleDialogBase, { BaseProps } from './ModuleDialogBase';
-import { ButtonModule, Module } from '../../../types/modules';
-import {
-  DEFAULT_VELOCITY,
-  MIDI_CHANNELS,
-  MIDI_MAX,
-  MIDI_MIN,
-} from '../../definitions';
 import {
   FormControl,
   InputLabel,
@@ -16,16 +7,26 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { ModuleInterface } from '../../../types/modules';
 import { UserContextOrNull } from '../../../types/types';
 import { UserContext } from '../..';
+import {
+  DEFAULT_VELOCITY,
+  MIDI_CHANNELS,
+  MIDI_MAX,
+  MIDI_MIN,
+} from '../../definitions';
+import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';
 
-ButtonModuleDialog.propTypes = {
-  onSubmit: PropTypes.func,
-  open: PropTypes.bool,
-  onClose: PropTypes.func,
-};
+ButtonModuleDialog.propTypes = basePropTypes;
 
 function ButtonModuleDialog(props: BaseProps) {
+  const { module, onSubmit } = props;
+  const [channel, setChannel] = useState<number>(module.channel || 1);
+  const [note, setNote] = useState<string>(module.note || 'C3');
+  const [velocity, setVelocity] = useState<number>(
+    module.velocity || DEFAULT_VELOCITY
+  );
   const { modules } = useContext<UserContextOrNull>(UserContext) || {};
 
   const getUsedChannels = (): number[] => {
@@ -33,14 +34,10 @@ function ButtonModuleDialog(props: BaseProps) {
     return modules.map((module) => module.channel && module.channel);
   };
 
-  const [channel, setChannel] = useState<number>(1);
-  const [note, setNote] = useState<string>('C3');
-  const [velocity, setVelocity] = useState<number>(DEFAULT_VELOCITY);
-
   function handleChannelChange(event: ChangeEvent<HTMLSelectElement>) {
     const value = parseInt(event.target.value);
     if (!value) {
-      throw Error('Channel is not a number or 0');
+      throw Error('Channel is 0 or not a number');
       return;
     }
     setChannel(value);
@@ -56,19 +53,17 @@ function ButtonModuleDialog(props: BaseProps) {
     if (typeof value === 'number') setVelocity(value);
   }
 
-  function handleSubmit(moduleArgs: Module) {
-    props.onSubmit(
-      new ButtonModule({
-        ...moduleArgs,
-        channel,
-        note,
-        velocity,
-      })
-    );
+  function handleSubmit(moduleArgs: ModuleInterface) {
+    onSubmit({
+      ...moduleArgs,
+      channel,
+      note,
+      velocity,
+    });
   }
 
   return (
-    <ModuleDialogBase {...props} onSubmit={handleSubmit} title="New Button">
+    <ModuleDialogBase {...props} onSubmit={handleSubmit}>
       <FormControl component="fieldset" fullWidth>
         <InputLabel variant="standard" htmlFor="module-channel-select">
           Channel

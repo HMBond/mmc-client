@@ -1,11 +1,15 @@
 .module-actions {
   position: absolute;
   right: 0;
-  top: 0;
-  transform: translate(50%, -50%);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.1s ease-out;
+  bottom: 0;
+  transform: translate(50%, 25%);
   display: grid;
   gap: 0.5rem;
+}
+
+.module-actions__button {
+  transition: transform 0.08s ease-in-out calc(var(--order) * 0.08s),
+    opacity 0.1s linear !important; /* override MUI */
+  opacity: 0;
+  transform: translate(-50%, calc((var(--order) - 1) * -50%)) scale(0%);
 }

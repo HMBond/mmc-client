@@ -2,47 +2,61 @@ import { useState, ChangeEvent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
 import { Dialog } from '../..';
-import { Module } from '../../../types/modules';
+import { ModuleInterface } from '../../../types/modules';
 import { FormControl } from '@mui/material';
 
+export const basePropTypes = {
+  onSubmit: PropTypes.func,
+  open: PropTypes.bool,
+  onClose: PropTypes.func,
+  module: PropTypes.shape({
+    id: PropTypes.number,
+    label: PropTypes.string,
+    type: PropTypes.string,
+    position: PropTypes.shape({
+      x: PropTypes.number,
+      y: PropTypes.number,
+    }),
+  }).isRequired,
+};
+
+ModuleDialogBase.propTypes = basePropTypes;
+
 export type BaseProps = {
-  onSubmit: (value: Module) => void;
+  onSubmit: (value: ModuleInterface) => void;
   open: boolean;
   onClose: (
     event: object,
     reason: 'backdropClick' | 'escapeKeyDown' | 'closeClick'
   ) => void;
+  module: ModuleInterface;
+  add?: boolean;
 };
 
 type Props = {
   children?: ReactNode;
-  title: string;
 };
 
 function ModuleDialogBase({
   children,
-  title,
   onSubmit,
   open,
   onClose,
+  module,
+  add,
 }: Props & BaseProps) {
-  const [label, setLabel] = useState('');
+  const [label, setLabel] = useState(module.label);
 
   function handleLabelChange(event: ChangeEvent<HTMLInputElement>) {
     setLabel(event.target.value);
   }
 
   function handleSubmit() {
-    onSubmit(
-      new Module({
-        label,
-        position: {
-          x: 0.75 * window.innerWidth,
-          y: 0.15 * window.innerHeight,
-        },
-      })
-    );
+    onSubmit({ ...module, label });
   }
+
+  const title = `${add ? 'New' : 'Edit'} ${module.type}`;
+  const submitLabel = add ? 'Add' : 'Save';
 
   return (
     <Dialog
@@ -50,7 +64,7 @@ function ModuleDialogBase({
       onClose={onClose}
       onSubmit={handleSubmit}
       title={title}
-      submitLabel="Add"
+      submitLabel={submitLabel}
     >
       <FormControl component="fieldset" fullWidth>
         <TextField
@@ -67,12 +81,5 @@ function ModuleDialogBase({
     </Dialog>
   );
 }
-
-ModuleDialogBase.propTypes = {
-  title: PropTypes.string,
-  onSubmit: PropTypes.func,
-  open: PropTypes.bool,
-  onClose: PropTypes.func,
-};
 
 export default ModuleDialogBase;

@@ -1,11 +1,28 @@
 import { useContext, MouseEvent, DragEvent, ReactNode, useState } from 'react';
 import PropTypes from 'prop-types';
 import './View.css';
-import { ModuleInterface, ModuleType } from '../../../types/modules';
+import {
+  ButtonModule,
+  Module,
+  ModuleInterface,
+  ModuleType,
+  SliderModule,
+} from '../../../types/modules';
 import { ModuleDialog, ModuleTypeMenu, UserContext } from '../..';
 import { View as ViewModel } from '../../../types/view';
 import { AddButton } from '../..';
 import { Box } from '@mui/material';
+
+View.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node,
+  ]),
+  view: PropTypes.shape({
+    id: PropTypes.number,
+    backgroundColor: PropTypes.string,
+  }).isRequired,
+};
 
 type ViewProps = {
   children: ReactNode;
@@ -16,7 +33,9 @@ function View({ children, view }: ViewProps) {
   const { backgroundColor } = view;
   const { addModule, leftHanded, activeView } = useContext(UserContext) || {};
   const [showModuleTypeMenu, setShowModuleTypeMenu] = useState(false);
-  const [moduleType, setModuleType] = useState<ModuleType>();
+  const [freshModule, setFreshModule] = useState<ModuleInterface>(
+    new Module({})
+  );
   const [open, setOpen] = useState(false);
 
   function allowDrop(event: DragEvent) {
@@ -33,7 +52,20 @@ function View({ children, view }: ViewProps) {
   }
 
   function handleModuleChoice(type: ModuleType) {
-    setModuleType(type);
+    switch (type) {
+      case 'Button':
+        setFreshModule(new ButtonModule());
+        break;
+      case 'Slider':
+        setFreshModule(new SliderModule());
+        break;
+      case 'Settings':
+        setFreshModule(new Module());
+        break;
+      default:
+        break;
+    }
+
     setOpen(true);
   }
 
@@ -64,24 +96,17 @@ function View({ children, view }: ViewProps) {
         </Box>
         {children}
       </div>
-      {moduleType && (
+      {freshModule && (
         <ModuleDialog
           open={open}
-          type={moduleType}
           onClose={handleCloseDialog}
           onSubmit={handleAddModuleSubmit}
+          module={freshModule}
+          add
         />
       )}
     </>
   );
 }
-
-View.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
-  backgroundColor: PropTypes.string,
-};
 
 export default View;

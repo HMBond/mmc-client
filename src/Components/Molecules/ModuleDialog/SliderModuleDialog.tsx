@@ -1,11 +1,6 @@
 import { ChangeEvent, useContext, useState } from 'react';
-import PropTypes from 'prop-types';
-import ModuleDialogBase, { BaseProps } from './ModuleDialogBase';
-import {
-  Module,
-  SliderModule,
-  SliderOrientation,
-} from '../../../types/modules';
+import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';
+import { ModuleInterface, SliderOrientation } from '../../../types/modules';
 import { MIDI_CHANNELS } from '../../definitions';
 import {
   FormControl,
@@ -17,16 +12,15 @@ import {
 import { UserContextOrNull } from '../../../types/types';
 import { UserContext } from '../..';
 
-SliderModuleDialog.propTypes = {
-  onSubmit: PropTypes.func,
-  open: PropTypes.bool,
-  onClose: PropTypes.func,
-};
+SliderModuleDialog.propTypes = basePropTypes;
 
 function SliderModuleDialog(props: BaseProps) {
+  const { module, onSubmit } = props;
+  const [channel, setChannel] = useState<number>(module.channel);
+  const [orientation, setOrientation] = useState<SliderOrientation>(
+    module.orientation
+  );
   const { modules } = useContext<UserContextOrNull>(UserContext) || {};
-  const [channel, setChannel] = useState<number>(1);
-  const [orientation, setOrientation] = useState<SliderOrientation>('vertical');
 
   const getUsedChannels = (): number[] => {
     if (!modules) return [];
@@ -48,18 +42,16 @@ function SliderModuleDialog(props: BaseProps) {
     setChannel(value);
   }
 
-  function handleSubmit(moduleArgs: Module) {
-    props.onSubmit(
-      new SliderModule({
-        ...moduleArgs,
-        channel,
-        orientation,
-      })
-    );
+  function handleSubmit(moduleArgs: ModuleInterface) {
+    onSubmit({
+      ...moduleArgs,
+      channel,
+      orientation,
+    });
   }
 
   return (
-    <ModuleDialogBase {...props} onSubmit={handleSubmit} title="New Slider">
+    <ModuleDialogBase {...props} onSubmit={handleSubmit}>
       <FormControl component="fieldset" fullWidth>
         <InputLabel variant="standard" htmlFor="module-channel-select">
           Channel

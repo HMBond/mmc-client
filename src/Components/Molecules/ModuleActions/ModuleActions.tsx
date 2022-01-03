@@ -1,9 +1,10 @@
-import { useContext } from 'react';
+import { useContext, CSSProperties, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Fab } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { UserContext } from '../..';
-import { ModuleInterface } from '../../../types/modules';
+import EditIcon from '@mui/icons-material/Edit';
+import { ModuleDialog, UserContext } from '../..';
+import { Module, ModuleInterface } from '../../../types/modules';
 import './ModuleActions.css';
 
 ModuleActions.propTypes = {
@@ -23,7 +24,21 @@ type Props = {
 };
 
 function ModuleActions({ module }: Props) {
-  const { deleteModule } = useContext(UserContext) || {};
+  const { deleteModule, updateModule } = useContext(UserContext) || {};
+  const [showEditDialog, setShowEditDialog] = useState(false);
+
+  function handleEditClick() {
+    setShowEditDialog(true);
+  }
+
+  function handleEditDialogClose() {
+    setShowEditDialog(false);
+  }
+
+  function handleEditDialogSubmit(updated: Module) {
+    updateModule && updateModule(module.id, updated);
+    setShowEditDialog(false);
+  }
 
   function handleDeleteClick() {
     deleteModule && deleteModule(module.id);
@@ -32,6 +47,18 @@ function ModuleActions({ module }: Props) {
   return (
     <div className="module-actions">
       <Fab
+        style={{ '--order': 0 } as CSSProperties}
+        className="module-actions__button"
+        color="primary"
+        size="small"
+        aria-label="delete"
+        onClick={handleEditClick}
+      >
+        <EditIcon />
+      </Fab>
+      <Fab
+        style={{ '--order': 1 } as CSSProperties}
+        className="module-actions__button"
         color="secondary"
         size="small"
         aria-label="delete"
@@ -39,6 +66,12 @@ function ModuleActions({ module }: Props) {
       >
         <DeleteIcon />
       </Fab>
+      <ModuleDialog
+        open={showEditDialog}
+        onClose={handleEditDialogClose}
+        onSubmit={handleEditDialogSubmit}
+        module={module}
+      />
     </div>
   );
 }
