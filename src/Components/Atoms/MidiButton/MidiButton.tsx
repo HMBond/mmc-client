@@ -26,6 +26,14 @@ function MidiButton({ children, channel, note, velocity }: MidiButtonProps) {
 
   return (
     <Button
+      sx={{
+        minHeight: '3.5rem',
+        minWidth: '3.5rem',
+        '&.Mui-disabled': {
+          color: '#eee',
+          backgroundColor: 'rgba(200,200,200,0.5)',
+        },
+      }}
       disableElevation
       variant="contained"
       color="primary"
