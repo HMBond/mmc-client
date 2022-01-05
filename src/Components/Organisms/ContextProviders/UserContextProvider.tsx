@@ -115,7 +115,14 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
     },
     addView: (view) => setViews(addView({ view, views })),
     updateView: (id, view) => setViews(updateView({ id, view, views })),
-    moveView: (id, toPlace) => setViews(moveView({ id, toPlace, views })),
+    moveView: (id, toPlace) => {
+      const view = views.find((item) => item.id === id);
+      if (!view) throw Error("no view found with id: " + id);
+      const updated = moveView({ view, toPlace, views });
+      setViews(updated);
+      const movedView = updated.find((view) => view.id === id);
+      movedView && setActiveView(movedView);
+    },
     deleteView: (id) => setViews(deleteView({ id, views })),
   };
 

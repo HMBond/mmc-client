@@ -38,7 +38,7 @@ export type UpdateViewArgs = AddViewArgs & {
 };
 
 export type MoveViewArgs = {
-  id: number;
+  view: View;
   toPlace: number;
   views: View[];
 };

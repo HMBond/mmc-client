@@ -25,7 +25,7 @@ type Props = {
 };
 
 function ViewActions({ view }: Props) {
-  const { deleteView, updateView, moveView } = useContext(UserContext) || {};
+  const { deleteView, updateView, moveView, views } = useContext(UserContext) || {};
   const [showEditDialog, setShowEditDialog] = useState(false);
 
   function handleEditClick() {
@@ -65,26 +65,30 @@ function ViewActions({ view }: Props) {
       >
         <EditIcon />
       </Fab>
-      <Fab
-        style={{ '--order': 1 } as CSSProperties}
-        className="view-actions__button view-actions__button--left"
-        color="secondary"
-        size="small"
-        aria-label="move view left"
-        onClick={handleLeftClick}
-      >
-        <ArrowLeft />
-      </Fab>
-      <Fab
-        style={{ '--order': 1 } as CSSProperties}
-        className="view-actions__button view-actions__button--right"
-        color="secondary"
-        size="small"
-        aria-label="move view right"
-        onClick={handleRightClick}
-      >
-        <ArrowRight />
-      </Fab>
+      {view.place > 1 && (
+        <Fab
+          style={{ '--order': 1 } as CSSProperties}
+          className="view-actions__button view-actions__button--left"
+          color="secondary"
+          size="small"
+          aria-label="move view left"
+          onClick={handleLeftClick}
+        >
+          <ArrowLeft />
+        </Fab>
+      )}
+      {view.place !== views?.length && (
+        <Fab
+          style={{ '--order': 1 } as CSSProperties}
+          className="view-actions__button view-actions__button--right"
+          color="secondary"
+          size="small"
+          aria-label="move view right"
+          onClick={handleRightClick}
+        >
+          <ArrowRight />
+        </Fab>
+      )}
       <ViewDialog
         open={showEditDialog}
         onClose={handleEditDialogClose}

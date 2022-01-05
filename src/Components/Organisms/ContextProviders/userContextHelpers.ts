@@ -1,4 +1,4 @@
-import { validate } from "./validate";
+import { validate } from './validate';
 import {
   AddModuleArgs,
   AddViewArgs,
@@ -8,9 +8,9 @@ import {
   SaveUserContextAs,
   UpdateModuleArgs,
   UpdateViewArgs,
-} from "../../../models/types";
-import { sortViewsByPlace } from "../../helpers";
-import { View } from "../../../models/view";
+} from '../../../models/types';
+import { sortViewsByPlace } from '../../helpers';
+import { View } from '../../../models/view';
 
 export function addModule(args: AddModuleArgs) {
   const { module, setModules, modules } = args;
@@ -36,15 +36,13 @@ export function addView({ view, views }: AddViewArgs): View[] {
 }
 
 export function updateView({ id, view, views }: UpdateViewArgs): View[] {
-  if (!views.find((item) => item.id === id)) throw Error("no view found with id: " + id);
+  if (!views.find((item) => item.id === id)) throw Error('no view found with id: ' + id);
   validate(view);
   const otherViews = views.filter((item) => item.id !== id);
   return sortViewsByPlace([...otherViews, view]);
 }
 
-export function moveView({ id, toPlace, views }: MoveViewArgs): View[] {
-  const view = views.find((item) => item.id === id);
-  if (!view) throw Error("no view found with id: " + id);
+export function moveView({ view, toPlace, views }: MoveViewArgs): View[] {
   if (toPlace > views.length || toPlace <= 0) return views;
   if (view.place === toPlace) return views;
 
@@ -66,7 +64,7 @@ export function moveView({ id, toPlace, views }: MoveViewArgs): View[] {
 
   function moveView(view: View): View[] {
     const moved = { ...view, place: toPlace };
-    return updateView({ id, view: moved, views: updatedViews });
+    return updateView({ id: view.id, view: moved, views: updatedViews });
   }
 }
 
@@ -76,13 +74,13 @@ export function deleteView({ id, views }: DeleteViewArgs): View[] {
 }
 
 export async function saveUserContextAs({ fileName, user }: SaveUserContextAs) {
-  const a = document.createElement("a");
-  const file = new Blob([JSON.stringify(user)], { type: "application/json" });
+  const a = document.createElement('a');
+  const file = new Blob([JSON.stringify(user)], { type: 'application/json' });
   a.href = URL.createObjectURL(file);
   a.download = fileName;
   a.click();
 }
 
 export function clearLocalStorage(itemKey: string) {
-  localStorage.setItem(itemKey, "null");
+  localStorage.setItem(itemKey, 'null');
 }

@@ -19,8 +19,7 @@ import { View as ViewModel } from '../models/view';
 import { ButtonModule, SliderModule } from '../models/modules';
 
 export default function WMC() {
-  const { setInput, setInputs, setOutput, setOutputs } =
-    useContext(MidiContext) || {};
+  const { setInput, setInputs, setOutput, setOutputs } = useContext(MidiContext) || {};
   const {
     activeView,
     views,
@@ -68,9 +67,7 @@ export default function WMC() {
   function setOutputStates() {
     setOutputs && setOutputs(WebMidi.outputs);
     const preferredOutput = inputName && WebMidi.getOutputByName(inputName);
-    const firstOrDefault = preferredOutput
-      ? preferredOutput
-      : WebMidi.outputs[0];
+    const firstOrDefault = preferredOutput ? preferredOutput : WebMidi.outputs[0];
     setOutput && setOutput(firstOrDefault);
     setOutputName && setOutputName(firstOrDefault.name);
   }
@@ -119,16 +116,10 @@ export default function WMC() {
               {getModulesForView(view).map((module) => (
                 <Placer key={module.id} module={module}>
                   {module.type === 'Button' && (
-                    <MidiButton {...(module as ButtonModule)}>
-                      {module.label}
-                    </MidiButton>
+                    <MidiButton {...(module as ButtonModule)}>{module.label}</MidiButton>
                   )}
-                  {module.type === 'Slider' && (
-                    <MidiSlider {...(module as SliderModule)} />
-                  )}
-                  {module.type === 'Settings' && (
-                    <MidiSettings module={module as SliderModule} />
-                  )}
+                  {module.type === 'Slider' && <MidiSlider {...(module as SliderModule)} />}
+                  {module.type === 'Settings' && <MidiSettings module={module as SliderModule} />}
                 </Placer>
               ))}
             </View>
