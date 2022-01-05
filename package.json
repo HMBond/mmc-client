@@ -10,7 +10,7 @@
     "dev-web": "vite",
     "dev-electron": "electron .",
     "preview": "vite preview --host",
-    "build": "tsc && vite build && electron-builder --config electron-builder.yml",
+    "build": "tsc && vite build && electron-builder --config electron-builder.yml -mwl",
     "build-web": "tsc && vite build",
     "build-electron": "electron-builder --config electron-builder.yml --dir",
     "lint": "eslint",
@@ -31,6 +31,7 @@
     "webmidi": "^3.0.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.16.7",
     "@babel/preset-env": "^7.16.7",
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",

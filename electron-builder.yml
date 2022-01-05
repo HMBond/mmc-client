@@ -1,5 +1,5 @@
 ---
-appId: 181246309@bondux.dev
+appId: 1234@bondux.dev
 asar: false
 directories:
   output: release/${version}
