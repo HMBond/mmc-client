@@ -11,7 +11,7 @@ export const LOCAL_STORAGE_DEBOUNCE_WAIT = 2000;
 
 export const LOCAL_STORAGE_ITEM_NAME = 'midi-controller-user-setup';
 
-const PAGE: View = {
+const INITIAL_VIEW: View = {
   id: 0,
   label: 'Main',
   backgroundColor: 'indigo',
@@ -24,11 +24,11 @@ export const USER_CONTEXT: UserInterface = {
   showEditButton: true,
   invertTheme: false,
   leftHanded: false,
-  activeView: PAGE,
+  activeView: INITIAL_VIEW,
   inputName: '',
   outputName: '',
   fileName: 'my-modular-midi-controller-setup.json',
-  views: [PAGE],
+  views: [INITIAL_VIEW],
   modules: [
     {
       id: 0,

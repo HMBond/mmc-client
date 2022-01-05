@@ -47,7 +47,7 @@ export function moveView({ view, toPlace, views }: MoveViewArgs): View[] {
   if (view.place === toPlace) return views;
 
   let updatedViews = moveAffectedViews(view.place);
-  updatedViews = moveView(view);
+  updatedViews = move(view);
   return sortViewsByPlace([...updatedViews]);
 
   function moveAffectedViews(fromPlace: number) {
@@ -62,7 +62,7 @@ export function moveView({ view, toPlace, views }: MoveViewArgs): View[] {
     return [...others, ...updated];
   }
 
-  function moveView(view: View): View[] {
+  function move(view: View): View[] {
     const moved = { ...view, place: toPlace };
     return updateView({ id: view.id, view: moved, views: updatedViews });
   }
