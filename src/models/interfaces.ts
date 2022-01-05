@@ -36,6 +36,9 @@ export interface UserContextExtensions {
   saveUserContextAs: (fileName: string) => void;
   clearLocalStorage: () => void;
   addView: (view: View) => void;
+  updateView: (id: number, view: View) => void;
+  moveView: (id: number, increment: number) => void;
+  deleteView: (id: number) => void;
 }
 
 export interface MidiContextInterface {

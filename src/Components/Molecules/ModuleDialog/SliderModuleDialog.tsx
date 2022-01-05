@@ -1,6 +1,6 @@
 import { ChangeEvent, useContext, useState } from 'react';
 import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';
-import { ModuleInterface, SliderOrientation } from '../../../types/modules';
+import { ModuleInterface, SliderOrientation } from '../../../models/modules';
 import { MIDI_CHANNELS } from '../../definitions';
 import {
   FormControl,
@@ -9,7 +9,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from '@mui/material';
-import { UserContextOrNull } from '../../../types/types';
+import { UserContextOrNull } from '../../../models/types';
 import { UserContext } from '../..';
 
 SliderModuleDialog.propTypes = basePropTypes;

@@ -31,11 +31,21 @@ export type DeleteModuleArgs = {
 export type AddViewArgs = {
   view: View;
   views: View[];
-  setViews: (value: any) => void;
 };
 
 export type UpdateViewArgs = AddViewArgs & {
   id: number;
+};
+
+export type MoveViewArgs = {
+  id: number;
+  toPlace: number;
+  views: View[];
+};
+
+export type DeleteViewArgs = {
+  id: number;
+  views: View[];
 };
 
 export type SaveUserContextAs = {

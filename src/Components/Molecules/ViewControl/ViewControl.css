@@ -2,3 +2,13 @@
   display: flex;
   gap: 1rem;
 }
+
+.viewControl__button-wrapper {
+  display: inline-flex;
+  position: relative;
+}
+
+.viewControl__button-wrapper:hover > .view-actions > .view-actions__button {
+  opacity: 1;
+  transform: translate(0%, 0%);
+}

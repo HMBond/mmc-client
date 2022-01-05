@@ -1,5 +1,6 @@
 :root {
   --z-index-nav: 1;
+  --animation-speed: 0.08s;
 }
 
 * {

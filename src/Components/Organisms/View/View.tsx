@@ -7,9 +7,9 @@ import {
   ModuleInterface,
   ModuleType,
   SliderModule,
-} from '../../../types/modules';
+} from '../../../models/modules';
 import { ModuleDialog, ModuleTypeMenu, UserContext } from '../..';
-import { View as ViewModel } from '../../../types/view';
+import { View as ViewModel } from '../../../models/view';
 import { AddButton } from '../..';
 import { Box } from '@mui/material';
 

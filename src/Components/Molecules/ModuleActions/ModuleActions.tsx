@@ -4,7 +4,7 @@ import { Fab } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { ModuleDialog, UserContext } from '../..';
-import { Module, ModuleInterface } from '../../../types/modules';
+import { Module, ModuleInterface } from '../../../models/modules';
 import './ModuleActions.css';
 
 ModuleActions.propTypes = {

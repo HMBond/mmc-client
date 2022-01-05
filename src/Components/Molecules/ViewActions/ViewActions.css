@@ -1,0 +1,37 @@
+.view-actions {
+  position: absolute !important;
+  top: -1rem;
+  right: -1rem;
+  bottom: -2rem;
+  left: -1rem;
+  pointer-events: none;
+}
+
+.view-actions__button {
+  transition: transform var(--animation-speed) ease-in-out
+      calc(var(--order) * var(--animation-speed)),
+    opacity 0.1s linear !important; /* override MUI */
+  opacity: 0;
+  pointer-events: visible;
+}
+
+.view-actions__button--edit {
+  transform: translate(-50%, 50%) scale(0%);
+  position: absolute !important;
+  right: 0;
+  top: 0;
+}
+
+.view-actions__button--left {
+  position: absolute !important;
+  left: 0;
+  bottom: 0;
+  transform: translate(50%, -100%) scale(0%);
+}
+
+.view-actions__button--right {
+  position: absolute !important;
+  right: 0;
+  bottom: 0;
+  transform: translate(-50%, -100%) scale(0%);
+}

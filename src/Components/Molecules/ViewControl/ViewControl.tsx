@@ -1,8 +1,8 @@
 import { useContext, useState } from 'react';
 import { Button } from '@mui/material';
-import { AddButton, ViewDialog, UserContext } from '../..';
+import { AddButton, ViewDialog, UserContext, ViewActions } from '../..';
+import { View } from '../../../models/view';
 import './ViewControl.css';
-import { View } from '../../../types/view';
 
 function ViewControl() {
   const { addView, views, activeView, setActiveView, editMode } =
@@ -18,17 +18,8 @@ function ViewControl() {
     setViewDialogOpen(true);
   }
 
-  function handleAddClick(label: string) {
-    if (!views) {
-      throw Error('Can not add view, while there are no views existing');
-      return;
-    }
-    const newView = new View({
-      label,
-      backgroundColor: '#002745',
-      currentViewCount: views.length,
-    });
-    addView && addView(newView);
+  function handleSubmit(view: View) {
+    addView && addView(view);
     setViewDialogOpen(false);
   }
 
@@ -41,22 +32,26 @@ function ViewControl() {
       {views &&
         views.map((view) => {
           return (
-            <Button
-              disableElevation
-              color={activeView?.id === view.id ? 'warning' : 'secondary'}
-              variant="contained"
-              onClick={() => handleViewButtonClick(view)}
-              key={view.id}
-            >
-              {view.label}
-            </Button>
+            <div className="viewControl__button-wrapper" key={view.id}>
+              <Button
+                disableElevation
+                color={activeView?.id === view.id ? 'warning' : 'secondary'}
+                variant="contained"
+                onClick={() => handleViewButtonClick(view)}
+              >
+                {view.label}
+              </Button>
+              <ViewActions view={view} />
+            </div>
           );
         })}
       {editMode && <AddButton onClick={handleAddModuleClick} />}
       <ViewDialog
-        onSubmit={handleAddClick}
         open={viewDialogOpen}
         onClose={handleClose}
+        onSubmit={handleSubmit}
+        add
+        view={new View({}, views?.length || 0)}
       />
     </div>
   );

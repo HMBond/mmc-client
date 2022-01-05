@@ -6,16 +6,17 @@
   "license": "ISC",
   "main": "public/electron.js",
   "scripts": {
-    "dev": "run-p lint-watch typescript-watch dev-electron dev-web",
-    "dev-electron": "electron .",
+    "dev": "run-p lint-watch typescript-watch dev-web",
     "dev-web": "vite",
+    "dev-electron": "electron .",
     "preview": "vite preview --host",
     "build": "tsc && vite build && electron-builder --config electron-builder.yml",
     "build-web": "tsc && vite build",
     "build-electron": "electron-builder --config electron-builder.yml --dir",
     "lint": "eslint",
     "lint-watch": "esw -w --ext .tsx",
-    "typescript-watch": "tsc -w"
+    "typescript-watch": "tsc -w",
+    "test": "jest --watch"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
@@ -30,10 +31,10 @@
     "webmidi": "^3.0.5"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.0.3",
+    "@babel/preset-env": "^7.16.7",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/jest": "^27.4.0",
     "@types/lodash": "^4.14.178",
     "@types/node": "^17.0.2",
     "@types/prop-types": "^15.7.4",
@@ -42,12 +43,15 @@
     "@typescript-eslint/eslint-plugin": "^5.8.0",
     "@typescript-eslint/parser": "^5.8.0",
     "@vitejs/plugin-react": "^1.0.7",
+    "babel-jest": "^27.4.5",
     "electron": "^16.0.5",
     "electron-builder": "^22.14.5",
     "eslint": "^8.5.0",
     "eslint-plugin-react": "^7.28.0",
     "eslint-watch": "^8.0.0",
+    "jest": "^27.4.5",
     "npm-run-all": "^4.1.5",
+    "react-test-renderer": "^17.0.2",
     "typescript": "^4.4.4",
     "vite": "^2.7.2"
   }

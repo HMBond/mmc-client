@@ -1,8 +1,8 @@
-import { createContext, ReactNode } from 'react';
-import { useState, useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { UserContextInterface } from '../../../types/interfaces';
-import { UserContextOrNull } from '../../../types/types';
+import { createContext, ReactNode } from "react";
+import { useState, useEffect, useMemo } from "react";
+import PropTypes from "prop-types";
+import { UserContextInterface } from "../../../models/interfaces";
+import { UserContextOrNull } from "../../../models/types";
 
 import {
   updateModule,
@@ -12,13 +12,15 @@ import {
   addModule,
   addView,
   updateView,
-} from './extensions';
+  deleteView,
+  moveView,
+} from "./userContextHelpers";
 import {
   LOCAL_STORAGE_ITEM_NAME,
   LOCAL_STORAGE_DEBOUNCE_WAIT,
   USER_CONTEXT,
-} from '../../definitions';
-import { debounce } from 'lodash';
+} from "../../definitions";
+import { debounce } from "lodash";
 
 export const UserContext = createContext<UserContextOrNull>(null);
 
@@ -26,9 +28,7 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
   const [isInitialized, setIsInitialized] = useState(false);
 
   const [editMode, setEditMode] = useState(USER_CONTEXT.editMode);
-  const [showEditButton, setShowEditButton] = useState(
-    USER_CONTEXT.showEditButton
-  );
+  const [showEditButton, setShowEditButton] = useState(USER_CONTEXT.showEditButton);
   const [invertTheme, setInvertTheme] = useState(USER_CONTEXT.invertTheme);
   const [leftHanded, setLeftHanded] = useState(USER_CONTEXT.leftHanded);
   const [activeView, setActiveView] = useState(USER_CONTEXT.activeView);
@@ -65,10 +65,7 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
     setFileName,
   };
 
-  function setState(
-    user: { [key: string]: any },
-    setters: { [key: string]: any }
-  ) {
+  function setState(user: { [key: string]: any }, setters: { [key: string]: any }) {
     for (const key in setters) {
       const name = key.slice(3);
       const camelCaseName = name.slice(0, 1).toLowerCase() + name.slice(1);
@@ -78,9 +75,7 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
   }
 
   useEffect(() => {
-    const storageItem = JSON.parse(
-      localStorage.getItem(LOCAL_STORAGE_ITEM_NAME) || 'false'
-    );
+    const storageItem = JSON.parse(localStorage.getItem(LOCAL_STORAGE_ITEM_NAME) || "false");
     if (storageItem) {
       setState(storageItem, setters);
     }
@@ -100,10 +95,7 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
     []
   );
 
-  useMemo(
-    () => isInitialized && debounceMemo(user),
-    [user, isInitialized, debounceMemo]
-  );
+  useMemo(() => isInitialized && debounceMemo(user), [user, isInitialized, debounceMemo]);
 
   const userContextProviderValue: UserContextInterface = {
     ...user,
@@ -112,31 +104,26 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
       addModule({ module, setModules, modules });
       const updatedView = view;
       updatedView.moduleIds.push(module.id);
-      updateView({ id: view.id, view: updatedView, views, setViews });
+      setViews(updateView({ id: view.id, view: updatedView, views }));
     },
-    updateModule: (id, module) =>
-      updateModule({ id, module, setModules, modules }),
-    deleteModule: (id) => deleteModule({ id, setModules, modules }),
+    updateModule: (id, module) => updateModule({ id, module, modules, setModules }),
+    deleteModule: (id) => deleteModule({ id, modules, setModules }),
     saveUserContextAs: (fileName) => saveUserContextAs({ fileName, user }),
     clearLocalStorage: () => {
       clearLocalStorage(LOCAL_STORAGE_ITEM_NAME);
       setState(USER_CONTEXT, setters);
     },
-    addView: (view) => addView({ view, views, setViews }),
+    addView: (view) => setViews(addView({ view, views })),
+    updateView: (id, view) => setViews(updateView({ id, view, views })),
+    moveView: (id, toPlace) => setViews(moveView({ id, toPlace, views })),
+    deleteView: (id) => setViews(deleteView({ id, views })),
   };
 
-  return (
-    <UserContext.Provider value={userContextProviderValue}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={userContextProviderValue}>{children}</UserContext.Provider>;
 };
 
 UserContextProvider.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
 };
 
 export default UserContextProvider;

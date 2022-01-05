@@ -11,6 +11,7 @@ import MidiSettings from './molecules/MidiSettings/MidiSettings';
 import Nav from './molecules/Nav/Nav';
 import Placer from './molecules/Placer/Placer';
 import SaveDialog from './molecules/SaveDialog/SaveDialog';
+import ViewActions from './molecules/ViewActions/ViewActions';
 import ViewControl from './molecules/ViewControl/ViewControl';
 import ModuleTypeMenu from './molecules/ModuleTypeMenu/ModuleTypeMenu';
 import Carrousel from './organisms/Carrousel/Carrousel';
@@ -38,6 +39,7 @@ export {
   Nav,
   Placer,
   SaveDialog,
+  ViewActions,
   ViewControl,
   ModuleTypeMenu,
   Carrousel,

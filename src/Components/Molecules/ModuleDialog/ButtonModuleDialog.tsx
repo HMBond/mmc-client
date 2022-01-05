@@ -7,8 +7,8 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { ModuleInterface } from '../../../types/modules';
-import { UserContextOrNull } from '../../../types/types';
+import { ModuleInterface } from '../../../models/modules';
+import { UserContextOrNull } from '../../../models/types';
 import { UserContext } from '../..';
 import {
   DEFAULT_VELOCITY,

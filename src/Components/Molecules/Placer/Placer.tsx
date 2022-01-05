@@ -7,8 +7,8 @@ import {
   toPx,
   getNewPosition,
 } from './Placer_helpers';
-import { Module, ModuleInterface } from '../../../types/modules';
-import { Position } from '../../../types/types';
+import { Module, ModuleInterface } from '../../../models/modules';
+import { Position } from '../../../models/types';
 import './Placer.css';
 
 Placer.propTypes = {
