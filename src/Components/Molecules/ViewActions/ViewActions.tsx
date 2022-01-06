@@ -5,7 +5,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import ArrowLeft from '@mui/icons-material/ArrowLeft';
 import ArrowRight from '@mui/icons-material/ArrowRight';
 import { UserContext, ViewDialog } from '../..';
-import { View } from '../../../models/view';
+import { View } from '../../../types/view';
 import './ViewActions.css';
 
 ViewActions.propTypes = {

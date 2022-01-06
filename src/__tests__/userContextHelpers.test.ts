@@ -1,4 +1,4 @@
-import { View } from '../models/view';
+import { View } from '../types/view';
 import { moveView } from '../components/organisms/ContextProviders/userContextHelpers';
 
 const DUMMY_COUNT = 5;

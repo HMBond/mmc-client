@@ -15,13 +15,9 @@ import ViewActions from './molecules/ViewActions/ViewActions';
 import ViewControl from './molecules/ViewControl/ViewControl';
 import ModuleTypeMenu from './molecules/ModuleTypeMenu/ModuleTypeMenu';
 import Carrousel from './organisms/Carrousel/Carrousel';
-import MidiContextProvider, {
-  MidiContext,
-} from './organisms/ContextProviders/MidiContextProvider';
 import Settings from './organisms/Settings/Settings';
-import UserContextProvider, {
-  UserContext,
-} from './organisms/ContextProviders/UserContextProvider';
+import MidiContextProvider from './contextProviders/MidiContextProvider';
+import UserContextProvider, { UserContext } from './organisms/ContextProviders/UserContextProvider';
 import View from './organisms/View/View';
 import WMC from './WMC';
 
@@ -43,9 +39,8 @@ export {
   ViewControl,
   ModuleTypeMenu,
   Carrousel,
-  MidiContextProvider,
-  MidiContext,
   Settings,
+  MidiContextProvider,
   UserContextProvider,
   UserContext,
   View,

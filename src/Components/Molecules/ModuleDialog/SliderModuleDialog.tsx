@@ -1,6 +1,6 @@
 import { ChangeEvent, useContext, useState } from 'react';
 import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';
-import { ModuleInterface, SliderOrientation } from '../../../models/modules';
+import { ModuleInterface, SliderOrientation } from '../../../types/modules';
 import { MIDI_CHANNELS } from '../../definitions';
 import {
   FormControl,
@@ -9,7 +9,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from '@mui/material';
-import { UserContextOrNull } from '../../../models/types';
+import { UserContextOrNull } from '../../../types/types';
 import { UserContext } from '../..';
 
 SliderModuleDialog.propTypes = basePropTypes;
@@ -17,9 +17,7 @@ SliderModuleDialog.propTypes = basePropTypes;
 function SliderModuleDialog(props: BaseProps) {
   const { module, onSubmit } = props;
   const [channel, setChannel] = useState<number>(module.channel);
-  const [orientation, setOrientation] = useState<SliderOrientation>(
-    module.orientation
-  );
+  const [orientation, setOrientation] = useState<SliderOrientation>(module.orientation);
   const { modules } = useContext<UserContextOrNull>(UserContext) || {};
 
   const getUsedChannels = (): number[] => {
@@ -36,7 +34,7 @@ function SliderModuleDialog(props: BaseProps) {
   function handleChannelChange(event: ChangeEvent<HTMLSelectElement>) {
     const value = parseInt(event.target.value);
     if (!value) {
-      throw Error('Channel is not a number or 0');
+      throw new Error('Channel is not a number or 0');
       return;
     }
     setChannel(value);

@@ -1,33 +1,30 @@
 import { useContext, ChangeEvent } from 'react';
 import { WebMidi } from 'webmidi';
 import { Alert, Typography } from '@mui/material';
-import { MidiContext, DeviceSelect, UserContext } from '../..';
-import { ModuleInterface } from '../../../models/modules';
+import { DeviceSelect, UserContext } from '../..';
+import { ModuleInterface } from '../../../types/modules';
+import { useMidiContext } from '../../../state/contexts';
 
 type MidiSettingsProps = {
   module?: ModuleInterface;
 };
 
 function MidiSettings({ module }: MidiSettingsProps) {
-  const { input, setInput, inputs, output, setOutput, outputs } =
-    useContext(MidiContext) || {};
-  const { setInputName, setOutputName, editMode } =
-    useContext(UserContext) || {};
+  const { midiState, midiDispatch } = useMidiContext();
+  const { setInputName, setOutputName, editMode } = useContext(UserContext) || {};
 
   function handleInputSelect(event: ChangeEvent<HTMLSelectElement>) {
-    const selected = WebMidi.getInputById(event.target.value);
-    if (!selected)
-      throw Error(`WebMidi can not find ${event.target.value} in inputs`);
-    setInput && setInput(selected);
-    setInputName && setInputName(selected.name);
+    const input = WebMidi.getInputById(event.target.value);
+    if (!input) throw new Error(`WebMidi can not find ${event.target.value} in inputs`);
+    midiDispatch({ type: 'SET_INPUT', input });
+    setInputName && setInputName(input.name);
   }
 
   function handleOutputSelect(event: ChangeEvent<HTMLSelectElement>) {
-    const selected = WebMidi.getOutputById(event.target.value);
-    if (!selected)
-      throw Error(`WebMidi can not find ${event.target.value} in outputs`);
-    setOutput && setOutput(selected);
-    setOutputName && setOutputName(selected.name);
+    const output = WebMidi.getOutputById(event.target.value);
+    if (!output) throw new Error(`WebMidi can not find ${event.target.value} in outputs`);
+    midiDispatch({ type: 'SET_OUTPUT', output });
+    setOutputName && setOutputName(output.name);
   }
 
   if (!WebMidi.enabled) {
@@ -36,20 +33,18 @@ function MidiSettings({ module }: MidiSettingsProps) {
     const isModule = module !== undefined;
     return (
       <>
-        {module?.label && (
-          <Typography component="label">{module.label}</Typography>
-        )}
+        {module?.label && <Typography component="label">{module.label}</Typography>}
         <DeviceSelect
           deviceType="input"
-          devices={inputs}
-          selected={input}
+          devices={midiState.inputs}
+          selected={midiState.input}
           onChange={handleInputSelect}
           disabled={editMode && isModule}
         />
         <DeviceSelect
           deviceType="output"
-          devices={outputs}
-          selected={output}
+          devices={midiState.outputs}
+          selected={midiState.output}
           onChange={handleOutputSelect}
           disabled={editMode && isModule}
         />

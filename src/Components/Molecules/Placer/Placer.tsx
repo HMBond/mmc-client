@@ -1,21 +1,13 @@
 import { useContext, useRef, DragEvent, TouchEvent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { ModuleActions, UserContext } from '../..';
-import {
-  getElements,
-  overrideCursor,
-  toPx,
-  getNewPosition,
-} from './Placer_helpers';
-import { Module, ModuleInterface } from '../../../models/modules';
-import { Position } from '../../../models/types';
+import { getElements, overrideCursor, toPx, getNewPosition } from './Placer_helpers';
+import { Module, ModuleInterface } from '../../../types/modules';
+import { Position } from '../../../types/types';
 import './Placer.css';
 
 Placer.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   module: PropTypes.shape({
     id: PropTypes.number,
     label: PropTypes.string,
@@ -33,8 +25,7 @@ type Props = {
 };
 
 function Placer({ children, module }: Props) {
-  const { editMode, activeView, addModule, updateModule } =
-    useContext(UserContext) || {};
+  const { editMode, activeView, addModule, updateModule } = useContext(UserContext) || {};
   const placerRef = useRef<HTMLDivElement>(null);
   let startPosition: Position;
   let touchPosition: Position = { x: 0, y: 0 };

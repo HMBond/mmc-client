@@ -7,17 +7,14 @@ import {
   ModuleInterface,
   ModuleType,
   SliderModule,
-} from '../../../models/modules';
+} from '../../../types/modules';
 import { ModuleDialog, ModuleTypeMenu, UserContext } from '../..';
-import { View as ViewModel } from '../../../models/view';
+import { View as ViewModel } from '../../../types/view';
 import { AddButton } from '../..';
 import { Box } from '@mui/material';
 
 View.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   view: PropTypes.shape({
     id: PropTypes.number,
     backgroundColor: PropTypes.string,
@@ -33,9 +30,7 @@ function View({ children, view }: ViewProps) {
   const { backgroundColor } = view;
   const { addModule, leftHanded, activeView } = useContext(UserContext) || {};
   const [showModuleTypeMenu, setShowModuleTypeMenu] = useState(false);
-  const [freshModule, setFreshModule] = useState<ModuleInterface>(
-    new Module({})
-  );
+  const [freshModule, setFreshModule] = useState<ModuleInterface>(new Module({}));
   const [open, setOpen] = useState(false);
 
   function allowDrop(event: DragEvent) {

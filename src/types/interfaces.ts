@@ -14,9 +14,7 @@ export interface UserInterface {
   fileName: string;
 }
 
-export interface UserContextInterface
-  extends UserInterface,
-    UserContextExtensions {
+export interface UserContextInterface extends UserInterface, UserContextExtensions {
   setEditMode: (value: boolean) => void;
   setShowEditButton: (value: boolean) => void;
   setInvertTheme: (value: boolean) => void;
@@ -39,15 +37,4 @@ export interface UserContextExtensions {
   updateView: (id: number, view: View) => void;
   moveView: (id: number, increment: number) => void;
   deleteView: (id: number) => void;
-}
-
-export interface MidiContextInterface {
-  input: any;
-  setInput: (value: any) => void;
-  inputs: any;
-  setInputs: (value: any) => void;
-  output: any;
-  setOutput: (value: any) => void;
-  outputs: any;
-  setOutputs: (value: any) => void;
 }

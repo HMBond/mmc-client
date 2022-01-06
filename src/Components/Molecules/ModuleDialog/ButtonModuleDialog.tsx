@@ -7,15 +7,10 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { ModuleInterface } from '../../../models/modules';
-import { UserContextOrNull } from '../../../models/types';
+import { ModuleInterface } from '../../../types/modules';
+import { UserContextOrNull } from '../../../types/types';
 import { UserContext } from '../..';
-import {
-  DEFAULT_VELOCITY,
-  MIDI_CHANNELS,
-  MIDI_MAX,
-  MIDI_MIN,
-} from '../../definitions';
+import { DEFAULT_VELOCITY, MIDI_CHANNELS, MIDI_MAX, MIDI_MIN } from '../../definitions';
 import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';
 
 ButtonModuleDialog.propTypes = basePropTypes;
@@ -24,9 +19,7 @@ function ButtonModuleDialog(props: BaseProps) {
   const { module, onSubmit } = props;
   const [channel, setChannel] = useState<number>(module.channel || 1);
   const [note, setNote] = useState<string>(module.note || 'C3');
-  const [velocity, setVelocity] = useState<number>(
-    module.velocity || DEFAULT_VELOCITY
-  );
+  const [velocity, setVelocity] = useState<number>(module.velocity || DEFAULT_VELOCITY);
   const { modules } = useContext<UserContextOrNull>(UserContext) || {};
 
   const getUsedChannels = (): number[] => {
@@ -37,7 +30,7 @@ function ButtonModuleDialog(props: BaseProps) {
   function handleChannelChange(event: ChangeEvent<HTMLSelectElement>) {
     const value = parseInt(event.target.value);
     if (!value) {
-      throw Error('Channel is 0 or not a number');
+      throw new Error('Channel is 0 or not a number');
       return;
     }
     setChannel(value);

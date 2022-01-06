@@ -2,7 +2,7 @@ import { useState, ChangeEvent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
 import { Dialog } from '../..';
-import { ModuleInterface } from '../../../models/modules';
+import { ModuleInterface } from '../../../types/modules';
 import { FormControl } from '@mui/material';
 
 export const basePropTypes = {
@@ -25,10 +25,7 @@ ModuleDialogBase.propTypes = basePropTypes;
 export type BaseProps = {
   onSubmit: (value: ModuleInterface) => void;
   open: boolean;
-  onClose: (
-    event: object,
-    reason: 'backdropClick' | 'escapeKeyDown' | 'closeClick'
-  ) => void;
+  onClose: (event: object, reason: 'backdropClick' | 'escapeKeyDown' | 'closeClick') => void;
   module: ModuleInterface;
   add?: boolean;
 };
@@ -37,14 +34,7 @@ type Props = {
   children?: ReactNode;
 };
 
-function ModuleDialogBase({
-  children,
-  onSubmit,
-  open,
-  onClose,
-  module,
-  add,
-}: Props & BaseProps) {
+function ModuleDialogBase({ children, onSubmit, open, onClose, module, add }: Props & BaseProps) {
   const [label, setLabel] = useState(module.label);
 
   function handleLabelChange(event: ChangeEvent<HTMLInputElement>) {

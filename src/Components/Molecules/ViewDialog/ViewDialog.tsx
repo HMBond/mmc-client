@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, TextField } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Dialog } from '../..';
-import { View } from '../../../models/view';
+import { View } from '../../../types/view';
 
 ViewDialog.propTypes = {
   onSubmit: PropTypes.func,
@@ -20,10 +20,7 @@ ViewDialog.propTypes = {
 type Props = {
   onSubmit: (view: View) => void;
   open: boolean;
-  onClose: (
-    event: object,
-    reason: 'backdropClick' | 'escapeKeyDown' | 'closeClick'
-  ) => void;
+  onClose: (event: object, reason: 'backdropClick' | 'escapeKeyDown' | 'closeClick') => void;
   onDelete?: () => void;
   add?: boolean;
   view: View;
@@ -52,12 +49,7 @@ function ViewDialog({ onSubmit, open, onClose, onDelete, add, view }: Props) {
       submitLabel={submitLabel}
       actions={
         onDelete !== undefined && (
-          <Button
-            color="warning"
-            size="small"
-            aria-label="delete"
-            onClick={onDelete}
-          >
+          <Button color="warning" size="small" aria-label="delete" onClick={onDelete}>
             <DeleteIcon />
           </Button>
         )

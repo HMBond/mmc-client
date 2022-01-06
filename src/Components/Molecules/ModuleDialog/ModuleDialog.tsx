@@ -18,7 +18,7 @@ function ModuleDialog(props: BaseProps) {
       break;
 
     default:
-      throw Error('ModuleDialog: Chosen type is not implemented yet');
+      throw new Error('ModuleDialog: Chosen type is not implemented yet');
       break;
   }
   return null;

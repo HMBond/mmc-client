@@ -8,9 +8,9 @@ import {
   SaveUserContextAs,
   UpdateModuleArgs,
   UpdateViewArgs,
-} from '../../../models/types';
+} from '../../../types/types';
 import { sortViewsByPlace } from '../../helpers';
-import { View } from '../../../models/view';
+import { View } from '../../../types/view';
 
 export function addModule(args: AddModuleArgs) {
   const { module, setModules, modules } = args;
@@ -36,7 +36,7 @@ export function addView({ view, views }: AddViewArgs): View[] {
 }
 
 export function updateView({ id, view, views }: UpdateViewArgs): View[] {
-  if (!views.find((item) => item.id === id)) throw Error('no view found with id: ' + id);
+  if (!views.find((item) => item.id === id)) throw new Error('no view found with id: ' + id);
   validate(view);
   const otherViews = views.filter((item) => item.id !== id);
   return sortViewsByPlace([...otherViews, view]);

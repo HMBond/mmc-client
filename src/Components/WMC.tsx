@@ -10,16 +10,16 @@ import {
   Settings,
   View,
   ViewControl,
-  MidiContext,
   UserContext,
   MidiSlider,
   MidiSettings,
 } from '.';
-import { View as ViewModel } from '../models/view';
-import { ButtonModule, SliderModule } from '../models/modules';
+import { View as ViewModel } from '../types/view';
+import { ButtonModule, SliderModule } from '../types/modules';
+import { useMidiContext } from '../state/contexts';
 
 export default function WMC() {
-  const { setInput, setInputs, setOutput, setOutputs } = useContext(MidiContext) || {};
+  const { midiDispatch } = useMidiContext();
   const {
     activeView,
     views,
@@ -56,34 +56,34 @@ export default function WMC() {
   }
 
   function setInputStates() {
-    setInputs && setInputs(WebMidi.inputs);
+    midiDispatch({ type: 'SET_INPUTS', inputs: WebMidi.inputs });
     const preferredInput = inputName && WebMidi.getInputByName(inputName);
-    const firstOrDefault = preferredInput ? preferredInput : WebMidi.inputs[0];
-    if (!firstOrDefault) return;
-    setInput && setInput(firstOrDefault);
-    setInputName && setInputName(firstOrDefault.name);
+    const input = preferredInput ? preferredInput : WebMidi.inputs[0];
+    if (!input) return;
+    midiDispatch({ type: 'SET_INPUT', input: input });
+    setInputName && setInputName(input.name);
   }
 
   function setOutputStates() {
-    setOutputs && setOutputs(WebMidi.outputs);
+    midiDispatch({ type: 'SET_OUTPUTS', outputs: WebMidi.outputs });
     const preferredOutput = inputName && WebMidi.getOutputByName(inputName);
-    const firstOrDefault = preferredOutput ? preferredOutput : WebMidi.outputs[0];
-    setOutput && setOutput(firstOrDefault);
-    setOutputName && setOutputName(firstOrDefault.name);
+    const output = preferredOutput ? preferredOutput : WebMidi.outputs[0];
+    midiDispatch({ type: 'SET_OUTPUT', output });
+    setOutputName && setOutputName(output.name);
   }
 
   function handleMidiPortChanged({ port }: any) {
     if (port.type === 'input') {
       setInputStates();
       if (port.state === 'disconnected') {
-        setInput && setInput({});
+        midiDispatch({ type: 'SET_INPUT', input: null });
       }
     }
 
     if (port.type === 'output') {
       setOutputStates();
       if (port.state === 'disconnected') {
-        setOutput && setOutput({});
+        midiDispatch({ type: 'SET_OUTPUT', output: null });
       }
     }
   }

@@ -1,8 +1,8 @@
-import { createContext, ReactNode } from "react";
-import { useState, useEffect, useMemo } from "react";
-import PropTypes from "prop-types";
-import { UserContextInterface } from "../../../models/interfaces";
-import { UserContextOrNull } from "../../../models/types";
+import { createContext, ReactNode } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { UserContextInterface } from '../../../types/interfaces';
+import { UserContextOrNull } from '../../../types/types';
 
 import {
   updateModule,
@@ -14,13 +14,13 @@ import {
   updateView,
   deleteView,
   moveView,
-} from "./userContextHelpers";
+} from './userContextHelpers';
 import {
   LOCAL_STORAGE_ITEM_NAME,
   LOCAL_STORAGE_DEBOUNCE_WAIT,
   USER_CONTEXT,
-} from "../../definitions";
-import { debounce } from "lodash";
+} from '../../definitions';
+import { debounce } from 'lodash';
 
 export const UserContext = createContext<UserContextOrNull>(null);
 
@@ -75,7 +75,7 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
   }
 
   useEffect(() => {
-    const storageItem = JSON.parse(localStorage.getItem(LOCAL_STORAGE_ITEM_NAME) || "false");
+    const storageItem = JSON.parse(localStorage.getItem(LOCAL_STORAGE_ITEM_NAME) || 'false');
     if (storageItem) {
       setState(storageItem, setters);
     }
@@ -117,7 +117,7 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
     updateView: (id, view) => setViews(updateView({ id, view, views })),
     moveView: (id, toPlace) => {
       const view = views.find((item) => item.id === id);
-      if (!view) throw Error("no view found with id: " + id);
+      if (!view) throw new Error('no view found with id: ' + id);
       const updated = moveView({ view, toPlace, views });
       setViews(updated);
       const movedView = updated.find((view) => view.id === id);

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import PropTypes from 'prop-types';
-import { View } from '../../../models/view';
+import { View } from '../../../types/view';
 import './Carrousel.css';
 
 type CarrouselProps = {
@@ -13,9 +13,7 @@ function Carrousel({ children, activeView, views }: CarrouselProps) {
   const style =
     activeView && views
       ? {
-          transform: `translateX(-${
-            ((activeView.place - 1) * 100) / views.length
-          }%)`,
+          transform: `translateX(-${((activeView.place - 1) * 100) / views.length}%)`,
         }
       : {};
 
@@ -29,10 +27,7 @@ function Carrousel({ children, activeView, views }: CarrouselProps) {
 }
 
 Carrousel.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   activeView: PropTypes.shape({
     place: PropTypes.number,
   }).isRequired,

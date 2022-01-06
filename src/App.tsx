@@ -1,4 +1,4 @@
-import { WMC, MidiContextProvider, UserContextProvider } from './components';
+import { WMC, UserContextProvider, MidiContextProvider } from './components';
 
 export default function App() {
   return (

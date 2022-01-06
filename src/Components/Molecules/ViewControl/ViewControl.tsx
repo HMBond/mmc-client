@@ -1,12 +1,11 @@
 import { useContext, useState } from 'react';
 import { Button } from '@mui/material';
 import { AddButton, ViewDialog, UserContext, ViewActions } from '../..';
-import { View } from '../../../models/view';
+import { View } from '../../../types/view';
 import './ViewControl.css';
 
 function ViewControl() {
-  const { addView, views, activeView, setActiveView, editMode } =
-    useContext(UserContext) || {};
+  const { addView, views, activeView, setActiveView, editMode } = useContext(UserContext) || {};
 
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
 

@@ -1,5 +1,5 @@
 import { DragEvent, RefObject } from 'react';
-import { Position } from '../../../models/types';
+import { Position } from '../../../types/types';
 
 export function overrideCursor(event: DragEvent) {
   if (!event || !event.dataTransfer) {
@@ -26,15 +26,15 @@ export function getElements(reference: RefObject<HTMLDivElement>): {
   parent: HTMLElement;
 } {
   if (reference == null) {
-    throw Error('reference is not set...');
+    throw new Error('reference is not set...');
   }
   const current = reference.current;
   if (!current) {
-    throw Error('reference has no dom element (current)');
+    throw new Error('reference has no dom element (current)');
   }
   const parent = current.parentElement;
   if (!parent) {
-    throw Error('referenced element has no parentElement');
+    throw new Error('referenced element has no parentElement');
   }
   return { current, parent };
 }
