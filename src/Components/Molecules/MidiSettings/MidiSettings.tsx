@@ -3,7 +3,7 @@ import { WebMidi } from 'webmidi';
 import { Alert, Typography } from '@mui/material';
 import { DeviceSelect, UserContext } from '../..';
 import { ModuleInterface } from '../../../types/modules';
-import { useMidiContext } from '../../../state/contexts';
+import { useMidiContext } from '../../../context';
 
 type MidiSettingsProps = {
   module?: ModuleInterface;

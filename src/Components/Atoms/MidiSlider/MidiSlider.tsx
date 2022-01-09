@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Box, Slider, Typography } from '@mui/material';
 import { UserContext } from '../..';
 import { SliderModule } from '../../../types/modules';
-import { useMidiContext } from '../../../state/contexts';
+import { useMidiContext } from '../../../context';
 
 function MidiSlider(module: SliderModule) {
   const { id, channel, value, orientation, label } = module;

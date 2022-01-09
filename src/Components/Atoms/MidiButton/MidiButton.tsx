@@ -4,7 +4,7 @@ import { Button } from '@mui/material';
 import { UserContext } from '../..';
 import { midiRawNumber } from '../../propTypeValidators';
 import { ButtonModuleConstructorArgs } from '../../../types/modules';
-import { useMidiContext } from '../../../state/contexts';
+import { useMidiContext } from '../../../context';
 
 type MidiButtonProps = ButtonModuleConstructorArgs & {
   children: ReactNode;

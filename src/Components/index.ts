@@ -17,6 +17,7 @@ import ModuleTypeMenu from './molecules/ModuleTypeMenu/ModuleTypeMenu';
 import Carrousel from './organisms/Carrousel/Carrousel';
 import Settings from './organisms/Settings/Settings';
 import MidiContextProvider from './contextProviders/MidiContextProvider';
+import StateContextProvider from './contextProviders/StateContextProvider';
 import UserContextProvider, { UserContext } from './organisms/ContextProviders/UserContextProvider';
 import View from './organisms/View/View';
 import WMC from './WMC';
@@ -41,6 +42,7 @@ export {
   Carrousel,
   Settings,
   MidiContextProvider,
+  StateContextProvider,
   UserContextProvider,
   UserContext,
   View,

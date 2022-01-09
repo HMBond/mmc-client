@@ -12,6 +12,7 @@ import { ModuleDialog, ModuleTypeMenu, UserContext } from '../..';
 import { View as ViewModel } from '../../../types/view';
 import { AddButton } from '../..';
 import { Box } from '@mui/material';
+import { useStateContext } from '../../../context';
 
 View.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
@@ -27,8 +28,8 @@ type ViewProps = {
 };
 
 function View({ children, view }: ViewProps) {
-  const { backgroundColor } = view;
-  const { addModule, leftHanded, activeView } = useContext(UserContext) || {};
+  const { leftHanded, activeView } = useContext(UserContext) || {};
+  const { dispatch } = useStateContext();
   const [showModuleTypeMenu, setShowModuleTypeMenu] = useState(false);
   const [freshModule, setFreshModule] = useState<ModuleInterface>(new Module({}));
   const [open, setOpen] = useState(false);
@@ -69,15 +70,17 @@ function View({ children, view }: ViewProps) {
   }
 
   function handleAddModuleSubmit(module: ModuleInterface) {
-    addModule && addModule(view, module);
+    dispatch({ type: 'ADD_MODULE', view, module });
+    // addModule && addModule(view, module);
     setOpen(false);
   }
 
+  const { id, backgroundColor } = view;
   return (
     <>
       <div
         style={{ backgroundColor }}
-        className={`view ${activeView?.id !== view.id ? 'fade' : ''}`}
+        className={`view ${activeView?.id !== id ? 'fade' : ''}`}
         onDrop={allowDrop}
         onDragOver={allowDrop}
         onClick={handleBackdropClick}

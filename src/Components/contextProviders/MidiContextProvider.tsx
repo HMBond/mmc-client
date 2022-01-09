@@ -1,12 +1,12 @@
 import { ReactNode, useReducer } from 'react';
 import PropTypes from 'prop-types';
-import { midiReducer } from '../../state/midiReducer';
-import { MidiContext } from '../../state/contexts';
+import { reducer } from '../../reducers/midi.reducer';
+import { MidiContext } from '../../context';
 
 const initialContextState = { input: null, output: null, inputs: [], outputs: [] };
 
 const MidiContextProvider = ({ children }: { children: ReactNode }) => {
-  const [midiState, midiDispatch] = useReducer(midiReducer, initialContextState);
+  const [midiState, midiDispatch] = useReducer(reducer, initialContextState);
   return (
     <MidiContext.Provider value={{ midiState, midiDispatch }}>{children}</MidiContext.Provider>
   );

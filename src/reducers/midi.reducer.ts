@@ -1,6 +1,6 @@
-import { MidiAction, MidiContextState } from '../types/midi';
+import { MidiAction, MidiContextState } from '../types/midi.types';
 
-export const midiReducer = (state: MidiContextState, action: MidiAction): MidiContextState => {
+export const reducer = (state: MidiContextState, action: MidiAction): MidiContextState => {
   switch (action.type) {
     case 'SET_INPUT':
       return {
