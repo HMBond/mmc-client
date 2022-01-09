@@ -6,18 +6,18 @@ export const MidiContext = createContext<Partial<MidiContextProviderValue>>({});
 MidiContext.displayName = 'MidiContext';
 
 export const useMidiContext = () => {
-  const midiContext = useContext(MidiContext);
-  if (!midiContext) contextError(MidiContext);
-  return midiContext as MidiContextProviderValue;
+  const result = useContext(MidiContext);
+  if (!result) contextError(MidiContext);
+  return result as MidiContextProviderValue;
 };
 
 export const StateContext = createContext<Partial<StateContextProviderValue>>({});
 StateContext.displayName = 'StateContext';
 
 export const useStateContext = () => {
-  const stateContext = useContext(StateContext);
-  if (!stateContext.state) contextError(StateContext);
-  return stateContext as StateContextProviderValue;
+  const result = useContext(StateContext);
+  if (!result.state) contextError(StateContext);
+  return result as StateContextProviderValue;
 };
 
 function contextError(context: Context<any>) {
