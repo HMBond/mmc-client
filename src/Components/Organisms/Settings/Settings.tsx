@@ -48,7 +48,7 @@ function Settings({ restartMidi }: SettingsProps) {
   }
 
   function handleSave(fileName: string) {
-    dispatch({ type: 'SAVE_USER_CONTEXT_AS', fileName });
+    dispatch({ type: 'SAVE_STATE_AS', fileName });
     setSaveDialogOpen(false);
   }
 

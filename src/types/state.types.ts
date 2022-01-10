@@ -23,7 +23,7 @@ export type Action =
   | { type: 'UPDATE_VIEW'; id: number; view: View }
   | { type: 'MOVE_VIEW'; view: View; toPlace: number }
   | { type: 'DELETE_VIEW'; id: number }
-  | { type: 'SAVE_USER_CONTEXT_AS'; fileName: string }
+  | { type: 'SAVE_STATE_AS'; fileName: string }
   | { type: 'CLEAR_LOCAL_STORAGE' }
   | { type: 'SET_EDIT_MODE'; value: boolean }
   | { type: 'SET_SHOW_EDIT_BUTTON'; value: boolean }

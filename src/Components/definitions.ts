@@ -13,6 +13,7 @@ export const DEFAULT_VELOCITY = 64;
 export const LOCAL_STORAGE_DEBOUNCE_WAIT = 2000;
 
 export const LOCAL_STORAGE_ITEM_NAME = 'midi-controller-user-setup';
+export const DEFAULT_FILE_NAME = 'my-modular-midi-controller-setup.json';
 
 const button = new ButtonModule({
   label: 'Kick',
@@ -53,7 +54,7 @@ export const INITIAL_STATE: State = {
   activeView: view,
   inputName: '',
   outputName: '',
-  fileName: 'my-modular-midi-controller-setup.json',
+  fileName: DEFAULT_FILE_NAME,
   views: [view],
   modules: [button, slider],
 };

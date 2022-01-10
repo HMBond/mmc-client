@@ -1,4 +1,8 @@
-import { INITIAL_STATE, LOCAL_STORAGE_ITEM_NAME } from '../components/definitions';
+import {
+  DEFAULT_FILE_NAME,
+  INITIAL_STATE,
+  LOCAL_STORAGE_ITEM_NAME,
+} from '../components/definitions';
 import { Action, State } from '../types/state.types';
 import { View } from '../types/View.types';
 
@@ -66,14 +70,16 @@ export const reducer = (state: State, action: Action): State => {
       };
     }
 
-    case 'SAVE_USER_CONTEXT_AS': {
-      const { fileName } = action;
+    case 'SAVE_STATE_AS': {
+      let fileName = action.fileName;
+      if (!fileName) fileName = DEFAULT_FILE_NAME;
+      if (!fileName.match(/\.[0-9a-z]{1,5}$/i)) fileName += '.json';
       const a = document.createElement('a');
       const file = new Blob([JSON.stringify(state)], { type: 'application/json' });
       a.href = URL.createObjectURL(file);
       a.download = fileName;
       a.click();
-      return { ...state, fileName };
+      return { ...state, fileName: fileName };
     }
 
     case 'CLEAR_LOCAL_STORAGE': {
