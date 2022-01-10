@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, TextField } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Dialog } from '../..';
-import { View, ViewPropTypes } from '../../../types/view';
+import { View, ViewPropTypes } from '../../../types/View.types';
 
 ViewDialog.propTypes = {
   onSubmit: PropTypes.func,

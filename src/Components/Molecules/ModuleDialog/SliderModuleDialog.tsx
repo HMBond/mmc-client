@@ -6,7 +6,7 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from '@mui/material';
-import { ModuleInterface, SliderOrientation } from '../../../types/modules';
+import { ModuleInterface, SliderOrientation } from '../../../types/Module.types';
 import { MIDI_CHANNELS } from '../../definitions';
 import { useStateContext } from '../../../context';
 import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';

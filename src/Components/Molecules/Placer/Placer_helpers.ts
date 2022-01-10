@@ -1,5 +1,5 @@
 import { DragEvent, RefObject } from 'react';
-import { Position } from '../../../types/types';
+import { Position } from '../../../types/misc.types';
 
 export function overrideCursor(event: DragEvent) {
   if (!event || !event.dataTransfer) {

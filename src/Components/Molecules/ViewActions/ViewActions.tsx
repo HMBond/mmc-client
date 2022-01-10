@@ -3,7 +3,7 @@ import { Fab } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import ArrowLeft from '@mui/icons-material/ArrowLeft';
 import ArrowRight from '@mui/icons-material/ArrowRight';
-import { View, ViewPropTypes } from '../../../types/view';
+import { View, ViewPropTypes } from '../../../types/View.types';
 import { useStateContext } from '../../../context';
 import { ViewDialog } from '../..';
 import './ViewActions.css';

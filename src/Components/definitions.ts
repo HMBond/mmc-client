@@ -1,5 +1,8 @@
-import { UserInterface } from '../types/interfaces';
-import { View } from '../types/view';
+import { ButtonModule, SliderModule } from '../types/Module.types';
+import { State } from '../types/state.types';
+import { View } from '../types/View.types';
+
+export const LOG_STATE_ACTIONS = false;
 
 export const MIDI_CHANNELS = Array.from({ length: 16 }, (_, i) => i + 1);
 export const MIDI_MIN = 0;
@@ -11,48 +14,46 @@ export const LOCAL_STORAGE_DEBOUNCE_WAIT = 2000;
 
 export const LOCAL_STORAGE_ITEM_NAME = 'midi-controller-user-setup';
 
-const INITIAL_VIEW: View = {
-  id: 0,
-  label: 'Main',
-  backgroundColor: 'indigo',
-  place: 1, // place starts from first place
-  moduleIds: [0, 1],
-};
+const button = new ButtonModule({
+  label: 'Kick',
+  channel: 1,
+  note: 'C3',
+  velocity: DEFAULT_VELOCITY,
+  position: {
+    x: 100,
+    y: 100,
+  },
+});
 
-export const USER_CONTEXT: UserInterface = {
+const slider = new SliderModule({
+  label: 'hal',
+  channel: 16,
+  value: 0.8,
+  orientation: 'vertical',
+  position: {
+    x: 300,
+    y: 100,
+  },
+});
+
+const view: View = new View(
+  {
+    label: 'Main',
+    backgroundColor: 'indigo',
+    moduleIds: [button.id, slider.id],
+  },
+  0
+);
+
+export const INITIAL_STATE: State = {
   editMode: false,
   showEditButton: true,
   invertTheme: false,
   leftHanded: false,
-  activeView: INITIAL_VIEW,
+  activeView: view,
   inputName: '',
   outputName: '',
   fileName: 'my-modular-midi-controller-setup.json',
-  views: [INITIAL_VIEW],
-  modules: [
-    {
-      id: 0,
-      type: 'Button',
-      label: 'Kick',
-      channel: 1,
-      note: 'C3',
-      velocity: DEFAULT_VELOCITY,
-      position: {
-        x: 100,
-        y: 100,
-      },
-    },
-    {
-      id: 1,
-      type: 'Slider',
-      label: 'volume',
-      channel: 16,
-      value: 0.8,
-      orientation: 'vertical',
-      position: {
-        x: 300,
-        y: 100,
-      },
-    },
-  ],
+  views: [view],
+  modules: [button, slider],
 };

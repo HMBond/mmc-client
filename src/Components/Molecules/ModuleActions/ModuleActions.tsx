@@ -2,7 +2,7 @@ import { CSSProperties, useState } from 'react';
 import { Fab } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { Module, ModuleInterface, ModulePropTypes } from '../../../types/modules';
+import { Module, ModuleInterface, ModulePropTypes } from '../../../types/Module.types';
 import { useStateContext } from '../../../context';
 import { ModuleDialog } from '../..';
 import './ModuleActions.css';

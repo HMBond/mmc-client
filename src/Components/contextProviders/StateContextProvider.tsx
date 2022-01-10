@@ -1,23 +1,31 @@
-import { Dispatch, ReactNode, useReducer } from 'react';
+import { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { reducer } from '../../reducers/state.reducer';
 import { StateContext } from '../../context';
-import { LOCAL_STORAGE_ITEM_NAME, USER_CONTEXT as INITIAL_STATE } from '../definitions';
-import { Action } from '../../types/state.types';
+import { LOCAL_STORAGE_ITEM_NAME, LOG_STATE_ACTIONS, INITIAL_STATE } from '../definitions';
+import { useCustomReducer } from '../../reducers/helpers';
+import { Action, State } from '../../types/state.types';
+
+function logger(action?: Action, state?: State, label?: string) {
+  if (LOG_STATE_ACTIONS) {
+    console.group(label || 'logger');
+    action && console.log(action);
+    state && console.log(state);
+    console.groupEnd();
+  }
+}
 
 const StateContextProvider = ({ children }: { children: ReactNode }) => {
   const storageItem = JSON.parse(localStorage.getItem(LOCAL_STORAGE_ITEM_NAME) || 'false');
   // TODO: validate stored state
-  const [state, dispatch] = useReducer(reducer, storageItem || INITIAL_STATE);
-  function withMiddleWare(dispatch: Dispatch<Action>): Dispatch<Action> {
-    return dispatch;
-  }
-
-  return (
-    <StateContext.Provider value={{ state, dispatch: withMiddleWare(dispatch) }}>
-      {children}
-    </StateContext.Provider>
+  const [state, dispatch] = useCustomReducer(
+    reducer,
+    storageItem || INITIAL_STATE,
+    [(action, state) => logger(action, state, 'before')],
+    [(action, state) => logger(action, state, 'after')]
   );
+
+  return <StateContext.Provider value={{ state, dispatch }}>{children}</StateContext.Provider>;
 };
 
 StateContextProvider.propTypes = {

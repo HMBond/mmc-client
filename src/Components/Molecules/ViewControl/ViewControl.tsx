@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@mui/material';
-import { View } from '../../../types/view';
+import { View } from '../../../types/View.types';
 import { useStateContext } from '../../../context';
 import { AddButton, ViewDialog, ViewActions } from '../..';
 import './ViewControl.css';

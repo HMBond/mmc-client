@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { ModuleInterface } from '../../../types/modules';
+import { ModuleInterface } from '../../../types/Module.types';
 import { useStateContext } from '../../../context';
 import { DEFAULT_VELOCITY, MIDI_CHANNELS, MIDI_MAX, MIDI_MIN } from '../../definitions';
 import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';

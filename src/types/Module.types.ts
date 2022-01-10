@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
+import { Position } from './misc.types';
 import { DEFAULT_VELOCITY } from '../components/definitions';
-import { Position } from './types';
+import { uid } from './helpers';
 
 export const ModulePropTypes = PropTypes.shape({
   id: PropTypes.number,
@@ -39,7 +40,7 @@ export interface ModuleInterface {
 
 export class Module implements ModuleInterface {
   constructor(args: ModuleConstructorArgs = {}) {
-    this.id = Date.now();
+    this.id = uid();
     this.label = args.label || '';
     this.type = args.type || 'Settings';
     this.position = args.position || {

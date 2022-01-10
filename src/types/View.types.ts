@@ -9,15 +9,19 @@ export const ViewPropTypes = PropTypes.shape({
 type ViewConstructorArgs = {
   label?: string;
   backgroundColor?: string;
+  moduleIds?: number[];
 };
 
 export class View {
-  constructor({ label, backgroundColor }: ViewConstructorArgs, currentViewCount: number) {
+  constructor(
+    { label, backgroundColor, moduleIds }: ViewConstructorArgs,
+    currentViewCount: number
+  ) {
     this.id = uid();
     this.label = label || '';
     this.backgroundColor = backgroundColor || 'indigo';
     this.place = currentViewCount + 1;
-    this.moduleIds = [];
+    this.moduleIds = moduleIds || [];
   }
   id: number;
   label: string;

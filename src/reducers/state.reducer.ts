@@ -1,6 +1,6 @@
-import { LOCAL_STORAGE_ITEM_NAME, USER_CONTEXT } from '../components/definitions';
+import { INITIAL_STATE, LOCAL_STORAGE_ITEM_NAME } from '../components/definitions';
 import { Action, State } from '../types/state.types';
-import { View } from '../types/view';
+import { View } from '../types/View.types';
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -78,7 +78,7 @@ export const reducer = (state: State, action: Action): State => {
 
     case 'CLEAR_LOCAL_STORAGE': {
       localStorage.setItem(LOCAL_STORAGE_ITEM_NAME, 'null');
-      return USER_CONTEXT;
+      return INITIAL_STATE;
     }
 
     case 'SET_EDIT_MODE':

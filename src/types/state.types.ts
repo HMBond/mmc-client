@@ -1,6 +1,6 @@
 import { Dispatch } from 'react';
-import { ModuleInterface } from './modules';
-import { View } from './view';
+import { ModuleInterface } from './Module.types';
+import { View } from './View.types';
 
 export type State = {
   editMode: boolean;
@@ -40,3 +40,5 @@ export type StateContextProviderValue = {
   state: State;
   dispatch: Dispatch<Action>;
 };
+
+export type ReducerWithMiddleWareArgs = { reducer: (state: State, action: Action) => State };

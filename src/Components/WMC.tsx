@@ -13,8 +13,8 @@ import {
   MidiSlider,
   MidiSettings,
 } from '.';
-import { View as ViewModel } from '../types/view';
-import { ButtonModule, SliderModule } from '../types/modules';
+import { View as ViewModel } from '../types/View.types';
+import { ButtonModule, SliderModule } from '../types/Module.types';
 import { useMidiContext, useStateContext } from '../context';
 
 export default function WMC() {
