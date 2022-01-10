@@ -9,12 +9,10 @@ import { View } from '../types/View.types';
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'ADD_MODULE': {
-      const { view, module } = action;
-      reducer(state, {
-        type: 'UPDATE_VIEW',
-        id: view.id,
-        view: { ...view, moduleIds: [...view.moduleIds, module.id] },
-      });
+      const { module } = action;
+      const activeView = state.views.find((item) => item.id === state.activeViewId);
+      if (!activeView) throw new Error('Could not find activeView');
+      activeView.moduleIds = [...activeView.moduleIds, module.id];
       return {
         ...state,
         modules: [...state.modules, module],
@@ -47,9 +45,9 @@ export const reducer = (state: State, action: Action): State => {
 
     case 'UPDATE_VIEW': {
       const { id, view } = action;
-      if (!state.views.find((item) => item.id === id))
+      if (!state.views.find((view) => view.id === id))
         throw new Error('no view found with id: ' + id);
-      const otherViews = state.views.filter((item) => item.id !== id);
+      const otherViews = state.views.filter((view) => view.id !== id);
       return {
         ...state,
         views: sortViewsByPlace([...otherViews, view]),
@@ -66,7 +64,7 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         views: updatedViews,
-        activeView: updatedView,
+        activeViewId: updatedView.id,
       };
     }
 
@@ -112,10 +110,10 @@ export const reducer = (state: State, action: Action): State => {
         leftHanded: action.value,
       };
 
-    case 'SET_ACTIVE_VIEW':
+    case 'SET_ACTIVE_VIEW_ID':
       return {
         ...state,
-        activeView: action.value,
+        activeViewId: action.value,
       };
 
     case 'SET_VIEWS':

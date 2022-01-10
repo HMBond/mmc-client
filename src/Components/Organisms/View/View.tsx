@@ -25,7 +25,7 @@ type ViewProps = {
 
 function View({ children, view }: ViewProps) {
   const { state, dispatch } = useStateContext();
-  const { leftHanded, activeView } = state;
+  const { leftHanded, activeViewId } = state;
   const [showModuleTypeMenu, setShowModuleTypeMenu] = useState(false);
   const [freshModule, setFreshModule] = useState<ModuleInterface>(new Module({}));
   const [open, setOpen] = useState(false);
@@ -66,8 +66,7 @@ function View({ children, view }: ViewProps) {
   }
 
   function handleAddModuleSubmit(module: ModuleInterface) {
-    dispatch({ type: 'ADD_MODULE', view, module });
-    // addModule && addModule(view, module);
+    dispatch({ type: 'ADD_MODULE', module });
     setOpen(false);
   }
 
@@ -76,7 +75,7 @@ function View({ children, view }: ViewProps) {
     <>
       <div
         style={{ backgroundColor }}
-        className={`view ${activeView?.id !== id ? 'fade' : ''}`}
+        className={`view ${activeViewId !== id ? 'fade' : ''}`}
         onDrop={allowDrop}
         onDragOver={allowDrop}
         onClick={handleBackdropClick}

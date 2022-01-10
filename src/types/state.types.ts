@@ -7,7 +7,7 @@ export type State = {
   invertTheme: boolean;
   showEditButton: boolean;
   leftHanded: boolean;
-  activeView: View;
+  activeViewId: number;
   views: View[];
   modules: ModuleInterface[];
   inputName: string;
@@ -16,7 +16,7 @@ export type State = {
 };
 
 export type Action =
-  | { type: 'ADD_MODULE'; view: View; module: ModuleInterface }
+  | { type: 'ADD_MODULE'; module: ModuleInterface }
   | { type: 'UPDATE_MODULE'; id: number; module: ModuleInterface }
   | { type: 'DELETE_MODULE'; id: number }
   | { type: 'ADD_VIEW'; view: View }
@@ -29,7 +29,7 @@ export type Action =
   | { type: 'SET_SHOW_EDIT_BUTTON'; value: boolean }
   | { type: 'SET_INVERT_THEME'; value: boolean }
   | { type: 'SET_LEFT_HANDED'; value: boolean }
-  | { type: 'SET_ACTIVE_VIEW'; value: View }
+  | { type: 'SET_ACTIVE_VIEW_ID'; value: number }
   | { type: 'SET_VIEWS'; value: View[] }
   | { type: 'SET_MODULES'; value: ModuleInterface[] }
   | { type: 'SET_INPUT_NAME'; value: string }

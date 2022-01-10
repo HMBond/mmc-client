@@ -20,7 +20,7 @@ import { View as ViewModel } from '../types/View.types';
 export default function WMC() {
   const { midiDispatch } = useMidiContext();
   const { state } = useStateContext();
-  const { activeView, views, modules, editMode, invertTheme, inputName, outputName } = state;
+  const { activeViewId, views, modules, editMode, invertTheme, inputName, outputName } = state;
 
   const theme = createTheme({
     palette: {
@@ -99,7 +99,7 @@ export default function WMC() {
         <LaunchPad />
         <ViewControl />
       </Nav>
-      <Carrousel activeView={activeView} views={views}>
+      <Carrousel activeViewId={activeViewId} views={views}>
         {views &&
           views.map((view) => (
             <View key={view.id} view={view}>

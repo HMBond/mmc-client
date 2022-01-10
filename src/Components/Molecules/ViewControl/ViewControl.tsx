@@ -11,7 +11,7 @@ function ViewControl() {
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
 
   function handleViewButtonClick(view: View) {
-    dispatch({ type: 'SET_ACTIVE_VIEW', value: view });
+    dispatch({ type: 'SET_ACTIVE_VIEW_ID', value: view.id });
   }
 
   function handleAddClick() {
@@ -27,7 +27,7 @@ function ViewControl() {
     setViewDialogOpen(false);
   }
 
-  const { views, editMode, activeView } = state;
+  const { views, editMode, activeViewId } = state;
 
   return (
     <div className="view-control">
@@ -37,7 +37,7 @@ function ViewControl() {
             <div className="viewControl__button-wrapper" key={view.id}>
               <Button
                 disableElevation
-                color={activeView.id === view.id ? 'warning' : 'secondary'}
+                color={activeViewId === view.id ? 'warning' : 'secondary'}
                 variant="contained"
                 onClick={() => handleViewButtonClick(view)}
               >

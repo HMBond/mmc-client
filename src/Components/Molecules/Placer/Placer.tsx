@@ -19,7 +19,7 @@ type Props = {
 
 function Placer({ children, module }: Props) {
   const { state, dispatch } = useStateContext();
-  const { editMode, activeView } = state;
+  const { editMode } = state;
   const placerRef = useRef<HTMLDivElement>(null);
   let startPosition: Position;
   let touchPosition: Position = { x: 0, y: 0 };
@@ -66,12 +66,12 @@ function Placer({ children, module }: Props) {
       dataTransfer: { effectAllowed },
     } = event;
     // workaround event.altKey is always false on end: alt-key on dragstart sets effectAllowed to 'copyMove'
-    if (effectAllowed === 'copyMove' && activeView !== undefined) {
+    if (effectAllowed === 'copyMove') {
       const uniqueCopy = new Module({
         ...module,
         position,
       });
-      dispatch({ type: 'ADD_MODULE', view: activeView, module: uniqueCopy });
+      dispatch({ type: 'ADD_MODULE', module: uniqueCopy });
     } else {
       const updated = { ...module, position };
       dispatch({ type: 'UPDATE_MODULE', id: module.id, module: updated });

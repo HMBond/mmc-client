@@ -51,7 +51,7 @@ export const INITIAL_STATE: State = {
   showEditButton: true,
   invertTheme: false,
   leftHanded: false,
-  activeView: view,
+  activeViewId: view.id,
   inputName: '',
   outputName: '',
   fileName: DEFAULT_FILE_NAME,

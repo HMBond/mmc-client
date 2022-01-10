@@ -3,13 +3,21 @@ import { ReactNode } from 'react';
 import { View } from '../../../types/View.types';
 import './Carrousel.css';
 
-type CarrouselProps = {
-  children: ReactNode;
-  activeView?: View;
-  views?: View[];
+Carrousel.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
+  activeViewId: PropTypes.number.isRequired,
+  views: PropTypes.array,
 };
 
-function Carrousel({ children, activeView, views }: CarrouselProps) {
+type CarrouselProps = {
+  children: ReactNode;
+  activeViewId: number;
+  views: View[];
+};
+
+function Carrousel({ children, activeViewId, views }: CarrouselProps) {
+  const activeView = views.find((view) => view.id === activeViewId);
+  if (!activeView) throw new Error('Could not find activeView');
   const style =
     activeView && views
       ? {
@@ -25,13 +33,5 @@ function Carrousel({ children, activeView, views }: CarrouselProps) {
     </div>
   );
 }
-
-Carrousel.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
-  activeView: PropTypes.shape({
-    place: PropTypes.number,
-  }).isRequired,
-  views: PropTypes.array,
-};
 
 export default Carrousel;
