@@ -1,7 +1,7 @@
 {
-  "name": "modular-wmc",
+  "name": "modular-midi-controller",
   "description": "A modular web-based midi controller.",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "author": "Mike Bond",
   "license": "ISC",
   "main": "public/electron.js",
