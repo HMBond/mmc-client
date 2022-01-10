@@ -1,22 +1,14 @@
-import { useContext, CSSProperties, useState } from 'react';
-import PropTypes from 'prop-types';
+import { CSSProperties, useState } from 'react';
 import { Fab } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { ModuleDialog, UserContext } from '../..';
-import { Module, ModuleInterface } from '../../../types/modules';
+import { Module, ModuleInterface, ModulePropTypes } from '../../../types/modules';
+import { useStateContext } from '../../../context';
+import { ModuleDialog } from '../..';
 import './ModuleActions.css';
 
 ModuleActions.propTypes = {
-  module: PropTypes.shape({
-    id: PropTypes.number,
-    label: PropTypes.string,
-    type: PropTypes.string,
-    position: PropTypes.shape({
-      x: PropTypes.number,
-      y: PropTypes.number,
-    }),
-  }),
+  module: ModulePropTypes.isRequired,
 };
 
 type Props = {
@@ -24,7 +16,7 @@ type Props = {
 };
 
 function ModuleActions({ module }: Props) {
-  const { deleteModule, updateModule } = useContext(UserContext) || {};
+  const { dispatch } = useStateContext();
   const [showEditDialog, setShowEditDialog] = useState(false);
 
   function handleEditClick() {
@@ -35,13 +27,13 @@ function ModuleActions({ module }: Props) {
     setShowEditDialog(false);
   }
 
-  function handleEditDialogSubmit(updated: Module) {
-    updateModule && updateModule(module.id, updated);
+  function handleEditDialogSubmit(module: Module) {
+    dispatch({ type: 'UPDATE_MODULE', id: module.id, module });
     setShowEditDialog(false);
   }
 
   function handleDeleteClick() {
-    deleteModule && deleteModule(module.id);
+    dispatch({ type: 'DELETE_MODULE', id: module.id });
   }
 
   return (

@@ -1,22 +1,15 @@
-import { useContext, useRef, DragEvent, TouchEvent, ReactNode } from 'react';
+import { useRef, DragEvent, TouchEvent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
-import { ModuleActions, UserContext } from '../..';
-import { getElements, overrideCursor, toPx, getNewPosition } from './Placer_helpers';
-import { Module, ModuleInterface } from '../../../types/modules';
+import { ModuleActions } from '../..';
+import { Module, ModuleInterface, ModulePropTypes } from '../../../types/modules';
 import { Position } from '../../../types/types';
+import { useStateContext } from '../../../context';
+import { getElements, overrideCursor, toPx, getNewPosition } from './Placer_helpers';
 import './Placer.css';
 
 Placer.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
-  module: PropTypes.shape({
-    id: PropTypes.number,
-    label: PropTypes.string,
-    type: PropTypes.string,
-    position: PropTypes.shape({
-      x: PropTypes.number,
-      y: PropTypes.number,
-    }),
-  }),
+  module: ModulePropTypes,
 };
 
 type Props = {
@@ -25,7 +18,8 @@ type Props = {
 };
 
 function Placer({ children, module }: Props) {
-  const { editMode, activeView, addModule, updateModule } = useContext(UserContext) || {};
+  const { state, dispatch } = useStateContext();
+  const { editMode, activeView } = state;
   const placerRef = useRef<HTMLDivElement>(null);
   let startPosition: Position;
   let touchPosition: Position = { x: 0, y: 0 };
@@ -62,28 +56,25 @@ function Placer({ children, module }: Props) {
   function handleTouchEnd() {
     if (!editMode) return;
     if (touchPosition === module.position) return;
-    const newModule = { ...module, position: touchPosition };
-    updateModule && updateModule(module.id, newModule);
+    const updated = { ...module, position: touchPosition };
+    dispatch({ type: 'UPDATE_MODULE', id: module.id, module: updated });
   }
 
   function handleDragEnd(event: DragEvent) {
-    const newPosition = getNewPosition(event, placerRef, startPosition);
+    const position = getNewPosition(event, placerRef, startPosition);
     const {
       dataTransfer: { effectAllowed },
     } = event;
-    // alt-key on dragstart sets effectAllowed to 'copyMove'
+    // workaround event.altKey is always false on end: alt-key on dragstart sets effectAllowed to 'copyMove'
     if (effectAllowed === 'copyMove' && activeView !== undefined) {
-      // create copy with new id
-      let newModule = new Module({
-        label: module.label,
-        position: newPosition,
-        type: module.type,
+      const uniqueCopy = new Module({
+        ...module,
+        position,
       });
-      newModule = { ...module, ...newModule };
-      addModule && addModule(activeView, newModule);
+      dispatch({ type: 'ADD_MODULE', view: activeView, module: uniqueCopy });
     } else {
-      const newModule = { ...module, position: newPosition };
-      updateModule && updateModule(module.id, newModule);
+      const updated = { ...module, position };
+      dispatch({ type: 'UPDATE_MODULE', id: module.id, module: updated });
     }
   }
 

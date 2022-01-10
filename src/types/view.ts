@@ -1,4 +1,10 @@
+import PropTypes from 'prop-types';
 import { uid } from './helpers';
+
+export const ViewPropTypes = PropTypes.shape({
+  id: PropTypes.number,
+  backgroundColor: PropTypes.string,
+});
 
 type ViewConstructorArgs = {
   label?: string;
@@ -6,10 +12,7 @@ type ViewConstructorArgs = {
 };
 
 export class View {
-  constructor(
-    { label, backgroundColor }: ViewConstructorArgs,
-    currentViewCount: number
-  ) {
+  constructor({ label, backgroundColor }: ViewConstructorArgs, currentViewCount: number) {
     this.id = uid();
     this.label = label || '';
     this.backgroundColor = backgroundColor || 'indigo';

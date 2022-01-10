@@ -1,6 +1,7 @@
-import { useContext, MouseEvent, DragEvent, ReactNode, useState } from 'react';
+import { MouseEvent, DragEvent, ReactNode, useState } from 'react';
 import PropTypes from 'prop-types';
-import './View.css';
+import { Box } from '@mui/material';
+import { View as ViewModel, ViewPropTypes } from '../../../types/view';
 import {
   ButtonModule,
   Module,
@@ -8,18 +9,13 @@ import {
   ModuleType,
   SliderModule,
 } from '../../../types/modules';
-import { ModuleDialog, ModuleTypeMenu, UserContext } from '../..';
-import { View as ViewModel } from '../../../types/view';
-import { AddButton } from '../..';
-import { Box } from '@mui/material';
 import { useStateContext } from '../../../context';
+import { ModuleDialog, ModuleTypeMenu, AddButton } from '../..';
+import './View.css';
 
 View.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
-  view: PropTypes.shape({
-    id: PropTypes.number,
-    backgroundColor: PropTypes.string,
-  }).isRequired,
+  view: ViewPropTypes.isRequired,
 };
 
 type ViewProps = {
@@ -28,8 +24,8 @@ type ViewProps = {
 };
 
 function View({ children, view }: ViewProps) {
-  const { leftHanded, activeView } = useContext(UserContext) || {};
-  const { dispatch } = useStateContext();
+  const { state, dispatch } = useStateContext();
+  const { leftHanded, activeView } = state;
   const [showModuleTypeMenu, setShowModuleTypeMenu] = useState(false);
   const [freshModule, setFreshModule] = useState<ModuleInterface>(new Module({}));
   const [open, setOpen] = useState(false);

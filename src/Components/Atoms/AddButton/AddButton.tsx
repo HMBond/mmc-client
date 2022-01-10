@@ -1,18 +1,17 @@
-import { useContext, MouseEvent } from 'react';
+import { MouseEvent } from 'react';
 import PropTypes from 'prop-types';
 import Fab from '@mui/material/Fab';
-//import AddIcon from '@mui/icons-material/Add';
 import AddIcon from '@mui/icons-material/Add';
-import { UserContext } from '../..';
+import { useStateContext } from '../../../context';
 
 type ViewProps = {
   onClick: (event: MouseEvent) => void;
 };
 
 function AddButton({ onClick }: ViewProps) {
-  const { editMode } = useContext(UserContext) || {};
+  const { state } = useStateContext();
 
-  if (editMode) {
+  if (state.editMode) {
     return (
       <Fab onClick={onClick}>
         <AddIcon />

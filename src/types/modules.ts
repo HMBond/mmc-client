@@ -1,5 +1,16 @@
+import PropTypes from 'prop-types';
 import { DEFAULT_VELOCITY } from '../components/definitions';
 import { Position } from './types';
+
+export const ModulePropTypes = PropTypes.shape({
+  id: PropTypes.number,
+  label: PropTypes.string,
+  type: PropTypes.string,
+  position: PropTypes.shape({
+    x: PropTypes.number,
+    y: PropTypes.number,
+  }),
+});
 
 export type SliderOrientation = 'horizontal' | 'vertical';
 
@@ -11,6 +22,7 @@ type ModuleConstructorArgs =
         y: number;
       };
       type?: ModuleType;
+      [key: string]: any;
     }
   | undefined;
 
@@ -34,6 +46,11 @@ export class Module implements ModuleInterface {
       x: 0.75 * window.innerWidth,
       y: 0.15 * window.innerHeight,
     };
+    for (const key in args) {
+      if (this[key] === undefined) {
+        this[key] = args[key];
+      }
+    }
   }
   id: number;
   label: string;

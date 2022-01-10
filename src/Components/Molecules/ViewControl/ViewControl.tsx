@@ -1,30 +1,33 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@mui/material';
-import { AddButton, ViewDialog, UserContext, ViewActions } from '../..';
 import { View } from '../../../types/view';
+import { useStateContext } from '../../../context';
+import { AddButton, ViewDialog, ViewActions } from '../..';
 import './ViewControl.css';
 
 function ViewControl() {
-  const { addView, views, activeView, setActiveView, editMode } = useContext(UserContext) || {};
+  const { state, dispatch } = useStateContext();
 
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
 
   function handleViewButtonClick(view: View) {
-    setActiveView && setActiveView(view);
+    dispatch({ type: 'SET_ACTIVE_VIEW', value: view });
   }
 
-  function handleAddModuleClick() {
+  function handleAddClick() {
     setViewDialogOpen(true);
   }
 
   function handleSubmit(view: View) {
-    addView && addView(view);
+    dispatch({ type: 'ADD_VIEW', view });
     setViewDialogOpen(false);
   }
 
   function handleClose() {
     setViewDialogOpen(false);
   }
+
+  const { views, editMode, activeView } = state;
 
   return (
     <div className="view-control">
@@ -34,23 +37,23 @@ function ViewControl() {
             <div className="viewControl__button-wrapper" key={view.id}>
               <Button
                 disableElevation
-                color={activeView?.id === view.id ? 'warning' : 'secondary'}
+                color={activeView.id === view.id ? 'warning' : 'secondary'}
                 variant="contained"
                 onClick={() => handleViewButtonClick(view)}
               >
                 {view.label}
               </Button>
-              <ViewActions view={view} />
+              {editMode && <ViewActions view={view} />}
             </div>
           );
         })}
-      {editMode && <AddButton onClick={handleAddModuleClick} />}
+      {editMode && <AddButton onClick={handleAddClick} />}
       <ViewDialog
         open={viewDialogOpen}
         onClose={handleClose}
         onSubmit={handleSubmit}
         add
-        view={new View({}, views?.length || 0)}
+        view={new View({}, views.length || 0)}
       />
     </div>
   );

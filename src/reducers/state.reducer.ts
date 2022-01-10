@@ -53,13 +53,12 @@ export const reducer = (state: State, action: Action): State => {
     }
 
     case 'MOVE_VIEW': {
-      const { fromPlace, toPlace } = action;
+      const { view, toPlace } = action;
       const { views } = state;
-      const view = views.find((item) => item.place === fromPlace);
-      if (!view) throw new Error('no view found on place: ' + fromPlace);
+      if (!view) throw new Error('no view provided to MOVE_VIEW action');
       if (toPlace > views.length || toPlace <= 0) return state;
       if (view.place === toPlace) return state;
-      const [updatedView, updatedViews] = moveView({ fromPlace, toPlace, view, views });
+      const [updatedView, updatedViews] = moveView({ view, toPlace, views });
       return {
         ...state,
         views: updatedViews,
@@ -68,12 +67,13 @@ export const reducer = (state: State, action: Action): State => {
     }
 
     case 'SAVE_USER_CONTEXT_AS': {
+      const { fileName } = action;
       const a = document.createElement('a');
       const file = new Blob([JSON.stringify(state)], { type: 'application/json' });
       a.href = URL.createObjectURL(file);
-      a.download = action.fileName;
+      a.download = fileName;
       a.click();
-      return state;
+      return { ...state, fileName };
     }
 
     case 'CLEAR_LOCAL_STORAGE': {
@@ -91,6 +91,7 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         showEditButton: action.value,
+        editMode: action.value,
       };
 
     case 'SET_INVERT_THEME':
@@ -154,15 +155,14 @@ function sortViewsByPlace(views: View[]): View[] {
 }
 
 type MoveViewArgs = {
-  fromPlace: number;
-  toPlace: number;
   view: View;
+  toPlace: number;
   views: View[];
 };
 
-function moveView({ fromPlace, toPlace, view, views }: MoveViewArgs): [View, View[]] {
-  const increment = fromPlace < toPlace;
-  const [min, max] = increment ? [fromPlace, toPlace] : [toPlace, fromPlace];
+function moveView({ view, toPlace, views }: MoveViewArgs): [View, View[]] {
+  const increment = view.place < toPlace;
+  const [min, max] = increment ? [view.place, toPlace] : [toPlace, view.place];
   const isView = (item: View) => item === view;
   const affected = views.filter((item) => item.place >= min && item.place <= max && !isView(item));
   const others = views.filter((item) => !affected.includes(item) && !isView(item));

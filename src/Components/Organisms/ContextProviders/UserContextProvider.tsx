@@ -84,7 +84,6 @@ const UserContextProvider = ({ children }: { children: ReactNode }) => {
     return () => {
       localStorage.setItem(LOCAL_STORAGE_ITEM_NAME, JSON.stringify(user));
     };
-    // eslint-disable-next-line
   }, []);
 
   const debounceMemo = useMemo(

@@ -1,10 +1,9 @@
-import { useContext, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
-import { UserContext } from '../..';
 import { midiRawNumber } from '../../propTypeValidators';
 import { ButtonModuleConstructorArgs } from '../../../types/modules';
-import { useMidiContext } from '../../../context';
+import { useMidiContext, useStateContext } from '../../../context';
 
 type MidiButtonProps = ButtonModuleConstructorArgs & {
   children: ReactNode;
@@ -12,7 +11,7 @@ type MidiButtonProps = ButtonModuleConstructorArgs & {
 
 function MidiButton({ children, channel, note, velocity }: MidiButtonProps) {
   const { midiState } = useMidiContext();
-  const { editMode } = useContext(UserContext) || {};
+  const { state } = useStateContext();
 
   function handlePlayNote() {
     if (!note) return;
@@ -40,7 +39,7 @@ function MidiButton({ children, channel, note, velocity }: MidiButtonProps) {
       disableElevation
       variant="contained"
       color="primary"
-      disabled={!midiState.output || editMode}
+      disabled={!midiState.output || state.editMode}
       onMouseDown={() => handlePlayNote()}
       onMouseUp={() => handleStopNote()}
       onMouseOut={() => handleStopNote()}

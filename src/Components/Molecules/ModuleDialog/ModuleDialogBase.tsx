@@ -2,22 +2,14 @@ import { useState, ChangeEvent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
 import { Dialog } from '../..';
-import { ModuleInterface } from '../../../types/modules';
+import { ModuleInterface, ModulePropTypes } from '../../../types/modules';
 import { FormControl } from '@mui/material';
 
 export const basePropTypes = {
   onSubmit: PropTypes.func,
   open: PropTypes.bool,
   onClose: PropTypes.func,
-  module: PropTypes.shape({
-    id: PropTypes.number,
-    label: PropTypes.string,
-    type: PropTypes.string,
-    position: PropTypes.shape({
-      x: PropTypes.number,
-      y: PropTypes.number,
-    }),
-  }).isRequired,
+  module: ModulePropTypes.isRequired,
 };
 
 ModuleDialogBase.propTypes = basePropTypes;

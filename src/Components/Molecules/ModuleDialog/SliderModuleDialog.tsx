@@ -1,7 +1,4 @@
-import { ChangeEvent, useContext, useState } from 'react';
-import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';
-import { ModuleInterface, SliderOrientation } from '../../../types/modules';
-import { MIDI_CHANNELS } from '../../definitions';
+import { ChangeEvent, useState } from 'react';
 import {
   FormControl,
   InputLabel,
@@ -9,8 +6,10 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from '@mui/material';
-import { UserContextOrNull } from '../../../types/types';
-import { UserContext } from '../..';
+import { ModuleInterface, SliderOrientation } from '../../../types/modules';
+import { MIDI_CHANNELS } from '../../definitions';
+import { useStateContext } from '../../../context';
+import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';
 
 SliderModuleDialog.propTypes = basePropTypes;
 
@@ -18,11 +17,11 @@ function SliderModuleDialog(props: BaseProps) {
   const { module, onSubmit } = props;
   const [channel, setChannel] = useState<number>(module.channel);
   const [orientation, setOrientation] = useState<SliderOrientation>(module.orientation);
-  const { modules } = useContext<UserContextOrNull>(UserContext) || {};
+  const { state } = useStateContext();
 
   const getUsedChannels = (): number[] => {
-    if (!modules) return [];
-    return modules.map((module) => {
+    if (!state.modules) return [];
+    return state.modules.map((module) => {
       if (module.channel) return module.channel;
     });
   };

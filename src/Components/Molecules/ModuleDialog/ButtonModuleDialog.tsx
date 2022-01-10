@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import {
   FormControl,
   InputLabel,
@@ -8,8 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { ModuleInterface } from '../../../types/modules';
-import { UserContextOrNull } from '../../../types/types';
-import { UserContext } from '../..';
+import { useStateContext } from '../../../context';
 import { DEFAULT_VELOCITY, MIDI_CHANNELS, MIDI_MAX, MIDI_MIN } from '../../definitions';
 import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';
 
@@ -20,11 +19,11 @@ function ButtonModuleDialog(props: BaseProps) {
   const [channel, setChannel] = useState<number>(module.channel || 1);
   const [note, setNote] = useState<string>(module.note || 'C3');
   const [velocity, setVelocity] = useState<number>(module.velocity || DEFAULT_VELOCITY);
-  const { modules } = useContext<UserContextOrNull>(UserContext) || {};
+  const { state } = useStateContext();
 
   const getUsedChannels = (): number[] => {
-    if (!modules) return [];
-    return modules.map((module) => module.channel && module.channel);
+    if (!state.modules) return [];
+    return state.modules.map((module) => module.channel && module.channel);
   };
 
   function handleChannelChange(event: ChangeEvent<HTMLSelectElement>) {

@@ -1,23 +1,15 @@
-import { useContext, CSSProperties, useState } from 'react';
-import PropTypes from 'prop-types';
+import { CSSProperties, useState } from 'react';
 import { Fab } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import ArrowLeft from '@mui/icons-material/ArrowLeft';
 import ArrowRight from '@mui/icons-material/ArrowRight';
-import { UserContext, ViewDialog } from '../..';
-import { View } from '../../../types/view';
+import { View, ViewPropTypes } from '../../../types/view';
+import { useStateContext } from '../../../context';
+import { ViewDialog } from '../..';
 import './ViewActions.css';
 
 ViewActions.propTypes = {
-  module: PropTypes.shape({
-    id: PropTypes.number,
-    label: PropTypes.string,
-    type: PropTypes.string,
-    position: PropTypes.shape({
-      x: PropTypes.number,
-      y: PropTypes.number,
-    }),
-  }),
+  view: ViewPropTypes.isRequired,
 };
 
 type Props = {
@@ -25,7 +17,7 @@ type Props = {
 };
 
 function ViewActions({ view }: Props) {
-  const { deleteView, updateView, moveView, views } = useContext(UserContext) || {};
+  const { state, dispatch } = useStateContext();
   const [showEditDialog, setShowEditDialog] = useState(false);
 
   function handleEditClick() {
@@ -33,11 +25,11 @@ function ViewActions({ view }: Props) {
   }
 
   function handleLeftClick() {
-    moveView && moveView(view.id, view.place - 1);
+    dispatch({ type: 'MOVE_VIEW', view: view, toPlace: view.place - 1 });
   }
 
   function handleRightClick() {
-    moveView && moveView(view.id, view.place + 1);
+    dispatch({ type: 'MOVE_VIEW', view: view, toPlace: view.place + 1 });
   }
 
   function handleEditDialogClose() {
@@ -45,12 +37,12 @@ function ViewActions({ view }: Props) {
   }
 
   function handleEditDialogSubmit(updated: View) {
-    updateView && updateView(view.id, updated);
+    dispatch({ type: 'UPDATE_VIEW', id: view.id, view: updated });
     setShowEditDialog(false);
   }
 
   function handleDelete() {
-    deleteView && deleteView(view.id);
+    dispatch({ type: 'DELETE_VIEW', id: view.id });
   }
 
   return (
@@ -77,7 +69,7 @@ function ViewActions({ view }: Props) {
           <ArrowLeft />
         </Fab>
       )}
-      {view.place !== views?.length && (
+      {view.place !== state.views.length && (
         <Fab
           style={{ '--order': 1 } as CSSProperties}
           className="view-actions__button view-actions__button--right"
