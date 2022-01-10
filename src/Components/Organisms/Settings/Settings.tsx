@@ -1,7 +1,9 @@
+import DeleteIcon from '@mui/icons-material/Delete';
 import EditOffIcon from '@mui/icons-material/EditOff';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import SettingsIcon from '@mui/icons-material/Settings';
+import SettingsInputSvideoIcon from '@mui/icons-material/SettingsInputSvideo';
 import { Button, Fab, FormControlLabel, Switch } from '@mui/material';
 import { ChangeEvent, useState } from 'react';
 import { Dialog, MidiSettings, SaveDialog } from '../..';
@@ -40,6 +42,7 @@ function Settings({ restartMidi }: SettingsProps) {
   }
 
   function handleSaveButtonClick() {
+    setOpen(false);
     setSaveDialogOpen(true);
   }
 
@@ -65,11 +68,6 @@ function Settings({ restartMidi }: SettingsProps) {
           {editMode ? <EditOffIcon /> : <ModeEditIcon />}
         </Fab>
       )}
-      {editMode && (
-        <Fab color="default" aria-label="settings" size="large" onClick={handleSaveButtonClick}>
-          <SaveAsIcon />
-        </Fab>
-      )}
       <Fab color="default" aria-label="settings button" size="large" onClick={handleOpenClick}>
         <SettingsIcon />
       </Fab>
@@ -81,9 +79,14 @@ function Settings({ restartMidi }: SettingsProps) {
         aria-describedby="global and midi settings"
         actions={
           <>
-            <Button onClick={async () => await restartMidi()}>Restart MIDI</Button>
+            <Button aria-label="save setup" onClick={handleSaveButtonClick}>
+              <SaveAsIcon />
+            </Button>
+            <Button color="warning" onClick={async () => await restartMidi()}>
+              <SettingsInputSvideoIcon />
+            </Button>
             <Button color="warning" onClick={handleClearLocalStorage}>
-              Clear All
+              <DeleteIcon />
             </Button>
           </>
         }

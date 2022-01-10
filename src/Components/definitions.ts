@@ -16,7 +16,7 @@ export const LOCAL_STORAGE_ITEM_NAME = 'midi-controller-user-setup';
 export const DEFAULT_FILE_NAME = 'my-modular-midi-controller-setup.json';
 
 const button = new ButtonModule({
-  label: 'Kick',
+  label: 'my button',
   channel: 1,
   note: 'C3',
   velocity: DEFAULT_VELOCITY,
@@ -27,7 +27,7 @@ const button = new ButtonModule({
 });
 
 const slider = new SliderModule({
-  label: 'hal',
+  label: 'volume',
   channel: 16,
   value: 0.8,
   orientation: 'vertical',

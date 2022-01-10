@@ -42,7 +42,7 @@ export const reducer = (state: State, action: Action): State => {
     case 'ADD_VIEW':
       return {
         ...state,
-        views: [...state.views, action.view],
+        views: sortViewsByPlace([...state.views, action.view]),
       };
 
     case 'UPDATE_VIEW': {
