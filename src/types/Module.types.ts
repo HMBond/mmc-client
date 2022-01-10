@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { DEFAULT_VELOCITY } from '../components/definitions';
-import { uid } from './helpers';
 import { Position } from './misc.types';
+import { uid } from './type.helpers';
 
 export const ModulePropTypes = PropTypes.shape({
   id: PropTypes.number,

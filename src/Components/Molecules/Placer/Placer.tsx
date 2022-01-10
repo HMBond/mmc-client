@@ -5,7 +5,7 @@ import { useStateContext } from '../../../context';
 import { Position } from '../../../types/misc.types';
 import { Module, ModuleInterface, ModulePropTypes } from '../../../types/Module.types';
 import './Placer.css';
-import { getElements, getNewPosition, overrideCursor, toPx } from './Placer_helpers';
+import { getElements, getNewPosition, overrideCursor, toPx } from './Placer.helpers';
 
 Placer.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),

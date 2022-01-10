@@ -1,9 +1,8 @@
+import { Dispatch, useEffect, useReducer, useRef } from 'react';
+import { Action, State } from '../../types/state.types';
+
 // thanks to Robin Wieruch
 // https://www.robinwieruch.de/react-usereducer-middleware/
-
-import { Dispatch, useEffect, useReducer, useRef } from 'react';
-import { Action, State } from '../types/state.types';
-
 export function useCustomReducer(
   reducer: (state: State, action: Action) => State,
   initialState: State,

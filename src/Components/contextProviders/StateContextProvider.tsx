@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { ReactNode } from 'react';
 import { StateContext } from '../../context';
-import { useCustomReducer } from '../../reducers/helpers';
 import { reducer } from '../../reducers/state.reducer';
 import { Action, State } from '../../types/state.types';
 import { INITIAL_STATE, LOCAL_STORAGE_ITEM_NAME, LOG_STATE_ACTIONS } from '../definitions';
+import { useCustomReducer } from './contextProviders.helpers';
 
 function logger(action: Action, state: State, label?: string) {
   if (LOG_STATE_ACTIONS) {

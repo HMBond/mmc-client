@@ -89,6 +89,7 @@ function Settings({ restartMidi }: SettingsProps) {
     // TODO: Show 'Are you sure? Cancel / OK' dialog
     dispatch({ type: 'CLEAR_LOCAL_STORAGE' });
   }
+
   const { leftHanded, showEditButton, editMode, invertTheme, fileName } = state;
 
   return (
