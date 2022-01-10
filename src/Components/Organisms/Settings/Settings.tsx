@@ -1,11 +1,12 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditOffIcon from '@mui/icons-material/EditOff';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import SaveAsIcon from '@mui/icons-material/SaveAs';
 import SettingsIcon from '@mui/icons-material/Settings';
 import SettingsInputSvideoIcon from '@mui/icons-material/SettingsInputSvideo';
 import { Button, Fab, FormControlLabel, Switch } from '@mui/material';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import { Dialog, MidiSettings, SaveDialog } from '../..';
 import { useStateContext } from '../../../context';
 import './Settings.css';
@@ -25,7 +26,7 @@ function Settings({ restartMidi }: SettingsProps) {
     setOpen(false);
   }
 
-  function handleThemeModeToggle(event: ChangeEvent, checked: boolean) {
+  function handleThemeModeToggle(event: React.ChangeEvent, checked: boolean) {
     dispatch({ type: 'SET_INVERT_THEME', value: checked });
   }
 
@@ -41,9 +42,38 @@ function Settings({ restartMidi }: SettingsProps) {
     dispatch({ type: 'SET_EDIT_MODE', value: !state.editMode });
   }
 
-  function handleSaveButtonClick() {
+  function handleSaveClick() {
     setOpen(false);
     setSaveDialogOpen(true);
+  }
+
+  function handleUploadClick() {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'application/json';
+    input.onchange = handleUploadFileChanged;
+    input.click();
+  }
+
+  function handleUploadFileChanged(event: any) {
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+      const reader = new FileReader();
+      reader.onload = handleFileLoad;
+      const file = event.target.files[0];
+      if (!file.type.match('application/json')) {
+        throw new Error('File is not a json');
+      }
+      reader.readAsText(file);
+    } else {
+      throw new Error('No File APIs supported');
+    }
+  }
+
+  function handleFileLoad(event: ProgressEvent<FileReader>) {
+    if (!event?.target?.result) {
+      throw new Error('Could not read results from file');
+    }
+    dispatch({ type: 'SET_STATE', state: JSON.parse(event.target.result as string) });
   }
 
   function handleSaveDialogClose() {
@@ -79,8 +109,11 @@ function Settings({ restartMidi }: SettingsProps) {
         aria-describedby="global and midi settings"
         actions={
           <>
-            <Button aria-label="save setup" onClick={handleSaveButtonClick}>
-              <SaveAsIcon />
+            <Button aria-label="save setup" onClick={handleSaveClick}>
+              <FileDownloadIcon />
+            </Button>
+            <Button aria-label="save setup" onClick={handleUploadClick}>
+              <FileUploadIcon />
             </Button>
             <Button color="warning" onClick={async () => await restartMidi()}>
               <SettingsInputSvideoIcon />

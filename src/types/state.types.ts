@@ -34,7 +34,8 @@ export type Action =
   | { type: 'SET_MODULES'; value: ModuleInterface[] }
   | { type: 'SET_INPUT_NAME'; value: string }
   | { type: 'SET_OUTPUT_NAME'; value: string }
-  | { type: 'SET_FILE_NAME'; value: string };
+  | { type: 'SET_FILE_NAME'; value: string }
+  | { type: 'SET_STATE'; state: State };
 
 export type StateContextProviderValue = {
   state: State;

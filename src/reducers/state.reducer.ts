@@ -146,6 +146,12 @@ export const reducer = (state: State, action: Action): State => {
         fileName: action.value,
       };
 
+    case 'SET_STATE':
+      // TODO: state validation
+      return {
+        ...action.state,
+      };
+
     default:
       return state;
   }
