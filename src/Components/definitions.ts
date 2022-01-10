@@ -11,6 +11,7 @@ export const MIDI_MAX = 127;
 export const DEFAULT_VELOCITY = 64;
 
 export const LOCAL_STORAGE_DEBOUNCE_WAIT = 2000;
+export const SLIDER_DEBOUNCE_WAIT = 500;
 
 export const LOCAL_STORAGE_ITEM_NAME = 'midi-controller-user-setup';
 export const DEFAULT_FILE_NAME = 'my-modular-midi-controller-setup.json';
