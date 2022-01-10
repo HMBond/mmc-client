@@ -85,7 +85,7 @@ function ViewActions({ view }: Props) {
         open={showEditDialog}
         onClose={handleEditDialogClose}
         onSubmit={handleEditDialogSubmit}
-        onDelete={handleDelete}
+        onDelete={state.views.length > 1 ? handleDelete : undefined}
         view={view}
       />
     </div>

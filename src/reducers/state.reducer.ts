@@ -57,14 +57,28 @@ export const reducer = (state: State, action: Action): State => {
     case 'MOVE_VIEW': {
       const { view, toPlace } = action;
       const { views } = state;
-      if (!view) throw new Error('no view provided to MOVE_VIEW action');
       if (toPlace > views.length || toPlace <= 0) return state;
       if (view.place === toPlace) return state;
-      const [updatedView, updatedViews] = moveView({ view, toPlace, views });
+      const updatedViews = moveView({ view, toPlace, views });
       return {
         ...state,
         views: updatedViews,
-        activeViewId: updatedView.id,
+        activeViewId: view.id,
+      };
+    }
+
+    case 'DELETE_VIEW': {
+      const { views } = state;
+      const { id } = action;
+      if (views.length === 1) {
+        throw new Error('Can not delete the last view');
+      }
+      const updatedViews = moveView({ id, toPlace: views.length + 1, views: views });
+      const otherViews = updatedViews.filter((item) => item.id !== action.id);
+      return {
+        ...state,
+        views: otherViews,
+        activeViewId: state.activeViewId === action.id ? otherViews[0].id : state.activeViewId,
       };
     }
 
@@ -153,6 +167,7 @@ export const reducer = (state: State, action: Action): State => {
       };
 
     default:
+      throw new Error(`${(action as Action).type} is not implemented in reducer`);
       return state;
   }
 };
@@ -165,15 +180,20 @@ function sortViewsByPlace(views: View[]): View[] {
 }
 
 type MoveViewArgs = {
-  view: View;
+  id?: number;
+  view?: View;
   toPlace: number;
   views: View[];
 };
 
-function moveView({ view, toPlace, views }: MoveViewArgs): [View, View[]] {
+function moveView({ id: idArg, view: viewArg, toPlace, views }: MoveViewArgs): View[] {
+  if (!idArg && !viewArg) throw new Error('Please provide a view id OR view instance to moveView');
+  const view = viewArg ? viewArg : views.find((item) => item.id === idArg);
+  const id = idArg ?? view?.id;
+  if (!view) throw new Error('Could not find view in views');
   const increment = view.place < toPlace;
   const [min, max] = increment ? [view.place, toPlace] : [toPlace, view.place];
-  const isView = (item: View) => item === view;
+  const isView = (item: View) => item.id === id;
   const affected = views.filter((item) => item.place >= min && item.place <= max && !isView(item));
   const others = views.filter((item) => !affected.includes(item) && !isView(item));
   const updatedView = { ...view, place: toPlace };
@@ -185,5 +205,5 @@ function moveView({ view, toPlace, views }: MoveViewArgs): [View, View[]] {
     })),
     updatedView,
   ]);
-  return [updatedView, updatedViews];
+  return updatedViews;
 }
