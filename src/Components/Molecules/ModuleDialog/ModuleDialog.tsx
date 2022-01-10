@@ -1,5 +1,5 @@
-import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';
 import ButtonModuleDialog from './ButtonModuleDialog';
+import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';
 import SliderModuleDialog from './SliderModuleDialog';
 
 ModuleDialog.propTypes = basePropTypes;

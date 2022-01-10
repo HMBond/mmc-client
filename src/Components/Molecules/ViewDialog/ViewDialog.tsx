@@ -1,7 +1,7 @@
-import { useState, ChangeEvent } from 'react';
-import PropTypes from 'prop-types';
-import { Button, TextField } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Button, TextField } from '@mui/material';
+import PropTypes from 'prop-types';
+import { ChangeEvent, useState } from 'react';
 import { Dialog } from '../..';
 import { View, ViewPropTypes } from '../../../types/View.types';
 

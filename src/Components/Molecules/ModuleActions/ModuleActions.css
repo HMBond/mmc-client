@@ -8,8 +8,7 @@
 }
 
 .module-actions__button {
-  transition: transform 0.08s ease-in-out calc(var(--order) * 0.08s),
-    opacity 0.1s linear !important; /* override MUI */
+  transition: transform 0.08s ease-in-out calc(var(--order) * 0.08s), opacity 0.1s linear !important; /* override MUI */
   opacity: 0;
   transform: translate(-50%, calc((var(--order) - 1) * -50%)) scale(0%);
 }

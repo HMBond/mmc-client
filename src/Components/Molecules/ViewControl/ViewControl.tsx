@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { Button } from '@mui/material';
-import { View } from '../../../types/View.types';
+import { useState } from 'react';
+import { AddButton, ViewActions, ViewDialog } from '../..';
 import { useStateContext } from '../../../context';
-import { AddButton, ViewDialog, ViewActions } from '../..';
+import { View } from '../../../types/View.types';
 import './ViewControl.css';
 
 function ViewControl() {

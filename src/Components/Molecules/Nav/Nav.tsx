@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
+import PropTypes from 'prop-types';
+import { ReactNode } from 'react';
 import { useStateContext } from '../../../context';
 import './Nav.css';
 

@@ -1,21 +1,21 @@
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useEffect } from 'react';
 import { WebMidi } from 'webmidi';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {
   Carrousel,
   LaunchPad,
   MidiButton,
-  Placer,
+  MidiSettings,
+  MidiSlider,
   Nav,
+  Placer,
   Settings,
   View,
   ViewControl,
-  MidiSlider,
-  MidiSettings,
 } from '.';
-import { View as ViewModel } from '../types/View.types';
-import { ButtonModule, SliderModule } from '../types/Module.types';
 import { useMidiContext, useStateContext } from '../context';
+import { ButtonModule, SliderModule } from '../types/Module.types';
+import { View as ViewModel } from '../types/View.types';
 
 export default function WMC() {
   const { midiDispatch } = useMidiContext();

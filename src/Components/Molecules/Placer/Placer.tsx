@@ -1,11 +1,11 @@
-import { useRef, DragEvent, TouchEvent, ReactNode } from 'react';
 import PropTypes from 'prop-types';
+import { DragEvent, ReactNode, TouchEvent, useRef } from 'react';
 import { ModuleActions } from '../..';
-import { Module, ModuleInterface, ModulePropTypes } from '../../../types/Module.types';
-import { Position } from '../../../types/misc.types';
 import { useStateContext } from '../../../context';
-import { getElements, overrideCursor, toPx, getNewPosition } from './Placer_helpers';
+import { Position } from '../../../types/misc.types';
+import { Module, ModuleInterface, ModulePropTypes } from '../../../types/Module.types';
 import './Placer.css';
+import { getElements, getNewPosition, overrideCursor, toPx } from './Placer_helpers';
 
 Placer.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),

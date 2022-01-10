@@ -1,11 +1,11 @@
-import { ChangeEvent, useState } from 'react';
-import { Button, Fab, FormControlLabel, Switch } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import EditOffIcon from '@mui/icons-material/EditOff';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { Button, Fab, FormControlLabel, Switch } from '@mui/material';
+import { ChangeEvent, useState } from 'react';
+import { Dialog, MidiSettings, SaveDialog } from '../..';
 import { useStateContext } from '../../../context';
-import { MidiSettings, SaveDialog, Dialog } from '../..';
 import './Settings.css';
 
 type SettingsProps = { restartMidi: () => Promise<any> };

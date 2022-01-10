@@ -1,4 +1,3 @@
-import { ChangeEvent, useState } from 'react';
 import {
   FormControl,
   InputLabel,
@@ -7,8 +6,9 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { ModuleInterface } from '../../../types/Module.types';
+import { ChangeEvent, useState } from 'react';
 import { useStateContext } from '../../../context';
+import { ModuleInterface } from '../../../types/Module.types';
 import { DEFAULT_VELOCITY, MIDI_CHANNELS, MIDI_MAX, MIDI_MIN } from '../../definitions';
 import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';
 

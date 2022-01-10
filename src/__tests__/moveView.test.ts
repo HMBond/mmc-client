@@ -1,6 +1,6 @@
 import { INITIAL_STATE } from '../components/definitions';
-import { View } from '../types/View.types';
 import { reducer } from '../reducers/state.reducer';
+import { View } from '../types/View.types';
 
 const DUMMY_COUNT = 5;
 

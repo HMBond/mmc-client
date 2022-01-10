@@ -1,7 +1,7 @@
-import { MouseEvent } from 'react';
-import PropTypes from 'prop-types';
-import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
+import Fab from '@mui/material/Fab';
+import PropTypes from 'prop-types';
+import { MouseEvent } from 'react';
 import { useStateContext } from '../../../context';
 
 type ViewProps = {

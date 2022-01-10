@@ -1,7 +1,8 @@
-import { MouseEvent, DragEvent, ReactNode, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
-import { View as ViewModel, ViewPropTypes } from '../../../types/View.types';
+import PropTypes from 'prop-types';
+import { DragEvent, MouseEvent, ReactNode, useState } from 'react';
+import { AddButton, ModuleDialog, ModuleTypeMenu } from '../..';
+import { useStateContext } from '../../../context';
 import {
   ButtonModule,
   Module,
@@ -9,8 +10,7 @@ import {
   ModuleType,
   SliderModule,
 } from '../../../types/Module.types';
-import { useStateContext } from '../../../context';
-import { ModuleDialog, ModuleTypeMenu, AddButton } from '../..';
+import { View as ViewModel, ViewPropTypes } from '../../../types/View.types';
 import './View.css';
 
 View.propTypes = {

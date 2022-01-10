@@ -1,5 +1,3 @@
-import { FormEvent, MouseEvent, ReactNode } from 'react';
-import PropTypes from 'prop-types';
 import {
   Button,
   Dialog as MuiDialog,
@@ -8,16 +6,15 @@ import {
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
+import PropTypes from 'prop-types';
+import { FormEvent, MouseEvent, ReactNode } from 'react';
 import './Dialog.css';
 
 type DialogProps = {
   children?: ReactNode;
   onSubmit?: () => void;
   open: boolean;
-  onClose: (
-    event: object,
-    reason: 'backdropClick' | 'escapeKeyDown' | 'closeClick'
-  ) => void;
+  onClose: (event: object, reason: 'backdropClick' | 'escapeKeyDown' | 'closeClick') => void;
   title: string;
   text?: string;
   actions?: ReactNode;
@@ -50,13 +47,7 @@ function Dialog(props: DialogProps) {
   }
 
   return (
-    <MuiDialog
-      open={open}
-      onClose={onClose}
-      maxWidth="sm"
-      fullWidth
-      {...restProps}
-    >
+    <MuiDialog open={open} onClose={onClose} maxWidth="sm" fullWidth {...restProps}>
       <form onSubmit={handleSubmit}>
         <DialogTitle>{title}</DialogTitle>
         <DialogContent dividers={dividers} className="dialog__content">
@@ -74,19 +65,13 @@ function Dialog(props: DialogProps) {
 }
 
 Dialog.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   onClose: PropTypes.func.isRequired,
   onSubmit: PropTypes.func,
   open: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   submitLabel: PropTypes.string,
-  actions: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
+  actions: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   dividers: PropTypes.bool,
 };
 

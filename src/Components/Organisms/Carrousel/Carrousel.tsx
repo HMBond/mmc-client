@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
 import PropTypes from 'prop-types';
+import { ReactNode } from 'react';
 import { View } from '../../../types/View.types';
 import './Carrousel.css';
 

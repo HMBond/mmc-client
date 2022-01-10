@@ -1,9 +1,9 @@
-import { useState, ChangeEvent, ReactNode } from 'react';
-import PropTypes from 'prop-types';
+import { FormControl } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import PropTypes from 'prop-types';
+import { ChangeEvent, ReactNode, useState } from 'react';
 import { Dialog } from '../..';
 import { ModuleInterface, ModulePropTypes } from '../../../types/Module.types';
-import { FormControl } from '@mui/material';
 
 export const basePropTypes = {
   onSubmit: PropTypes.func,

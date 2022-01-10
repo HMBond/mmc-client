@@ -1,9 +1,9 @@
-import { ReactNode } from 'react';
-import PropTypes from 'prop-types';
 import { Button } from '@mui/material';
-import { midiRawNumber } from '../../propTypeValidators';
-import { ButtonModuleConstructorArgs } from '../../../types/Module.types';
+import PropTypes from 'prop-types';
+import { ReactNode } from 'react';
 import { useMidiContext, useStateContext } from '../../../context';
+import { ButtonModuleConstructorArgs } from '../../../types/Module.types';
+import { midiRawNumber } from '../../propTypeValidators';
 
 type MidiButtonProps = ButtonModuleConstructorArgs & {
   children: ReactNode;

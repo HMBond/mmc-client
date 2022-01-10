@@ -1,6 +1,6 @@
-import { ChangeEventHandler } from 'react';
-import PropTypes from 'prop-types';
 import { Alert, FormControl, InputLabel, NativeSelect } from '@mui/material';
+import PropTypes from 'prop-types';
+import { ChangeEventHandler } from 'react';
 
 function capitalizeFirstLetter(value: string): string {
   return value.charAt(0).toUpperCase() + value.slice(1);

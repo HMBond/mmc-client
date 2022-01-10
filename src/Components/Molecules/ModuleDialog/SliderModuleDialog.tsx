@@ -1,4 +1,3 @@
-import { ChangeEvent, useState } from 'react';
 import {
   FormControl,
   InputLabel,
@@ -6,9 +5,10 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from '@mui/material';
+import { ChangeEvent, useState } from 'react';
+import { useStateContext } from '../../../context';
 import { ModuleInterface, SliderOrientation } from '../../../types/Module.types';
 import { MIDI_CHANNELS } from '../../definitions';
-import { useStateContext } from '../../../context';
 import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';
 
 SliderModuleDialog.propTypes = basePropTypes;

@@ -1,6 +1,6 @@
 import { Box, Slider, Typography } from '@mui/material';
-import { SliderModule } from '../../../types/Module.types';
 import { useMidiContext, useStateContext } from '../../../context';
+import { SliderModule } from '../../../types/Module.types';
 
 function MidiSlider(module: SliderModule) {
   const { id, channel, value, orientation, label } = module;

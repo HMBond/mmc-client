@@ -1,6 +1,6 @@
+import { Button, ButtonGroup } from '@mui/material';
 import PropTypes from 'prop-types';
 import { ModuleType, moduleTypes } from '../../../types/Module.types';
-import { Button, ButtonGroup } from '@mui/material';
 
 ModuleTypeMenu.propTypes = {
   handleModuleChoice: PropTypes.func.isRequired,

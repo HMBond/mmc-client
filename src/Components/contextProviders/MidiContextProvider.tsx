@@ -1,7 +1,7 @@
-import { ReactNode, useReducer } from 'react';
 import PropTypes from 'prop-types';
-import { reducer } from '../../reducers/midi.reducer';
+import { ReactNode, useReducer } from 'react';
 import { MidiContext } from '../../context';
+import { reducer } from '../../reducers/midi.reducer';
 
 const initialContextState = { input: null, output: null, inputs: [], outputs: [] };
 

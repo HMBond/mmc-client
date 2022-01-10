@@ -1,16 +1,13 @@
-import { useState, ChangeEvent } from 'react';
-import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
+import PropTypes from 'prop-types';
+import { ChangeEvent, useState } from 'react';
 import { Dialog } from '../..';
 
 type SaveDialogProps = {
   inputValue?: string;
   onSubmit: (value: string) => void;
   open: boolean;
-  onClose: (
-    event: object,
-    reason: 'backdropClick' | 'escapeKeyDown' | 'closeClick'
-  ) => void;
+  onClose: (event: object, reason: 'backdropClick' | 'escapeKeyDown' | 'closeClick') => void;
 };
 
 function SaveDialog(props: SaveDialogProps) {
