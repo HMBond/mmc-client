@@ -7,8 +7,9 @@
   "main": "public/electron.js",
   "scripts": {
     "dev": "run-p lint-watch typescript-watch dev-web",
+    "dev-electron": "run-p lint-watch typescript-watch dev-web electron",
     "dev-web": "vite",
-    "dev-electron": "electron .",
+    "electron": "electron .",
     "preview": "vite preview --host",
     "build": "tsc && vite build && electron-builder --config electron-builder.yml -mwl",
     "build-web": "tsc && vite build",

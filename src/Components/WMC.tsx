@@ -42,7 +42,9 @@ export default function WMC() {
         setOutputStates();
         (WebMidi as any).addListener('portschanged', handleMidiPortChanged);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        throw new Error(error);
+      });
   }
 
   function setInputStates() {
