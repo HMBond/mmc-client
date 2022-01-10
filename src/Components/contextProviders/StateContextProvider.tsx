@@ -6,13 +6,17 @@ import { reducer } from '../../reducers/state.reducer';
 import { Action, State } from '../../types/state.types';
 import { INITIAL_STATE, LOCAL_STORAGE_ITEM_NAME, LOG_STATE_ACTIONS } from '../definitions';
 
-function logger(action?: Action, state?: State, label?: string) {
+function logger(action: Action, state: State, label?: string) {
   if (LOG_STATE_ACTIONS) {
     console.group(label || 'logger');
     action && console.log(action);
     state && console.log(state);
     console.groupEnd();
   }
+}
+
+function saveToLocalStorage(action: Action, state: State) {
+  localStorage.setItem(LOCAL_STORAGE_ITEM_NAME, JSON.stringify(state));
 }
 
 const StateContextProvider = ({ children }: { children: ReactNode }) => {
@@ -22,7 +26,7 @@ const StateContextProvider = ({ children }: { children: ReactNode }) => {
     reducer,
     storageItem || INITIAL_STATE,
     [(action, state) => logger(action, state, 'before')],
-    [(action, state) => logger(action, state, 'after')]
+    [(action, state) => logger(action, state, 'after'), saveToLocalStorage]
   );
 
   return <StateContext.Provider value={{ state, dispatch }}>{children}</StateContext.Provider>;
