@@ -43,7 +43,7 @@ function ModuleActions({ module }: Props) {
         className="module-actions__button"
         color="primary"
         size="small"
-        aria-label="delete"
+        aria-label="edit"
         onClick={handleEditClick}
       >
         <EditIcon />

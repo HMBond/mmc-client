@@ -113,7 +113,7 @@ function Settings({ restartMidi }: SettingsProps) {
             <Button aria-label="save setup" onClick={handleSaveClick}>
               <FileDownloadIcon />
             </Button>
-            <Button aria-label="save setup" onClick={handleUploadClick}>
+            <Button aria-label="load setup" onClick={handleUploadClick}>
               <FileUploadIcon />
             </Button>
             <Button color="warning" onClick={async () => await restartMidi()}>

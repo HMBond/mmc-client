@@ -52,7 +52,7 @@ function ViewActions({ view }: Props) {
         className="view-actions__button view-actions__button--edit"
         color="primary"
         size="small"
-        aria-label="delete"
+        aria-label="edit"
         onClick={handleEditClick}
       >
         <EditIcon />
