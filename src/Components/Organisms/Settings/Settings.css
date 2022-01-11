@@ -1,6 +1,7 @@
 .settings__controls {
   display: flex;
   gap: 0.5rem;
+  align-items: center;
 }
 
 .settings__controls.row-reversed {
