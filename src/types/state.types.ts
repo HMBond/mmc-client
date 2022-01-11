@@ -21,7 +21,7 @@ export type Action =
   | { type: 'DELETE_MODULE'; id: number }
   | { type: 'ADD_VIEW'; view: View }
   | { type: 'UPDATE_VIEW'; id: number; view: View }
-  | { type: 'MOVE_VIEW'; view: View; toPlace: number }
+  | { type: 'MOVE_VIEW'; view: View; toIndex: number }
   | { type: 'DELETE_VIEW'; id: number }
   | { type: 'SAVE_STATE_AS'; fileName: string }
   | { type: 'CLEAR_LOCAL_STORAGE' }

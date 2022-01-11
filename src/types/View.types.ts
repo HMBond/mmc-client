@@ -13,19 +13,15 @@ type ViewConstructorArgs = {
 };
 
 export class View {
-  constructor(
-    { label, backgroundColor, moduleIds }: ViewConstructorArgs,
-    currentViewCount: number
-  ) {
+  constructor(args: ViewConstructorArgs = {}) {
+    const { label, backgroundColor, moduleIds } = args;
     this.id = uid();
     this.label = label || '';
     this.backgroundColor = backgroundColor || 'indigo';
-    this.place = currentViewCount + 1;
     this.moduleIds = moduleIds || [];
   }
   id: number;
   label: string;
   backgroundColor: string;
-  place; // placement of view button and view
-  moduleIds: number[]; // list of module ids to render within the view
+  moduleIds: number[];
 }

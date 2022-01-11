@@ -4,7 +4,6 @@ import {
   LOCAL_STORAGE_ITEM_NAME,
 } from '../components/definitions';
 import { Action, State } from '../types/state.types';
-import { View } from '../types/View.types';
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -40,7 +39,7 @@ export const reducer = (state: State, action: Action): State => {
     case 'ADD_VIEW':
       return {
         ...state,
-        views: sortViewsByPlace([...state.views, action.view]),
+        views: [...state.views, action.view],
       };
 
     case 'UPDATE_VIEW': {
@@ -50,35 +49,46 @@ export const reducer = (state: State, action: Action): State => {
       const otherViews = state.views.filter((view) => view.id !== id);
       return {
         ...state,
-        views: sortViewsByPlace([...otherViews, view]),
+        views: [...otherViews, view],
       };
     }
 
     case 'MOVE_VIEW': {
-      const { view, toPlace } = action;
-      const { views } = state;
-      if (toPlace > views.length || toPlace <= 0) return state;
-      if (view.place === toPlace) return state;
-      const updatedViews = moveView({ view, toPlace, views });
+      const { view, toIndex } = action;
+      const views = [...state.views]; // make copy for splicing
+      const fromIndex = views.indexOf(view);
+      if (fromIndex === -1)
+        throw new Error(`Could not find view with id ${view.id} in state views`);
+      if (toIndex > views.length - 1 || toIndex < 0)
+        throw new Error('toIndex must be a valid index within state views');
+      if (fromIndex === toIndex) return state; // do nothing
+
+      views.splice(fromIndex, 1); // remove view
+      views.splice(toIndex, 0, view); // insert view
       return {
         ...state,
-        views: updatedViews,
+        views,
         activeViewId: view.id,
       };
     }
 
     case 'DELETE_VIEW': {
-      const { views } = state;
+      const views = [...state.views]; // make copy for splicing
       const { id } = action;
       if (views.length === 1) {
         throw new Error('Can not delete the last view');
       }
-      const updatedViews = moveView({ id, toPlace: views.length + 1, views: views });
-      const otherViews = updatedViews.filter((item) => item.id !== action.id);
+      const view = views.find((item) => item.id === id);
+      if (!view) throw new Error(`Could not find view with id ${id} in views`);
+      const index = views.indexOf(view);
+      views.splice(index, 1);
       return {
         ...state,
-        views: otherViews,
-        activeViewId: state.activeViewId === action.id ? otherViews[0].id : state.activeViewId,
+        views,
+        activeViewId:
+          state.activeViewId === action.id
+            ? views[index - 1 < 0 ? 0 : index - 1].id
+            : state.activeViewId,
       };
     }
 
@@ -171,39 +181,3 @@ export const reducer = (state: State, action: Action): State => {
       return state;
   }
 };
-
-function sortViewsByPlace(views: View[]): View[] {
-  const updated = views;
-  return updated.sort((a: View, b: View) => {
-    return a.place - b.place;
-  });
-}
-
-type MoveViewArgs = {
-  id?: number;
-  view?: View;
-  toPlace: number;
-  views: View[];
-};
-
-function moveView({ id: idArg, view: viewArg, toPlace, views }: MoveViewArgs): View[] {
-  if (!idArg && !viewArg) throw new Error('Please provide a view id OR view instance to moveView');
-  const view = viewArg ? viewArg : views.find((item) => item.id === idArg);
-  const id = idArg ?? view?.id;
-  if (!view) throw new Error('Could not find view in views');
-  const increment = view.place < toPlace;
-  const [min, max] = increment ? [view.place, toPlace] : [toPlace, view.place];
-  const isView = (item: View) => item.id === id;
-  const affected = views.filter((item) => item.place >= min && item.place <= max && !isView(item));
-  const others = views.filter((item) => !affected.includes(item) && !isView(item));
-  const updatedView = { ...view, place: toPlace };
-  const updatedViews = sortViewsByPlace([
-    ...others,
-    ...affected.map((item) => ({
-      ...item,
-      place: increment ? item.place - 1 : item.place + 1,
-    })),
-    updatedView,
-  ]);
-  return updatedViews;
-}

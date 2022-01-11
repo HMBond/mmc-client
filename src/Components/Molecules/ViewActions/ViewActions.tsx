@@ -19,17 +19,18 @@ type Props = {
 function ViewActions({ view }: Props) {
   const { state, dispatch } = useStateContext();
   const [showEditDialog, setShowEditDialog] = useState(false);
+  const viewIndex = state.views.indexOf(view);
 
   function handleEditClick() {
     setShowEditDialog(true);
   }
 
   function handleLeftClick() {
-    dispatch({ type: 'MOVE_VIEW', view: view, toPlace: view.place - 1 });
+    dispatch({ type: 'MOVE_VIEW', view, toIndex: viewIndex - 1 });
   }
 
   function handleRightClick() {
-    dispatch({ type: 'MOVE_VIEW', view: view, toPlace: view.place + 1 });
+    dispatch({ type: 'MOVE_VIEW', view, toIndex: viewIndex + 1 });
   }
 
   function handleEditDialogClose() {
@@ -57,7 +58,7 @@ function ViewActions({ view }: Props) {
       >
         <EditIcon />
       </Fab>
-      {view.place > 1 && (
+      {viewIndex > 0 && (
         <Fab
           style={{ '--order': 1 } as CSSProperties}
           className="view-actions__button view-actions__button--left"
@@ -69,7 +70,7 @@ function ViewActions({ view }: Props) {
           <ArrowLeft />
         </Fab>
       )}
-      {view.place !== state.views.length && (
+      {viewIndex !== state.views.length - 1 && (
         <Fab
           style={{ '--order': 1 } as CSSProperties}
           className="view-actions__button view-actions__button--right"

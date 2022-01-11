@@ -21,7 +21,7 @@ function Carrousel({ children, activeViewId, views }: CarrouselProps) {
   const style =
     activeView && views
       ? {
-          transform: `translateX(-${((activeView.place - 1) * 100) / views.length}%)`,
+          transform: `translateX(-${(views.indexOf(activeView) * 100) / views.length}%)`,
         }
       : {};
 

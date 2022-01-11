@@ -53,7 +53,7 @@ function ViewControl() {
         onClose={handleClose}
         onSubmit={handleSubmit}
         add
-        view={new View({}, views.length || 0)}
+        view={new View()}
       />
     </div>
   );

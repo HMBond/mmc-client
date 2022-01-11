@@ -38,14 +38,11 @@ const slider = new SliderModule({
   },
 });
 
-const view: View = new View(
-  {
-    label: 'Main',
-    backgroundColor: 'indigo',
-    moduleIds: [button.id, slider.id],
-  },
-  0
-);
+const view: View = new View({
+  label: 'Main',
+  backgroundColor: 'indigo',
+  moduleIds: [button.id, slider.id],
+});
 
 export const INITIAL_STATE: State = {
   editMode: false,
