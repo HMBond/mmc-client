@@ -20,7 +20,7 @@ import { View as ViewModel } from '../types/View.types';
 export default function WMC() {
   const { midiDispatch } = useMidiContext();
   const { state } = useStateContext();
-  const { activeViewId, views, modules, editMode, invertTheme, inputName, outputName } = state;
+  const { activeViewId, views, modules, editMode, invertTheme, inputId, outputId } = state;
 
   const theme = createTheme({
     palette: {
@@ -49,7 +49,7 @@ export default function WMC() {
 
   function setInputStates() {
     midiDispatch({ type: 'SET_INPUTS', inputs: WebMidi.inputs });
-    const preferredInput = inputName && WebMidi.getInputByName(inputName);
+    const preferredInput = inputId && WebMidi.getInputByName(inputId);
     const input = preferredInput ? preferredInput : WebMidi.inputs[0];
     if (!input) return;
     midiDispatch({ type: 'SET_INPUT', input: input });
@@ -57,7 +57,7 @@ export default function WMC() {
 
   function setOutputStates() {
     midiDispatch({ type: 'SET_OUTPUTS', outputs: WebMidi.outputs });
-    const preferredOutput = outputName && WebMidi.getOutputByName(outputName);
+    const preferredOutput = outputId && WebMidi.getOutputByName(outputId);
     const output = preferredOutput ? preferredOutput : WebMidi.outputs[0];
     if (!output) return;
     midiDispatch({ type: 'SET_OUTPUT', output });

@@ -152,16 +152,16 @@ export const reducer = (state: State, action: Action): State => {
         modules: action.value,
       };
 
-    case 'SET_INPUT_NAME':
+    case 'SET_INPUT_ID':
       return {
         ...state,
-        inputName: action.value,
+        inputId: action.value,
       };
 
-    case 'SET_OUTPUT_NAME':
+    case 'SET_OUTPUT_ID':
       return {
         ...state,
-        outputName: action.value,
+        outputId: action.value,
       };
 
     case 'SET_FILE_NAME':

@@ -10,8 +10,8 @@ export type State = {
   activeViewId: number;
   views: View[];
   modules: ModuleInterface[];
-  inputName: string;
-  outputName: string;
+  inputId: string;
+  outputId: string;
   fileName: string;
 };
 
@@ -32,8 +32,8 @@ export type Action =
   | { type: 'SET_ACTIVE_VIEW_ID'; value: number }
   | { type: 'SET_VIEWS'; value: View[] }
   | { type: 'SET_MODULES'; value: ModuleInterface[] }
-  | { type: 'SET_INPUT_NAME'; value: string }
-  | { type: 'SET_OUTPUT_NAME'; value: string }
+  | { type: 'SET_INPUT_ID'; value: string }
+  | { type: 'SET_OUTPUT_ID'; value: string }
   | { type: 'SET_FILE_NAME'; value: string }
   | { type: 'SET_STATE'; state: State };
 

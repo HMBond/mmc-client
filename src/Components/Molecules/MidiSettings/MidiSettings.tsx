@@ -11,18 +11,22 @@ type MidiSettingsProps = {
 
 function MidiSettings({ module }: MidiSettingsProps) {
   const { midiState, midiDispatch } = useMidiContext();
-  const { state } = useStateContext();
+  const { state, dispatch } = useStateContext();
 
   function handleInputSelect(event: ChangeEvent<HTMLSelectElement>) {
-    const input = WebMidi.getInputById(event.target.value);
-    if (!input) throw new Error(`WebMidi can not find ${event.target.value} in inputs`);
+    const id = event.target.value;
+    const input = WebMidi.getInputById(id);
+    if (!input) throw new Error(`WebMidi can not find inputs with id: ${id}`);
     midiDispatch({ type: 'SET_INPUT', input });
+    dispatch({ type: 'SET_INPUT_ID', value: id });
   }
 
   function handleOutputSelect(event: ChangeEvent<HTMLSelectElement>) {
-    const output = WebMidi.getOutputById(event.target.value);
-    if (!output) throw new Error(`WebMidi can not find ${event.target.value} in outputs`);
+    const id = event.target.value;
+    const output = WebMidi.getOutputById(id);
+    if (!output) throw new Error(`WebMidi can not find outputs with id: ${id}`);
     midiDispatch({ type: 'SET_OUTPUT', output });
+    dispatch({ type: 'SET_OUTPUT_ID', value: id });
   }
 
   if (!WebMidi.enabled) {
