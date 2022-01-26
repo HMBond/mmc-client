@@ -9,14 +9,14 @@
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
 
+import * as dotenv from 'dotenv';
+dotenv.config({ path: __dirname + '/../../.env.development' });
+
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-/**
- * @type {Cypress.PluginConfig}
- */
-// eslint-disable-next-line no-unused-vars
-export default (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
+export default (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions) => {
+  // ONLY NON-SENSATIVE ENVIRONMENT KEYS
+  config.env.server_port = process.env.SERVER_PORT;
+  return config;
 };

@@ -25,6 +25,7 @@
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.2.4",
     "@mui/material": "^5.2.4",
+    "dotenv": "^14.3.2",
     "electron-is-dev": "^2.0.0",
     "lodash": "^4.17.21",
     "prop-types": "^15.7.2",
