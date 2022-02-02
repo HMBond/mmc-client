@@ -10,33 +10,18 @@ import PropTypes from 'prop-types';
 import { FormEvent, MouseEvent, ReactNode } from 'react';
 import './Dialog.css';
 
-type DialogProps = {
-  children?: ReactNode;
-  onSubmit?: () => void;
-  open: boolean;
-  onClose: (event: object, reason: 'backdropClick' | 'escapeKeyDown' | 'closeClick') => void;
-  title: string;
-  text?: string;
-  actions?: ReactNode;
-  submitLabel?: string;
-  dividers?: boolean;
-  [prop: string]: unknown;
-};
-
-function Dialog(props: DialogProps) {
-  const {
-    children,
-    onSubmit,
-    open,
-    onClose,
-    title,
-    text,
-    actions,
-    submitLabel = 'OK',
-    dividers,
-    ...restProps
-  } = props;
-
+function Dialog({
+  children,
+  onSubmit,
+  open,
+  onClose,
+  title,
+  text,
+  actions,
+  submitLabel = 'OK',
+  dividers,
+  ...restProps
+}: DialogProps) {
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
     onSubmit && onSubmit();
@@ -47,7 +32,14 @@ function Dialog(props: DialogProps) {
   }
 
   return (
-    <MuiDialog open={open} onClose={onClose} maxWidth="sm" fullWidth {...restProps}>
+    <MuiDialog
+      aria-label={title}
+      open={open}
+      onClose={onClose}
+      maxWidth="sm"
+      fullWidth
+      {...restProps}
+    >
       <form onSubmit={handleSubmit}>
         <DialogTitle>{title}</DialogTitle>
         <DialogContent dividers={dividers} className="dialog__content">
@@ -73,6 +65,19 @@ Dialog.propTypes = {
   submitLabel: PropTypes.string,
   actions: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
   dividers: PropTypes.bool,
+};
+
+type DialogProps = {
+  children?: ReactNode;
+  onSubmit?: () => void;
+  open: boolean;
+  onClose: (event: object, reason: 'backdropClick' | 'escapeKeyDown' | 'closeClick') => void;
+  title: string;
+  text?: string;
+  actions?: ReactNode;
+  submitLabel?: string;
+  dividers?: boolean;
+  [prop: string]: unknown;
 };
 
 export default Dialog;

@@ -29,7 +29,6 @@ function SaveDialog(props: SaveDialogProps) {
       title="Save setup"
       submitLabel="Save"
       onSubmit={handleSubmit}
-      aria-labelledby="save dialog"
       aria-describedby="specify a filename to save setup"
     >
       <TextField
