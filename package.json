@@ -9,14 +9,15 @@
     "build": "tsc && vite build && electron-builder --config electron-builder.yml -mwl",
     "build-web": "tsc && vite build",
     "build-electron": "electron-builder --config electron-builder.yml --dir",
-    "cypress:open": "cypress open",
-    "dev": "run-p lint-watch typescript-watch dev-web",
-    "dev-web": "vite",
+    "cy:open": "cypress open",
+    "cy:run": "cypress run",
+    "dev": "run-p lint:watch typescript:watch dev:web",
+    "dev:web": "vite",
     "electron": "electron .",
     "lint": "eslint",
-    "lint-watch": "esw -w --ext .tsx",
+    "lint:watch": "esw -w --ext .tsx",
     "test": "jest --watch",
-    "typescript-watch": "tsc -w"
+    "typescript:watch": "tsc -w"
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
