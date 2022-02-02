@@ -1,14 +1,11 @@
-import DeleteIcon from '@mui/icons-material/Delete';
 import EditOffIcon from '@mui/icons-material/EditOff';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import FileUploadIcon from '@mui/icons-material/FileUpload';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import SettingsIcon from '@mui/icons-material/Settings';
-import SettingsInputSvideoIcon from '@mui/icons-material/SettingsInputSvideo';
-import { Button, Fab, FormControlLabel, Switch } from '@mui/material';
+import { Fab, FormControlLabel, Switch } from '@mui/material';
 import { useState } from 'react';
 import { Dialog, MidiSettings, SaveDialog } from '../..';
 import { useStateContext } from '../../../context';
+import Actions from './Actions';
 import './Settings.css';
 
 type SettingsProps = { restartMidi: () => Promise<any> };
@@ -42,40 +39,6 @@ function Settings({ restartMidi }: SettingsProps) {
     dispatch({ type: 'SET_EDIT_MODE', value: !state.editMode });
   }
 
-  function handleSaveClick() {
-    setOpen(false);
-    setSaveDialogOpen(true);
-  }
-
-  function handleUploadClick() {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'application/json';
-    input.onchange = handleUploadFileChanged;
-    input.click();
-  }
-
-  function handleUploadFileChanged(event: any) {
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-      const reader = new FileReader();
-      reader.onload = handleFileLoad;
-      const file = event.target.files[0];
-      if (!file.type.match('application/json')) {
-        throw new Error('File is not a json');
-      }
-      reader.readAsText(file);
-    } else {
-      throw new Error('No File APIs supported');
-    }
-  }
-
-  function handleFileLoad(event: ProgressEvent<FileReader>) {
-    if (!event?.target?.result) {
-      throw new Error('Could not read results from file');
-    }
-    dispatch({ type: 'SET_STATE', state: JSON.parse(event.target.result as string) });
-  }
-
   function handleSaveDialogClose() {
     setSaveDialogOpen(false);
   }
@@ -83,11 +46,6 @@ function Settings({ restartMidi }: SettingsProps) {
   function handleSave(fileName: string) {
     dispatch({ type: 'SAVE_STATE_AS', fileName });
     setSaveDialogOpen(false);
-  }
-
-  function handleClearLocalStorage() {
-    // TODO: Show 'Are you sure? Cancel / OK' dialog
-    dispatch({ type: 'CLEAR_LOCAL_STORAGE' });
   }
 
   const { leftHanded, showEditButton, editMode, invertTheme, fileName } = state;
@@ -99,7 +57,7 @@ function Settings({ restartMidi }: SettingsProps) {
           {editMode ? <EditOffIcon /> : <ModeEditIcon />}
         </Fab>
       )}
-      <Fab color="default" aria-label="settings button" size="large" onClick={handleOpenClick}>
+      <Fab color="default" aria-label="settings" size="large" onClick={handleOpenClick}>
         <SettingsIcon />
       </Fab>
       <Dialog
@@ -108,22 +66,7 @@ function Settings({ restartMidi }: SettingsProps) {
         onClose={handleCloseClick}
         aria-labelledby="settings"
         aria-describedby="global and midi settings"
-        actions={
-          <>
-            <Button aria-label="save setup" onClick={handleSaveClick}>
-              <FileDownloadIcon />
-            </Button>
-            <Button aria-label="load setup" onClick={handleUploadClick}>
-              <FileUploadIcon />
-            </Button>
-            <Button color="warning" onClick={async () => await restartMidi()}>
-              <SettingsInputSvideoIcon />
-            </Button>
-            <Button color="warning" onClick={handleClearLocalStorage}>
-              <DeleteIcon />
-            </Button>
-          </>
-        }
+        actions={Actions({ restartMidi, setOpen, setSaveDialogOpen })}
       >
         <div className="settings__general">
           <FormControlLabel
