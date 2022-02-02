@@ -17,6 +17,6 @@ dotenv.config({ path: __dirname + '/../../.env.development' });
 
 export default (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions) => {
   // ONLY NON-SENSATIVE ENVIRONMENT KEYS
-  config.env.server_port = process.env.SERVER_PORT;
+  config.env.host = process.env.HOST;
   return config;
 };
