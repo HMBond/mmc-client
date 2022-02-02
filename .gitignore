@@ -5,6 +5,9 @@
 /release
 /dist
 
+# testing
+/cypress/videos
+
 # misc
 .DS_Store
 .env
