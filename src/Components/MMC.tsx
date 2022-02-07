@@ -17,7 +17,7 @@ import { useMidiContext, useStateContext } from '../context';
 import { ButtonModule, SliderModule } from '../types/Module.types';
 import { View as ViewModel } from '../types/View.types';
 
-export default function WMC() {
+export default function MMC() {
   const { midiDispatch } = useMidiContext();
   const { state } = useStateContext();
   const { activeViewId, views, modules, editMode, invertTheme, inputId, outputId } = state;

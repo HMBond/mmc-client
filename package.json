@@ -1,6 +1,6 @@
 {
   "name": "modular-midi-controller",
-  "description": "A modular web-based midi controller.",
+  "description": "A web-based Midi Controller for your needs.",
   "version": "0.4.0",
   "author": "Mike Bond",
   "license": "ISC",
