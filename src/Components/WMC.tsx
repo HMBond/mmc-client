@@ -66,7 +66,7 @@ export default function WMC() {
   function handleMidiPortChanged({ port }: any) {
     if (port.type === 'input') {
       setInputStates();
-      // make sure that you do not accidentally trigger other devices
+      // prevent midi messages to be send to other connected devices
       if (port.state === 'disconnected') {
         midiDispatch({ type: 'SET_INPUT', input: null });
       }
@@ -74,7 +74,7 @@ export default function WMC() {
 
     if (port.type === 'output') {
       setOutputStates();
-      // make sure that you do not accidentally trigger other devices
+      // prevent midi messages to be send to other connected devices
       if (port.state === 'disconnected') {
         midiDispatch({ type: 'SET_OUTPUT', output: null });
       }
@@ -86,7 +86,6 @@ export default function WMC() {
       (WebMidi as any).removeListener('portschanged', handleMidiPortChanged);
     }
     await startMidi();
-    return;
   }
 
   function getModulesForView(view: ViewModel) {
