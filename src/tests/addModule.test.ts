@@ -1,3 +1,4 @@
+import { expect } from '@jest/globals';
 import { INITIAL_STATE } from '../components/definitions';
 import { reducer } from '../reducers/state.reducer';
 import { Module } from '../types/Module.types';

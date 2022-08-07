@@ -41,5 +41,3 @@ export type StateContextProviderValue = {
   state: State;
   dispatch: Dispatch<Action>;
 };
-
-export type ReducerWithMiddleWareArgs = { reducer: (state: State, action: Action) => State };

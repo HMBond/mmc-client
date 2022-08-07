@@ -51,16 +51,14 @@ export default function MMC() {
     midiDispatch({ type: 'SET_INPUTS', inputs: WebMidi.inputs });
     const preferredInput = inputId && WebMidi.getInputById(inputId);
     const input = preferredInput ? preferredInput : WebMidi.inputs[0];
-    if (!input) return;
-    midiDispatch({ type: 'SET_INPUT', input: input });
+    input && midiDispatch({ type: 'SET_INPUT', input: input });
   }
 
   function setOutputStates() {
     midiDispatch({ type: 'SET_OUTPUTS', outputs: WebMidi.outputs });
     const preferredOutput = outputId && WebMidi.getOutputById(outputId);
     const output = preferredOutput ? preferredOutput : WebMidi.outputs[0];
-    if (!output) return;
-    midiDispatch({ type: 'SET_OUTPUT', output });
+    output && midiDispatch({ type: 'SET_OUTPUT', output });
   }
 
   function handleMidiPortChanged({ port }: any) {

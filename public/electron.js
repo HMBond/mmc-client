@@ -10,11 +10,8 @@ function createWindow() {
   });
 
   win.loadURL(
-    isDev
-      ? 'http://localhost:3000'
-      : `file://${path.join(__dirname, '../dist/index.html')}`
+    isDev ? process.env.BASE_URL : `file://${path.join(__dirname, '../dist/index.html')}`
   );
-  //win.loadURL(`file://${path.join(__dirname, '../dist/index.html')}`);
 }
 
 app.on('window-all-closed', function () {

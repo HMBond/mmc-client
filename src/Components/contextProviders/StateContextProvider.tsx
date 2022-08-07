@@ -19,7 +19,7 @@ function saveToLocalStorage(action: Action, state: State) {
   localStorage.setItem(LOCAL_STORAGE_ITEM_NAME, JSON.stringify(state));
 }
 
-const StateContextProvider = ({ children }: { children: ReactNode }) => {
+function StateContextProvider({ children }: { children: ReactNode }) {
   const storageItem = JSON.parse(localStorage.getItem(LOCAL_STORAGE_ITEM_NAME) || 'false');
   // TODO: validate stored state
   const [state, dispatch] = useCustomReducer(
@@ -30,7 +30,7 @@ const StateContextProvider = ({ children }: { children: ReactNode }) => {
   );
 
   return <StateContext.Provider value={{ state, dispatch }}>{children}</StateContext.Provider>;
-};
+}
 
 StateContextProvider.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),

@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 describe('State', () => {
   it('should be persisted after page reload', () => {
     cy.visitHost();

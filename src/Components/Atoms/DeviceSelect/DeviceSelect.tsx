@@ -22,8 +22,7 @@ type DeviceSelectProps = {
   disabled?: boolean;
 };
 
-function DeviceSelect(props: DeviceSelectProps) {
-  const { deviceType, devices, selected, onChange, disabled } = props;
+function DeviceSelect({ deviceType, devices, selected, onChange, disabled }: DeviceSelectProps) {
   if (!devices || devices.length === 0) {
     return <Alert severity="warning">No {deviceType} devices found!</Alert>;
   } else {
@@ -35,7 +34,7 @@ function DeviceSelect(props: DeviceSelectProps) {
           </InputLabel>
           <NativeSelect
             id={`${deviceType}-select`}
-            value={selected && selected.id ? selected.id : ''}
+            value={selected?.id ? selected.id : ''}
             variant="outlined"
             inputProps={{
               onChange,

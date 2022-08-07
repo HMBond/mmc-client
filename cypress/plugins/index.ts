@@ -9,14 +9,9 @@
 // https://on.cypress.io/plugins-guide
 // ***********************************************************
 
-import * as dotenv from 'dotenv';
-dotenv.config({ path: __dirname + '/../../.env.development' });
-
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
 export default (on: Cypress.PluginEvents, config: Cypress.PluginConfigOptions) => {
-  // ONLY NON-SENSATIVE ENVIRONMENT KEYS
-  config.env.host = process.env.HOST;
   return config;
 };

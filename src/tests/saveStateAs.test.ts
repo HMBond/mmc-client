@@ -1,3 +1,4 @@
+import { expect, jest } from '@jest/globals';
 import { DEFAULT_FILE_NAME, INITIAL_STATE } from '../components/definitions';
 import { reducer } from '../reducers/state.reducer';
 

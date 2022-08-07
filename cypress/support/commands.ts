@@ -1,5 +1,5 @@
 Cypress.Commands.add('visitHost', () => {
-  cy.visit(Cypress.env('host'));
+  cy.visit(Cypress.env('BASE_URL'));
 });
 
 Cypress.Commands.add('openSettingsDialog', () => {
