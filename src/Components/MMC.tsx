@@ -29,6 +29,11 @@ export default function MMC() {
   });
 
   useEffect(() => {
+    const wsPort = parseInt((import.meta.env.VITE_WS_PORT as string) || '8080');
+    midiDispatch({
+      type: 'SET_SOCKET',
+      wsPort,
+    });
     startMidi();
     return () => {
       (WebMidi as any).removeListener('portschanged', handleMidiPortChanged);

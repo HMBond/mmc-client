@@ -13,7 +13,6 @@ export default defineConfig({
       config.baseUrl = process.env.BASE_URL || 'http://localhost:3000';
 
       // modify env var value // don't add sensative env variables
-      config.env.ENVIRONMENT = process.env.ENVIRONMENT;
       config.env.BASE_URL = process.env.BASE_URL;
 
       // IMPORTANT return the updated config object

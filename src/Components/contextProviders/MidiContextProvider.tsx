@@ -3,7 +3,14 @@ import { ReactNode, useReducer } from 'react';
 import { MidiContext } from '../../context';
 import { reducer } from '../../reducers/midi.reducer';
 
-const initialContextState = { input: null, output: null, inputs: [], outputs: [] };
+const initialContextState = {
+  input: null,
+  output: null,
+  inputs: [],
+  outputs: [],
+  wsPort: 8080,
+  socket: null,
+};
 
 function MidiContextProvider({ children }: { children: ReactNode }) {
   const [midiState, midiDispatch] = useReducer(reducer, initialContextState);
