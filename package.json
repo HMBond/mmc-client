@@ -12,7 +12,7 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "dev": "run-p lint:watch typescript:watch dev:web",
-    "dev:web": "vite",
+    "start": "vite --host",
     "electron": "electron .",
     "lint": "eslint",
     "lint:watch": "esw -w --ext .tsx",
