@@ -7,12 +7,12 @@
   "main": "public/electron.js",
   "scripts": {
     "build": "tsc && vite build && electron-builder --config electron-builder.yml -mwl",
-    "build-web": "tsc && vite build",
-    "build-electron": "electron-builder --config electron-builder.yml --dir",
+    "build:web": "tsc && vite build",
+    "build:electron": "electron-builder --config electron-builder.yml --dir",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
-    "dev": "run-p lint:watch typescript:watch dev:web",
-    "start": "vite --host",
+    "dev": "run-p lint:watch typescript:watch start",
+    "start": "vite",
     "electron": "electron .",
     "lint": "eslint",
     "lint:watch": "esw -w --ext .tsx",
@@ -57,6 +57,7 @@
     "jest": "^27.4.5",
     "npm-run-all": "^4.1.5",
     "react-test-renderer": "^17.0.2",
+    "reconnecting-websocket": "^4.4.0",
     "typescript": "^4.4.4",
     "vite": "^2.7.2"
   }

@@ -4,8 +4,9 @@ import { ModuleActions } from '../..';
 import { useStateContext } from '../../../context';
 import { Position } from '../../../types/misc.types';
 import { Module, ModuleInterface, ModulePropTypes } from '../../../types/Module.types';
+import { toPx } from '../../utils/css';
+import { getElements, getNewPosition, overrideCursor } from '../../utils/placer';
 import './Placer.css';
-import { getElements, getNewPosition, overrideCursor, toPx } from './Placer.helpers';
 
 Placer.propTypes = {
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),

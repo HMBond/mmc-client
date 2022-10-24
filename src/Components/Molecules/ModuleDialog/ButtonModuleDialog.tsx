@@ -8,8 +8,8 @@ import {
 } from '@mui/material';
 import { ChangeEvent, useState } from 'react';
 import { useStateContext } from '../../../context';
+import { DEFAULT_VELOCITY, MIDI_CHANNELS, MIDI_MAX, MIDI_MIN } from '../../../DEFINITION';
 import { ModuleInterface } from '../../../types/Module.types';
-import { DEFAULT_VELOCITY, MIDI_CHANNELS, MIDI_MAX, MIDI_MIN } from '../../definitions';
 import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';
 
 ButtonModuleDialog.propTypes = basePropTypes;

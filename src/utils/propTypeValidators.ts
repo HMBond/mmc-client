@@ -1,4 +1,4 @@
-import { MIDI_MAX, MIDI_MIN } from './definitions';
+import { MIDI_MAX, MIDI_MIN } from '../DEFINITION';
 
 export function midiRawNumber(props: any, propName: string, componentName: string) {
   if (props[propName] === null || props[propName] === undefined) return;

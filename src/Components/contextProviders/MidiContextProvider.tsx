@@ -1,19 +1,20 @@
 import PropTypes from 'prop-types';
-import { ReactNode, useReducer } from 'react';
+import { useReducer } from 'react';
 import { MidiContext } from '../../context';
 import { reducer } from '../../reducers/midi.reducer';
+import { ContextProps } from '../../types/context.types';
 
-const initialContextState = {
-  input: null,
-  output: null,
-  inputs: [],
-  outputs: [],
-  wsPort: 8080,
-  socket: null,
-};
-
-function MidiContextProvider({ children }: { children: ReactNode }) {
-  const [midiState, midiDispatch] = useReducer(reducer, initialContextState);
+function MidiContextProvider({ children, socket }: ContextProps) {
+  const [midiState, midiDispatch] = useReducer(reducer, {
+    socket,
+    input: null,
+    output: null,
+    inputs: [],
+    outputs: [],
+    send: () => {
+      return;
+    },
+  });
   return (
     <MidiContext.Provider value={{ midiState, midiDispatch }}>{children}</MidiContext.Provider>
   );

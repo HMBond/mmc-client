@@ -1,15 +1,17 @@
-export function connectWebSocket(port: number) {
+import ReconnectingWebSocket from 'reconnecting-websocket';
+
+export function connectWebSocket({ host, port }: { host: string; port: string }) {
   // Create WebSocket connection.
-  const socket = new WebSocket(`ws://localhost:${port}`);
+  const socket = new ReconnectingWebSocket(`ws://${host}:${port}`);
 
   // Connection opened
   socket.addEventListener('open', () => {
-    socket.send('Hello Server!');
+    // socket.send('Hello Server!');
   });
 
   // Listen for messages
   socket.addEventListener('message', (event) => {
-    console.log('Message from server: ', event.data);
+    console.log(`Message from server: ${event.data}`);
   });
 
   // Connection error

@@ -1,5 +1,5 @@
 import { DragEvent, RefObject } from 'react';
-import { Position } from '../../../types/misc.types';
+import { Position } from '../../types/misc.types';
 
 export function overrideCursor(event: DragEvent) {
   if (!event || !event.dataTransfer) {
@@ -12,13 +12,6 @@ export function overrideCursor(event: DragEvent) {
   } else {
     dataTransfer.effectAllowed = 'move';
   }
-}
-
-/** Converts number into string with 'px' appended.
- * For example 123 becomes "123px"
- */
-export function toPx(value: number): string {
-  return value.toString() + 'px';
 }
 
 export function getElements(reference: RefObject<HTMLDivElement>): {
@@ -41,10 +34,10 @@ export function getElements(reference: RefObject<HTMLDivElement>): {
 
 export function getNewPosition(
   event: DragEvent<Element>,
-  placerRef: RefObject<HTMLDivElement>,
+  elementRef: RefObject<HTMLDivElement>,
   startPosition: Position
 ): Position {
-  const { current } = getElements(placerRef);
+  const { current } = getElements(elementRef);
   const distance = {
     x: event.clientX - startPosition.x,
     y: event.clientY - startPosition.y,

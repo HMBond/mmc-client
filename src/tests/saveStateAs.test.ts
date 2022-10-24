@@ -1,5 +1,5 @@
 import { expect, jest } from '@jest/globals';
-import { DEFAULT_FILE_NAME, INITIAL_STATE } from '../components/definitions';
+import { DEFAULT_FILE_NAME, INITIAL_STATE } from '../DEFINITION';
 import { reducer } from '../reducers/state.reducer';
 
 describe('save state as', () => {

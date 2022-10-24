@@ -10,7 +10,7 @@ function createWindow() {
   });
 
   win.loadURL(
-    isDev ? process.env.BASE_URL : `file://${path.join(__dirname, '../dist/index.html')}`
+    isDev ? process.env.CYPRESS_BASE_URL : `file://${path.join(__dirname, '../dist/index.html')}`
   );
 }
 

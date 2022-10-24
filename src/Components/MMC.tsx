@@ -21,6 +21,7 @@ export default function MMC() {
   const { midiDispatch } = useMidiContext();
   const { state } = useStateContext();
   const { activeViewId, views, modules, editMode, invertTheme, inputId, outputId } = state;
+  let cleanup: () => void;
 
   const theme = createTheme({
     palette: {
@@ -29,19 +30,16 @@ export default function MMC() {
   });
 
   useEffect(() => {
-    const wsPort = parseInt((import.meta.env.VITE_WS_PORT as string) || '8080');
-    midiDispatch({
-      type: 'SET_SOCKET',
-      wsPort,
+    connectLocalMidiDevices().then((callback) => {
+      cleanup = callback;
     });
-    startMidi();
     return () => {
-      (WebMidi as any).removeListener('portschanged', handleMidiPortChanged);
+      cleanup && cleanup();
     };
   }, []);
 
-  async function startMidi() {
-    await WebMidi.enable({ sysex: true })
+  async function connectLocalMidiDevices() {
+    await WebMidi.enable()
       .then(() => {
         setInputStates();
         setOutputStates();
@@ -50,6 +48,9 @@ export default function MMC() {
       .catch((error) => {
         throw new Error(error);
       });
+    return () => {
+      (WebMidi as any).removeListener('portschanged', handleMidiPortChanged);
+    };
   }
 
   function setInputStates() {
@@ -86,9 +87,9 @@ export default function MMC() {
 
   async function handleRestartMidi() {
     if (WebMidi.enabled) {
-      (WebMidi as any).removeListener('portschanged', handleMidiPortChanged);
+      cleanup && cleanup();
     }
-    await startMidi();
+    cleanup = await connectLocalMidiDevices();
   }
 
   function getModulesForView(view: ViewModel) {

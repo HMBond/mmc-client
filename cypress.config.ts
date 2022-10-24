@@ -10,10 +10,10 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // modify config values
       config.defaultCommandTimeout = 4000;
-      config.baseUrl = process.env.BASE_URL || 'http://localhost:3000';
+      config.baseUrl = process.env.CYPRESS_BASE_URL || 'http://localhost:3000';
 
       // modify env var value // don't add sensative env variables
-      config.env.BASE_URL = process.env.BASE_URL;
+      config.env.CYPRESS_BASE_URL = process.env.CYPRESS_BASE_URL;
 
       // IMPORTANT return the updated config object
       return config;

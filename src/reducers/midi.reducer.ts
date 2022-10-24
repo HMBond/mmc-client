@@ -1,5 +1,5 @@
 import { MidiAction, MidiContextState } from '../types/midi.types';
-import { connectWebSocket } from './midi.reducer.utils';
+import { send } from '../utils/midi';
 
 export const reducer = (state: MidiContextState, action: MidiAction): MidiContextState => {
   switch (action.type) {
@@ -17,17 +17,12 @@ export const reducer = (state: MidiContextState, action: MidiAction): MidiContex
       return {
         ...state,
         output: action.output,
+        send: (midi) => send(midi, state.socket, action.output),
       };
     case 'SET_OUTPUTS':
       return {
         ...state,
         outputs: action.outputs,
-      };
-    case 'SET_SOCKET':
-      return {
-        ...state,
-        wsPort: action.wsPort,
-        socket: connectWebSocket(action.wsPort),
       };
     default:
       return state;

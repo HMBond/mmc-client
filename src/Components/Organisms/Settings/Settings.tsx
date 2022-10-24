@@ -48,6 +48,10 @@ function Settings({ restartMidi }: SettingsProps) {
     setSaveDialogOpen(false);
   }
 
+  function share() {
+    dispatch({ type: 'SHARE' });
+  }
+
   const { leftHanded, showEditButton, editMode, invertTheme, fileName } = state;
 
   return (
@@ -66,7 +70,7 @@ function Settings({ restartMidi }: SettingsProps) {
         onClose={handleCloseClick}
         aria-labelledby="settings"
         aria-describedby="global and midi settings"
-        actions={Actions({ restartMidi, setOpen, setSaveDialogOpen })}
+        actions={Actions({ restartMidi, share, setOpen, setSaveDialogOpen })}
       >
         <div className="settings__general">
           <FormControlLabel

@@ -2,8 +2,9 @@ import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
 import { ReactNode } from 'react';
 import { useMidiContext, useStateContext } from '../../../context';
+import { NoteMessage } from '../../../types/midi.types';
 import { ButtonModuleConstructorArgs } from '../../../types/Module.types';
-import { midiRawNumber } from '../../propTypeValidators';
+import { midiRawNumber } from '../../../utils/propTypeValidators';
 
 type MidiButtonProps = ButtonModuleConstructorArgs & {
   children: ReactNode;
@@ -15,15 +16,23 @@ function MidiButton({ children, channel, note, velocity }: MidiButtonProps) {
 
   function handlePlayNote() {
     if (!note) return;
-    midiState.output?.channels[channel ? channel : 1].playNote(note, {
-      rawAttack: velocity,
-      rawRelease: velocity,
-    });
+    midiState.send({
+      type: 'note',
+      action: 'play',
+      channel,
+      note,
+      velocity,
+    } as NoteMessage);
   }
 
   function handleStopNote() {
     if (!note) return;
-    midiState.output?.channels[channel ? channel : 1].stopNote(note);
+    midiState.send({
+      type: 'note',
+      action: 'stop',
+      channel,
+      note,
+    } as NoteMessage);
   }
 
   return (
@@ -39,10 +48,13 @@ function MidiButton({ children, channel, note, velocity }: MidiButtonProps) {
       disableElevation
       variant="contained"
       color="primary"
-      disabled={!midiState.output || state.editMode}
+      disabled={(!midiState.output && !midiState.socket) || state.editMode}
       onMouseDown={() => handlePlayNote()}
       onMouseUp={() => handleStopNote()}
       onMouseOut={() => handleStopNote()}
+      onTouchStart={() => handlePlayNote()}
+      onTouchEnd={() => handleStopNote()}
+      onTouchCancel={() => handleStopNote()}
     >
       {children}
     </Button>

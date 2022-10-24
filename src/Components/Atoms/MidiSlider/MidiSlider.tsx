@@ -2,8 +2,9 @@ import { Box, Slider, Typography } from '@mui/material';
 import debounce from 'lodash/debounce';
 import { useState } from 'react';
 import { useMidiContext, useStateContext } from '../../../context';
+import { SLIDER_DEBOUNCE_WAIT } from '../../../DEFINITION';
+import { PitchbendMessage } from '../../../types/midi.types';
 import { SliderModule } from '../../../types/Module.types';
-import { SLIDER_DEBOUNCE_WAIT } from '../../definitions';
 
 const dispatchDebounced = debounce(
   (id, value, dispatch, module) =>
@@ -25,6 +26,7 @@ function MidiSlider(module: SliderModule) {
   const [localValue, setLocalValue] = useState<number | number[]>(value);
 
   function handleChange(event: Event, value: number | number[]) {
+    midiState.send({ type: 'pitchbend', channel, value } as PitchbendMessage);
     midiState.output?.channels[channel].sendPitchBend(value);
     setLocalValue(value);
     dispatchDebounced(id, value, dispatch, module);
@@ -36,7 +38,7 @@ function MidiSlider(module: SliderModule) {
     <Box sx={style}>
       {label && <Typography component="label">{label}</Typography>}
       <Slider
-        disabled={!midiState.output || state.editMode}
+        disabled={(!midiState.output && !midiState.socket) || state.editMode}
         orientation={orientation ? orientation : 'vertical'}
         value={localValue}
         onChange={handleChange}

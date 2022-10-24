@@ -1,8 +1,4 @@
-import {
-  DEFAULT_FILE_NAME,
-  INITIAL_STATE,
-  LOCAL_STORAGE_ITEM_NAME,
-} from '../components/definitions';
+import { DEFAULT_FILE_NAME, INITIAL_STATE, LOCAL_STORAGE_ITEM_NAME } from '../DEFINITION';
 import { Action, State } from '../types/state.types';
 
 export const reducer = (state: State, action: Action): State => {
@@ -175,6 +171,14 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...action.state,
       };
+
+    case 'SHARE': {
+      const { views, modules } = state;
+      state.socket?.send(JSON.stringify({ type: 'share', payload: { views, modules } }));
+      return {
+        ...state,
+      };
+    }
 
     default:
       throw new Error(`${(action as Action).type} is not implemented in reducer`);

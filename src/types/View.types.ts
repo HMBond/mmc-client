@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { uid } from './type.helpers';
+import { uid } from '../utils/uid';
 
 export const ViewPropTypes = PropTypes.shape({
   id: PropTypes.number,

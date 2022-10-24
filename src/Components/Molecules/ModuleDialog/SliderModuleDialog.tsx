@@ -7,8 +7,8 @@ import {
 } from '@mui/material';
 import { ChangeEvent, useState } from 'react';
 import { useStateContext } from '../../../context';
+import { MIDI_CHANNELS } from '../../../DEFINITION';
 import { ModuleInterface, SliderOrientation } from '../../../types/Module.types';
-import { MIDI_CHANNELS } from '../../definitions';
 import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';
 
 SliderModuleDialog.propTypes = basePropTypes;

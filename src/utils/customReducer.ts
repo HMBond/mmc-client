@@ -1,5 +1,5 @@
 import { Dispatch, useEffect, useReducer, useRef } from 'react';
-import { Action, State } from '../../types/state.types';
+import { Action, State } from '../types/state.types';
 
 // thanks to Robin Wieruch
 // https://www.robinwieruch.de/react-usereducer-middleware/

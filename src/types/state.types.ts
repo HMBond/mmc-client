@@ -1,4 +1,5 @@
 import { Dispatch } from 'react';
+import ReconnectingWebSocket from 'reconnecting-websocket';
 import { ModuleInterface } from './Module.types';
 import { View } from './View.types';
 
@@ -13,6 +14,7 @@ export type State = {
   inputId: string;
   outputId: string;
   fileName: string;
+  socket?: ReconnectingWebSocket;
 };
 
 export type Action =
@@ -35,7 +37,8 @@ export type Action =
   | { type: 'SET_INPUT_ID'; value: string }
   | { type: 'SET_OUTPUT_ID'; value: string }
   | { type: 'SET_FILE_NAME'; value: string }
-  | { type: 'SET_STATE'; state: State };
+  | { type: 'SET_STATE'; state: State }
+  | { type: 'SHARE' };
 
 export type StateContextProviderValue = {
   state: State;

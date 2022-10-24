@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { DEFAULT_VELOCITY } from '../components/definitions';
+import { DEFAULT_CHANNEL, DEFAULT_NOTE, DEFAULT_VELOCITY } from '../DEFINITION';
+import { uid } from '../utils/uid';
 import { Position } from './misc.types';
-import { uid } from './type.helpers';
 
 export const ModulePropTypes = PropTypes.shape({
   id: PropTypes.number,
@@ -15,17 +15,15 @@ export const ModulePropTypes = PropTypes.shape({
 
 export type SliderOrientation = 'horizontal' | 'vertical';
 
-type ModuleConstructorArgs =
-  | {
-      label?: string;
-      position?: {
-        x: number;
-        y: number;
-      };
-      type?: ModuleType;
-      [key: string]: any;
-    }
-  | undefined;
+type ModuleConstructorArgs = {
+  label?: string;
+  position?: {
+    x: number;
+    y: number;
+  };
+  type?: ModuleType;
+  [key: string]: any;
+};
 
 export const moduleTypes = ['Button', 'Slider', 'Settings'] as const;
 export type ModuleType = typeof moduleTypes[number];
@@ -61,16 +59,16 @@ export class Module implements ModuleInterface {
 }
 
 export type ButtonModuleConstructorArgs = ModuleConstructorArgs & {
-  channel?: number;
-  note?: string;
-  velocity?: number;
+  channel: number;
+  note: string;
+  velocity: number;
 };
 
 export class ButtonModule extends Module {
-  constructor(args: ButtonModuleConstructorArgs = {}) {
+  constructor(args: Partial<ButtonModuleConstructorArgs> = {}) {
     super({ ...args, type: 'Button' });
-    this.channel = args.channel || 1;
-    this.note = args.note || 'C3';
+    this.channel = args.channel || DEFAULT_CHANNEL;
+    this.note = args.note || DEFAULT_NOTE;
     this.velocity = args.velocity || DEFAULT_VELOCITY;
     if (args.velocity === 0) this.velocity = 0;
   }
