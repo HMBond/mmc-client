@@ -5,7 +5,7 @@ import { reducer } from '../../reducers/midi.reducer';
 import { ContextProps } from '../../types/context.types';
 
 function MidiContextProvider({ children, socket }: ContextProps) {
-  const [midiState, midiDispatch] = useReducer(reducer, {
+  const [midi, dispatch] = useReducer(reducer, {
     socket,
     input: null,
     output: null,
@@ -15,9 +15,7 @@ function MidiContextProvider({ children, socket }: ContextProps) {
       return;
     },
   });
-  return (
-    <MidiContext.Provider value={{ midiState, midiDispatch }}>{children}</MidiContext.Provider>
-  );
+  return <MidiContext.Provider value={[midi, dispatch]}>{children}</MidiContext.Provider>;
 }
 
 MidiContextProvider.propTypes = {

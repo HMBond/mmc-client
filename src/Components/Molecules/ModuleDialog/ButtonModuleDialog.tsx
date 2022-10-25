@@ -19,7 +19,7 @@ function ButtonModuleDialog(props: BaseProps) {
   const [channel, setChannel] = useState<number>(module.channel || 1);
   const [note, setNote] = useState<string>(module.note || 'C3');
   const [velocity, setVelocity] = useState<number>(module.velocity || DEFAULT_VELOCITY);
-  const { state } = useStateContext();
+  const [state] = useStateContext();
 
   const getUsedChannels = (): number[] => {
     if (!state.modules) return [];

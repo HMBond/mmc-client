@@ -24,7 +24,7 @@ type ViewProps = {
 };
 
 function View({ children, view }: ViewProps) {
-  const { state, dispatch } = useStateContext();
+  const [state, dispatch] = useStateContext();
   const { leftHanded, activeViewId } = state;
   const [showModuleTypeMenu, setShowModuleTypeMenu] = useState(false);
   const [freshModule, setFreshModule] = useState<ModuleInterface>(new Module({}));

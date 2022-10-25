@@ -17,7 +17,7 @@ type Props = {
 };
 
 function ViewActions({ view }: Props) {
-  const { state, dispatch } = useStateContext();
+  const [state, dispatch] = useStateContext();
   const [showEditDialog, setShowEditDialog] = useState(false);
   const viewIndex = state.views.indexOf(view);
 

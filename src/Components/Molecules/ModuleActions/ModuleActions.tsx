@@ -16,7 +16,7 @@ type Props = {
 };
 
 function ModuleActions({ module }: Props) {
-  const { dispatch } = useStateContext();
+  const [, dispatch] = useStateContext();
   const [showEditDialog, setShowEditDialog] = useState(false);
 
   function handleEditClick() {

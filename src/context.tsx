@@ -2,7 +2,7 @@ import { Context, createContext, useContext } from 'react';
 import { MidiContextProviderValue } from './types/midi.types';
 import { StateContextProviderValue } from './types/state.types';
 
-export const MidiContext = createContext<Partial<MidiContextProviderValue>>({});
+export const MidiContext = createContext<Partial<MidiContextProviderValue>>([]);
 MidiContext.displayName = 'MidiContext';
 
 export const useMidiContext = () => {
@@ -11,12 +11,12 @@ export const useMidiContext = () => {
   return result as MidiContextProviderValue;
 };
 
-export const StateContext = createContext<Partial<StateContextProviderValue>>({});
+export const StateContext = createContext<Partial<StateContextProviderValue>>([]);
 StateContext.displayName = 'StateContext';
 
 export const useStateContext = () => {
   const result = useContext(StateContext);
-  if (!result.state) contextError(StateContext);
+  if (!result) contextError(StateContext);
   return result as StateContextProviderValue;
 };
 

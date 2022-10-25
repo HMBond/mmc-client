@@ -19,7 +19,7 @@ type Props = {
 };
 
 function Placer({ children, module }: Props) {
-  const { state, dispatch } = useStateContext();
+  const [state, dispatch] = useStateContext();
   const { editMode } = state;
   const placerRef = useRef<HTMLDivElement>(null);
   let startPosition: Position;

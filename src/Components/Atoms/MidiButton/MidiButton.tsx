@@ -11,12 +11,12 @@ type MidiButtonProps = ButtonModuleConstructorArgs & {
 };
 
 function MidiButton({ children, channel, note, velocity }: MidiButtonProps) {
-  const { midiState } = useMidiContext();
-  const { state } = useStateContext();
+  const [midi] = useMidiContext();
+  const [state] = useStateContext();
 
   function handlePlayNote() {
     if (!note) return;
-    midiState.send({
+    midi.send({
       type: 'note',
       action: 'play',
       channel,
@@ -27,7 +27,7 @@ function MidiButton({ children, channel, note, velocity }: MidiButtonProps) {
 
   function handleStopNote() {
     if (!note) return;
-    midiState.send({
+    midi.send({
       type: 'note',
       action: 'stop',
       channel,
@@ -48,7 +48,7 @@ function MidiButton({ children, channel, note, velocity }: MidiButtonProps) {
       disableElevation
       variant="contained"
       color="primary"
-      disabled={(!midiState.output && !midiState.socket) || state.editMode}
+      disabled={(!midi.output && !midi.socket) || state.editMode}
       onMouseDown={() => handlePlayNote()}
       onMouseUp={() => handleStopNote()}
       onMouseOut={() => handleStopNote()}

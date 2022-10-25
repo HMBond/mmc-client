@@ -10,8 +10,8 @@ type MidiSettingsProps = {
 };
 
 function MidiSettings({ module }: MidiSettingsProps) {
-  const { midiState, midiDispatch } = useMidiContext();
-  const { state, dispatch } = useStateContext();
+  const [midi, midiDispatch] = useMidiContext();
+  const [state, dispatch] = useStateContext();
 
   function handleInputSelect(event: ChangeEvent<HTMLSelectElement>) {
     const id = event.target.value;
@@ -38,15 +38,15 @@ function MidiSettings({ module }: MidiSettingsProps) {
         {module?.label && <Typography component="label">{module.label}</Typography>}
         <DeviceSelect
           deviceType="input"
-          devices={midiState.inputs}
-          selected={midiState.input}
+          devices={midi.inputs}
+          selected={midi.input}
           onChange={handleInputSelect}
           disabled={state.editMode && isModule}
         />
         <DeviceSelect
           deviceType="output"
-          devices={midiState.outputs}
-          selected={midiState.output}
+          devices={midi.outputs}
+          selected={midi.output}
           onChange={handleOutputSelect}
           disabled={state.editMode && isModule}
         />

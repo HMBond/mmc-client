@@ -21,13 +21,13 @@ const dispatchDebounced = debounce(
 
 function MidiSlider(module: SliderModule) {
   const { id, channel, value, orientation, label } = module;
-  const { midiState } = useMidiContext();
-  const { state, dispatch } = useStateContext();
+  const [midi] = useMidiContext();
+  const [state, dispatch] = useStateContext();
   const [localValue, setLocalValue] = useState<number | number[]>(value);
 
   function handleChange(event: Event, value: number | number[]) {
-    midiState.send({ type: 'pitchbend', channel, value } as PitchbendMessage);
-    midiState.output?.channels[channel].sendPitchBend(value);
+    midi.send({ type: 'pitchbend', channel, value } as PitchbendMessage);
+    midi.output?.channels[channel].sendPitchBend(value);
     setLocalValue(value);
     dispatchDebounced(id, value, dispatch, module);
   }
@@ -38,7 +38,7 @@ function MidiSlider(module: SliderModule) {
     <Box sx={style}>
       {label && <Typography component="label">{label}</Typography>}
       <Slider
-        disabled={(!midiState.output && !midiState.socket) || state.editMode}
+        disabled={(!midi.output && !midi.socket) || state.editMode}
         orientation={orientation ? orientation : 'vertical'}
         value={localValue}
         onChange={handleChange}

@@ -6,7 +6,7 @@ import { View } from '../../../types/View.types';
 import './ViewControl.css';
 
 function ViewControl() {
-  const { state, dispatch } = useStateContext();
+  const [state, dispatch] = useStateContext();
 
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
 

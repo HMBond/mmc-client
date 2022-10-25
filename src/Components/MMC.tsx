@@ -18,8 +18,8 @@ import { ButtonModule, SliderModule } from '../types/Module.types';
 import { View as ViewModel } from '../types/View.types';
 
 export default function MMC() {
-  const { midiDispatch } = useMidiContext();
-  const { state } = useStateContext();
+  const [, midiDispatch] = useMidiContext();
+  const [state, dispatch] = useStateContext();
   const { activeViewId, views, modules, editMode, invertTheme, inputId, outputId } = state;
   let cleanup: () => void;
 
@@ -32,6 +32,20 @@ export default function MMC() {
   useEffect(() => {
     connectLocalMidiDevices().then((callback) => {
       cleanup = callback;
+    });
+    state.socket?.addEventListener('message', (event) => {
+      if (event.data.type === 'share') {
+        const { modules, views } = JSON.parse(event.data);
+        if (!modules || !views) throw new Error('Sharing setup failed');
+        dispatch({
+          type: 'SET_STATE',
+          state: {
+            ...state,
+            modules,
+            views,
+          },
+        });
+      }
     });
     return () => {
       cleanup && cleanup();

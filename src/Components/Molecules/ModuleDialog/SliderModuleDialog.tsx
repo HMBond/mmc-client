@@ -17,7 +17,7 @@ function SliderModuleDialog(props: BaseProps) {
   const { module, onSubmit } = props;
   const [channel, setChannel] = useState<number>(module.channel);
   const [orientation, setOrientation] = useState<SliderOrientation>(module.orientation);
-  const { state } = useStateContext();
+  const [state] = useStateContext();
 
   const getUsedChannels = (): number[] => {
     if (!state.modules) return [];

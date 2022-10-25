@@ -1,8 +1,11 @@
 import ReconnectingWebSocket from 'reconnecting-websocket';
 
+let socket: ReconnectingWebSocket | undefined;
+
 export function connectWebSocket({ host, port }: { host: string; port: string }) {
   // Create WebSocket connection.
-  const socket = new ReconnectingWebSocket(`ws://${host}:${port}`);
+  if (socket) return socket;
+  socket = new ReconnectingWebSocket(`ws://${host}:${port}`);
 
   // Connection opened
   socket.addEventListener('open', () => {

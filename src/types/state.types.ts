@@ -40,7 +40,4 @@ export type Action =
   | { type: 'SET_STATE'; state: State }
   | { type: 'SHARE' };
 
-export type StateContextProviderValue = {
-  state: State;
-  dispatch: Dispatch<Action>;
-};
+export type StateContextProviderValue = [state: State, dispatch: Dispatch<Action>];

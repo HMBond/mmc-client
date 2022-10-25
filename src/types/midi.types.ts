@@ -34,7 +34,4 @@ export type MidiContextState = {
   send: (message: MidiMessage) => void;
 };
 
-export type MidiContextProviderValue = {
-  midiState: MidiContextState;
-  midiDispatch: Dispatch<MidiAction>;
-};
+export type MidiContextProviderValue = [midi: MidiContextState, dispatch: Dispatch<MidiAction>];

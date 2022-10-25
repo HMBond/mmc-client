@@ -29,7 +29,7 @@ function StateContextProvider({ children, socket }: ContextProps) {
     [(action, state) => logger(action, state, 'after'), saveToLocalStorage]
   );
 
-  return <StateContext.Provider value={{ state, dispatch }}>{children}</StateContext.Provider>;
+  return <StateContext.Provider value={[state, dispatch]}>{children}</StateContext.Provider>;
 }
 
 StateContextProvider.propTypes = {

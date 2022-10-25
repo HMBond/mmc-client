@@ -8,8 +8,8 @@ import { useState } from 'react';
 import { useStateContext } from '../../../context';
 import { handleUploadFileChanged } from '../../utils/file';
 
-function Actions({ restartMidi, share, setOpen, setSaveDialogOpen }: ActionsProps) {
-  const { dispatch } = useStateContext();
+function Actions({ restartMidi, setOpen, setSaveDialogOpen }: ActionsProps) {
+  const [, dispatch] = useStateContext();
   const [fullscreen, setFullscreen] = useState(!!document.fullscreenElement);
 
   function handleSaveClick() {
@@ -32,6 +32,10 @@ function Actions({ restartMidi, share, setOpen, setSaveDialogOpen }: ActionsProp
       await document.documentElement.requestFullscreen({ navigationUI: 'hide' });
     }
     setFullscreen(!!document.fullscreenElement);
+  }
+
+  function handleShare() {
+    dispatch({ type: 'SHARE' });
   }
 
   function onFileLoad(event: ProgressEvent<FileReader>) {
@@ -60,7 +64,7 @@ function Actions({ restartMidi, share, setOpen, setSaveDialogOpen }: ActionsProp
       <Button aria-label="reset setup" color="warning" onClick={handleClearLocalStorage}>
         <DeleteIcon />
       </Button>
-      <Button aria-label="fullscreen" onClick={share}>
+      <Button aria-label="share setup" onClick={handleShare}>
         {<Share />}
       </Button>
       <Button aria-label="fullscreen" onClick={toggleFullScreen}>
@@ -74,7 +78,6 @@ export default Actions;
 
 type ActionsProps = {
   restartMidi: () => void;
-  share: () => void;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setSaveDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
