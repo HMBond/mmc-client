@@ -25,13 +25,18 @@ type Props = {
 
 function ViewDialog({ onSubmit, open, onClose, onDelete, add, view }: Props) {
   const [label, setLabel] = useState(view.label);
+  const [backgroundColor, setBackgroundColor] = useState(view.backgroundColor);
 
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+  function handleLabelChange(event: ChangeEvent<HTMLInputElement>) {
     setLabel(event.target.value);
   }
 
+  function handleBackgroundColorChange(event: ChangeEvent<HTMLInputElement>) {
+    setBackgroundColor(event.target.value);
+  }
+
   function handleSubmit() {
-    onSubmit({ ...view, label });
+    onSubmit({ ...view, label, backgroundColor });
   }
 
   const title = `${add ? 'New' : 'Edit'} View`;
@@ -55,11 +60,20 @@ function ViewDialog({ onSubmit, open, onClose, onDelete, add, view }: Props) {
       <TextField
         autoFocus
         margin="dense"
-        label="Name"
+        label="Label"
         fullWidth
         variant={'standard'}
         value={label}
-        onChange={handleChange}
+        onChange={handleLabelChange}
+      />
+      <TextField
+        autoFocus
+        margin="dense"
+        label="Background Color"
+        fullWidth
+        variant={'standard'}
+        value={backgroundColor}
+        onChange={handleBackgroundColorChange}
       />
     </Dialog>
   );

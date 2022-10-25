@@ -173,8 +173,10 @@ export const reducer = (state: State, action: Action): State => {
       };
 
     case 'SHARE': {
-      const { views, modules } = state;
-      state.socket?.send(JSON.stringify({ type: 'share', payload: { views, modules } }));
+      const { views, modules, activeViewId } = state;
+      state.socket?.send(
+        JSON.stringify({ type: 'share', payload: { views, modules, activeViewId } })
+      );
       return {
         ...state,
       };

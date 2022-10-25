@@ -34,8 +34,11 @@ export default function MMC() {
       cleanup = callback;
     });
     state.socket?.addEventListener('message', (event) => {
-      if (event.data.type === 'share') {
-        const { modules, views } = JSON.parse(event.data);
+      const {
+        type,
+        payload: { modules, views, activeViewId },
+      } = JSON.parse(event.data);
+      if (type === 'share') {
         if (!modules || !views) throw new Error('Sharing setup failed');
         dispatch({
           type: 'SET_STATE',
@@ -43,6 +46,7 @@ export default function MMC() {
             ...state,
             modules,
             views,
+            activeViewId,
           },
         });
       }
@@ -50,7 +54,7 @@ export default function MMC() {
     return () => {
       cleanup && cleanup();
     };
-  }, []);
+  }, [state.socket]);
 
   async function connectLocalMidiDevices() {
     await WebMidi.enable()

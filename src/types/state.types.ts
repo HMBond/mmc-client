@@ -14,7 +14,7 @@ export type State = {
   inputId: string;
   outputId: string;
   fileName: string;
-  socket?: ReconnectingWebSocket;
+  socket?: ReconnectingWebSocket | null;
 };
 
 export type Action =
@@ -27,6 +27,7 @@ export type Action =
   | { type: 'DELETE_VIEW'; id: number }
   | { type: 'SAVE_STATE_AS'; fileName: string }
   | { type: 'CLEAR_LOCAL_STORAGE' }
+  // TODO: All these SET_* implementations can use SET_STATE
   | { type: 'SET_EDIT_MODE'; value: boolean }
   | { type: 'SET_SHOW_EDIT_BUTTON'; value: boolean }
   | { type: 'SET_INVERT_THEME'; value: boolean }

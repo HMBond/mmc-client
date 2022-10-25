@@ -51,7 +51,6 @@ function MidiButton({ children, channel, note, velocity }: MidiButtonProps) {
       disabled={(!midi.output && !midi.socket) || state.editMode}
       onMouseDown={() => handlePlayNote()}
       onMouseUp={() => handleStopNote()}
-      onMouseOut={() => handleStopNote()}
       onTouchStart={() => handlePlayNote()}
       onTouchEnd={() => handleStopNote()}
       onTouchCancel={() => handleStopNote()}
