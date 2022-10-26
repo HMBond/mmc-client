@@ -14,7 +14,12 @@ function ModuleTypeMenu({ handleModuleChoice }: ModuleTypeMenuProps) {
   return (
     <ButtonGroup orientation="vertical" aria-label="vertical button group" variant="contained">
       {moduleTypes.map((type) => (
-        <Button key={type} onClick={() => handleModuleChoice(type)}>
+        <Button
+          color={'info'}
+          sx={{ backgroundColor: 'black' }}
+          key={type}
+          onClick={() => handleModuleChoice(type)}
+        >
           {type}
         </Button>
       ))}

@@ -1,10 +1,12 @@
-import { Box, Slider, Typography } from '@mui/material';
+import { Slider } from '@mui/material';
 import debounce from 'lodash/debounce';
 import { useState } from 'react';
+import { Label } from '../..';
 import { useMidiContext, useStateContext } from '../../../context';
 import { SLIDER_DEBOUNCE_WAIT } from '../../../DEFINITION';
 import { PitchbendMessage } from '../../../types/midi.types';
 import { SliderModule } from '../../../types/Module.types';
+import './MidiSlider.css';
 
 const dispatchDebounced = debounce(
   (id, value, dispatch, module) =>
@@ -32,21 +34,20 @@ function MidiSlider(module: SliderModule) {
     dispatchDebounced(id, value, dispatch, module);
   }
 
-  const style = orientation === 'horizontal' ? { width: 250 } : { height: 250 };
-
   return (
-    <Box sx={style}>
-      {label && <Typography component="label">{label}</Typography>}
+    <div className={`midi-slider ${orientation}`}>
+      {label && <Label>{label}</Label>}
       <Slider
+        sx={{ color: 'white' }}
         disabled={(!midi.output && !midi.socket) || state.editMode}
-        orientation={orientation ? orientation : 'vertical'}
+        orientation={orientation || 'vertical'}
         value={localValue}
         onChange={handleChange}
         min={-1}
         max={1}
         step={0.01}
       />
-    </Box>
+    </div>
   );
 }
 

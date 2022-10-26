@@ -52,6 +52,9 @@ function View({ children, view }: ViewProps) {
         setFreshModule(new SliderModule());
         break;
       case 'Settings':
+        setFreshModule(new Module({ type: 'Settings' }));
+        break;
+      case 'Label':
         setFreshModule(new Module());
         break;
       default:

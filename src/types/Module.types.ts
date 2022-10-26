@@ -25,7 +25,7 @@ type ModuleConstructorArgs = {
   [key: string]: any;
 };
 
-export const moduleTypes = ['Button', 'Slider', 'Settings'] as const;
+export const moduleTypes = ['Button', 'Slider', 'Settings', 'Label'] as const;
 export type ModuleType = typeof moduleTypes[number];
 
 export interface ModuleInterface {
@@ -40,7 +40,7 @@ export class Module implements ModuleInterface {
   constructor(args: ModuleConstructorArgs = {}) {
     this.id = uid();
     this.label = args.label || '';
-    this.type = args.type || 'Settings';
+    this.type = args.type || 'Label';
     this.position = args.position || {
       x: 0.75 * window.innerWidth,
       y: 0.15 * window.innerHeight,

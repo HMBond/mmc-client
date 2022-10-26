@@ -1,0 +1,21 @@
+.midi-slider.horizontal {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.midi-slider.horizontal > span {
+  width: 250px;
+}
+
+.midi-slider.vertical {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  grid-template-rows: auto 1fr;
+}
+
+.midi-slider.vertical > span {
+  margin: 0 auto;
+  height: 250px;
+}

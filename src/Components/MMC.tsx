@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { WebMidi } from 'webmidi';
 import {
   Carrousel,
+  Label,
   LaunchPad,
   MidiButton,
   MidiSettings,
@@ -133,6 +134,7 @@ export default function MMC() {
                   )}
                   {module.type === 'Slider' && <MidiSlider {...(module as SliderModule)} />}
                   {module.type === 'Settings' && <MidiSettings module={module as SliderModule} />}
+                  {module.type === 'Label' && <Label>{module.label}</Label>}
                 </Placer>
               ))}
             </View>

@@ -44,10 +44,10 @@ function MidiButton({ children, channel, note, velocity }: MidiButtonProps) {
           color: '#eee',
           backgroundColor: 'rgba(200,200,200,0.5)',
         },
+        backgroundColor: 'white',
       }}
       disableElevation
       variant="contained"
-      color="primary"
       disabled={(!midi.output && !midi.socket) || state.editMode}
       onMouseDown={() => handlePlayNote()}
       onMouseUp={() => handleStopNote()}

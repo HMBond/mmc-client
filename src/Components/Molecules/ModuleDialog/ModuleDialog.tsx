@@ -14,7 +14,10 @@ function ModuleDialog(props: BaseProps) {
       return <SliderModuleDialog {...props} />;
       break;
     case 'Settings':
-      return <ModuleDialogBase {...props}></ModuleDialogBase>;
+      return <ModuleDialogBase {...props} />;
+      break;
+    case 'Label':
+      return <ModuleDialogBase {...props} />;
       break;
 
     default:

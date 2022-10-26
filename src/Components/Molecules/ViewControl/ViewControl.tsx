@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Fab } from '@mui/material';
 import { useState } from 'react';
 import { AddButton, ViewActions, ViewDialog } from '../..';
 import { useStateContext } from '../../../context';
@@ -35,14 +35,13 @@ function ViewControl() {
         views.map((view) => {
           return (
             <div className="viewControl__button-wrapper" key={view.id}>
-              <Button
-                disableElevation
-                color={activeViewId === view.id ? 'warning' : 'secondary'}
-                variant="contained"
+              <Fab
+                color="default"
+                sx={{ backgroundColor: activeViewId === view.id ? 'darkorange' : 'white' }}
                 onClick={() => handleViewButtonClick(view)}
               >
                 {view.label}
-              </Button>
+              </Fab>
               {editMode && <ViewActions view={view} />}
             </div>
           );

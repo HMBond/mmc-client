@@ -1,5 +1,6 @@
 import AddButton from './atoms/AddButton/AddButton';
 import DeviceSelect from './atoms/DeviceSelect/DeviceSelect';
+import Label from './atoms/Label/Label';
 import MidiButton from './atoms/MidiButton/MidiButton';
 import MidiSlider from './atoms/MidiSlider/MidiSlider';
 import MidiContextProvider from './contextProviders/MidiContextProvider';
@@ -44,4 +45,5 @@ export {
   StateContextProvider,
   View,
   MMC,
+  Label,
 };
