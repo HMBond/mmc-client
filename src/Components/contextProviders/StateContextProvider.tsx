@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-import { StateContext } from '../../context';
 import { INITIAL_STATE, LOCAL_STORAGE_ITEM_NAME, LOG_STATE_ACTIONS } from '../../DEFINITION';
 import { reducer } from '../../reducers/state.reducer';
-import { ContextProps } from '../../types/context.types';
+import { StateContextProps } from '../../types/context.types';
 import { Action, State } from '../../types/state.types';
 import { useCustomReducer } from '../../utils/customReducer';
+import { StateContext } from './context';
 
 function logger(action: Action, state: State, label?: string) {
   if (LOG_STATE_ACTIONS) {
@@ -20,7 +20,7 @@ function saveToLocalStorage(action: Action, state: State) {
   localStorage.setItem(LOCAL_STORAGE_ITEM_NAME, JSON.stringify(state));
 }
 
-function StateContextProvider({ children, socket }: ContextProps) {
+function StateContextProvider({ children, socket }: StateContextProps) {
   const storageItem = JSON.parse(localStorage.getItem(LOCAL_STORAGE_ITEM_NAME) || 'false');
   // TODO: validate stored state
   const [state, dispatch] = useCustomReducer(

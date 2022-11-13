@@ -1,6 +1,6 @@
-import { Button, ButtonGroup } from '@mui/material';
 import PropTypes from 'prop-types';
 import { ModuleType, moduleTypes } from '../../../types/Module.types';
+import './ModuleTypeMenu.css';
 
 ModuleTypeMenu.propTypes = {
   handleModuleChoice: PropTypes.func.isRequired,
@@ -12,18 +12,13 @@ type ModuleTypeMenuProps = {
 
 function ModuleTypeMenu({ handleModuleChoice }: ModuleTypeMenuProps) {
   return (
-    <ButtonGroup orientation="vertical" aria-label="vertical button group" variant="contained">
+    <div className="module-type-menu" aria-label="Choose a module type">
       {moduleTypes.map((type) => (
-        <Button
-          color={'info'}
-          sx={{ backgroundColor: 'black' }}
-          key={type}
-          onClick={() => handleModuleChoice(type)}
-        >
+        <button color={'info'} key={type} onClick={() => handleModuleChoice(type)}>
           {type}
-        </Button>
+        </button>
       ))}
-    </ButtonGroup>
+    </div>
   );
 }
 

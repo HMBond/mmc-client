@@ -3,6 +3,7 @@
   overflow: hidden;
   width: 100vw;
   opacity: 1;
+  background-color: var(--view-background-color);
 }
 
 .view.fade {

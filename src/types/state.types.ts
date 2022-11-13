@@ -5,7 +5,6 @@ import { View } from './View.types';
 
 export type State = {
   editMode: boolean;
-  invertTheme: boolean;
   showEditButton: boolean;
   leftHanded: boolean;
   activeViewId: number;
@@ -30,7 +29,6 @@ export type Action =
   // TODO: All these SET_* implementations can use SET_STATE
   | { type: 'SET_EDIT_MODE'; value: boolean }
   | { type: 'SET_SHOW_EDIT_BUTTON'; value: boolean }
-  | { type: 'SET_INVERT_THEME'; value: boolean }
   | { type: 'SET_LEFT_HANDED'; value: boolean }
   | { type: 'SET_ACTIVE_VIEW_ID'; value: number }
   | { type: 'SET_VIEWS'; value: View[] }

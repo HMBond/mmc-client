@@ -3,8 +3,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Fab } from '@mui/material';
 import { CSSProperties, useState } from 'react';
 import { ModuleDialog } from '../..';
-import { useStateContext } from '../../../context';
 import { Module, ModuleInterface, ModulePropTypes } from '../../../types/Module.types';
+import { useStateContext } from '../../contextProviders/context';
 import './ModuleActions.css';
 
 ModuleActions.propTypes = {

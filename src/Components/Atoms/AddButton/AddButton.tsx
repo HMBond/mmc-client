@@ -1,8 +1,7 @@
 import AddIcon from '@mui/icons-material/Add';
-import Fab from '@mui/material/Fab';
 import PropTypes from 'prop-types';
 import { MouseEvent } from 'react';
-import { useStateContext } from '../../../context';
+import { useStateContext } from '../../contextProviders/context';
 
 type ViewProps = {
   onClick: (event: MouseEvent) => void;
@@ -13,9 +12,9 @@ function AddButton({ onClick }: ViewProps) {
 
   if (state.editMode) {
     return (
-      <Fab onClick={onClick}>
+      <button className="fab" onClick={onClick}>
         <AddIcon />
-      </Fab>
+      </button>
     );
   } else return null;
 }

@@ -46,7 +46,6 @@ const view: View = new View({
 export const INITIAL_STATE: State = {
   editMode: false,
   showEditButton: true,
-  invertTheme: false,
   leftHanded: false,
   activeViewId: view.id,
   inputId: '',

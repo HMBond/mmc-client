@@ -2,8 +2,8 @@ import { Alert, Typography } from '@mui/material';
 import { ChangeEvent } from 'react';
 import { WebMidi } from 'webmidi';
 import { DeviceSelect } from '../..';
-import { useMidiContext, useStateContext } from '../../../context';
 import { ModuleInterface } from '../../../types/Module.types';
+import { useMidiContext, useStateContext } from '../../contextProviders/context';
 
 type MidiSettingsProps = {
   module?: ModuleInterface;

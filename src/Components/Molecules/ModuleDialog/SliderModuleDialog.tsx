@@ -6,9 +6,9 @@ import {
   ToggleButtonGroup,
 } from '@mui/material';
 import { ChangeEvent, useState } from 'react';
-import { useStateContext } from '../../../context';
 import { MIDI_CHANNELS } from '../../../DEFINITION';
 import { ModuleInterface, SliderOrientation } from '../../../types/Module.types';
+import { useStateContext } from '../../contextProviders/context';
 import ModuleDialogBase, { BaseProps, basePropTypes } from './ModuleDialogBase';
 
 SliderModuleDialog.propTypes = basePropTypes;

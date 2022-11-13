@@ -1,6 +1,7 @@
 import { Context, createContext, useContext } from 'react';
-import { MidiContextProviderValue } from './types/midi.types';
-import { StateContextProviderValue } from './types/state.types';
+import { MidiContextProviderValue } from '../../types/midi.types';
+import { StateContextProviderValue } from '../../types/state.types';
+import { ThemeContextProviderValue } from '../../types/theme.types';
 
 export const MidiContext = createContext<Partial<MidiContextProviderValue>>([]);
 MidiContext.displayName = 'MidiContext';
@@ -18,6 +19,15 @@ export const useStateContext = () => {
   const result = useContext(StateContext);
   if (!result) contextError(StateContext);
   return result as StateContextProviderValue;
+};
+
+export const ThemeContext = createContext<Partial<ThemeContextProviderValue>>([]);
+ThemeContext.displayName = 'ThemeContext';
+
+export const useThemeContext = () => {
+  const result = useContext(ThemeContext);
+  if (!result) contextError(ThemeContext);
+  return result as ThemeContextProviderValue;
 };
 
 function contextError(context: Context<any>) {

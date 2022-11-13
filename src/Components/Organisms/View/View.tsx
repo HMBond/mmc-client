@@ -2,7 +2,6 @@ import { Box } from '@mui/material';
 import PropTypes from 'prop-types';
 import { DragEvent, MouseEvent, ReactNode, useState } from 'react';
 import { AddButton, ModuleDialog, ModuleTypeMenu } from '../..';
-import { useStateContext } from '../../../context';
 import {
   ButtonModule,
   Module,
@@ -11,6 +10,7 @@ import {
   SliderModule,
 } from '../../../types/Module.types';
 import { View as ViewModel, ViewPropTypes } from '../../../types/View.types';
+import { useStateContext } from '../../contextProviders/context';
 import './View.css';
 
 View.propTypes = {
@@ -77,7 +77,7 @@ function View({ children, view }: ViewProps) {
   return (
     <>
       <div
-        style={{ backgroundColor }}
+        style={{ filter: `hue-rotate(${backgroundColor})` }}
         className={`view ${activeViewId !== id ? 'fade' : ''}`}
         onDrop={allowDrop}
         onDragOver={allowDrop}

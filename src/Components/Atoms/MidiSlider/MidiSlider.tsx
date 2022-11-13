@@ -2,10 +2,10 @@ import { Slider } from '@mui/material';
 import debounce from 'lodash/debounce';
 import { useState } from 'react';
 import { Label } from '../..';
-import { useMidiContext, useStateContext } from '../../../context';
 import { SLIDER_DEBOUNCE_WAIT } from '../../../DEFINITION';
 import { PitchbendMessage } from '../../../types/midi.types';
 import { SliderModule } from '../../../types/Module.types';
+import { useMidiContext, useStateContext } from '../../contextProviders/context';
 import './MidiSlider.css';
 
 const dispatchDebounced = debounce(

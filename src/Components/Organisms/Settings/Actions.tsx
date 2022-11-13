@@ -3,9 +3,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import SettingsInputSvideoIcon from '@mui/icons-material/SettingsInputSvideo';
-import { Button } from '@mui/material';
 import { useState } from 'react';
-import { useStateContext } from '../../../context';
+import { useStateContext } from '../../contextProviders/context';
 import { handleUploadFileChanged } from '../../utils/file';
 
 function Actions({ restartMidi, setOpen, setSaveDialogOpen }: ActionsProps) {
@@ -52,24 +51,24 @@ function Actions({ restartMidi, setOpen, setSaveDialogOpen }: ActionsProps) {
 
   return (
     <>
-      <Button aria-label="save" onClick={handleSaveClick}>
+      <button aria-label="save" onClick={handleSaveClick}>
         <FileDownloadIcon />
-      </Button>
-      <Button aria-label="load" onClick={handleUploadClick}>
+      </button>
+      <button aria-label="load" onClick={handleUploadClick}>
         <FileUploadIcon />
-      </Button>
-      <Button aria-label="restart midi" color="warning" onClick={async () => await restartMidi()}>
+      </button>
+      <button aria-label="restart midi" color="warning" onClick={async () => await restartMidi()}>
         <SettingsInputSvideoIcon />
-      </Button>
-      <Button aria-label="reset setup" color="warning" onClick={handleClearLocalStorage}>
+      </button>
+      <button aria-label="reset setup" color="warning" onClick={handleClearLocalStorage}>
         <DeleteIcon />
-      </Button>
-      <Button aria-label="share setup" onClick={handleShare}>
+      </button>
+      <button aria-label="share setup" onClick={handleShare}>
         {<Share />}
-      </Button>
-      <Button aria-label="fullscreen" onClick={toggleFullScreen}>
+      </button>
+      <button aria-label="fullscreen" onClick={toggleFullScreen}>
         {fullscreen ? <FullscreenExit /> : <Fullscreen />}
-      </Button>
+      </button>
     </>
   );
 }

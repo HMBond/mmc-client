@@ -1,5 +1,4 @@
 import {
-  Button,
   Dialog as MuiDialog,
   DialogActions,
   DialogContent,
@@ -48,8 +47,8 @@ function Dialog({
         </DialogContent>
         <DialogActions>
           <div className="dialog__left-actions">{actions}</div>
-          <Button onClick={handleCloseClick}>Close</Button>
-          {onSubmit && <Button type="submit">{submitLabel}</Button>}
+          <button onClick={handleCloseClick}>Close</button>
+          {onSubmit && <button type="submit">{submitLabel}</button>}
         </DialogActions>
       </form>
     </MuiDialog>

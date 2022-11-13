@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { DragEvent, ReactNode, TouchEvent, useRef } from 'react';
 import { ModuleActions } from '../..';
-import { useStateContext } from '../../../context';
 import { Position } from '../../../types/misc.types';
 import { Module, ModuleInterface, ModulePropTypes } from '../../../types/Module.types';
+import { useStateContext } from '../../contextProviders/context';
 import { toPx } from '../../utils/css';
 import { getElements, getNewPosition, overrideCursor } from '../../utils/placer';
 import './Placer.css';

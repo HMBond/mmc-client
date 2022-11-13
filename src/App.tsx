@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 import { MidiContextProvider, MMC, StateContextProvider } from './components';
+import ThemeContextProvider from './components/contextProviders/ThemeProvider';
 import { connectWebSocket } from './webSocket';
 
 export default function App() {
@@ -16,7 +17,9 @@ export default function App() {
   return (
     <MidiContextProvider socket={socket}>
       <StateContextProvider socket={socket}>
-        <MMC />
+        <ThemeContextProvider>
+          <MMC />
+        </ThemeContextProvider>
       </StateContextProvider>
     </MidiContextProvider>
   );

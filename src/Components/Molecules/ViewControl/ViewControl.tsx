@@ -1,8 +1,7 @@
-import { Button } from '@mui/material';
 import { useState } from 'react';
 import { AddButton, ViewActions, ViewDialog } from '../..';
-import { useStateContext } from '../../../context';
 import { View } from '../../../types/View.types';
+import { useStateContext } from '../../contextProviders/context';
 import './ViewControl.css';
 
 function ViewControl() {
@@ -35,17 +34,12 @@ function ViewControl() {
         views.map((view) => {
           return (
             <div className="viewControl__button-wrapper" key={view.id}>
-              <Button
-                sx={{
-                  minHeight: '3.5rem',
-                  minWidth: '3.5rem',
-                  backgroundColor: activeViewId === view.id ? 'darkorange' : 'white',
-                  color: 'black',
-                }}
+              <button
+                className={activeViewId === view.id ? 'active' : ''}
                 onClick={() => handleViewButtonClick(view)}
               >
                 {view.label}
-              </Button>
+              </button>
               {editMode && <ViewActions view={view} />}
             </div>
           );

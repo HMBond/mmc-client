@@ -118,12 +118,6 @@ export const reducer = (state: State, action: Action): State => {
         editMode: action.value,
       };
 
-    case 'SET_INVERT_THEME':
-      return {
-        ...state,
-        invertTheme: action.value,
-      };
-
     case 'SET_LEFT_HANDED':
       return {
         ...state,

@@ -1,16 +1,17 @@
 import EditOffIcon from '@mui/icons-material/EditOff';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { Fab, FormControlLabel, Switch } from '@mui/material';
+import { FormControlLabel, Switch } from '@mui/material';
 import { useState } from 'react';
 import { Dialog, MidiSettings, SaveDialog } from '../..';
-import { useStateContext } from '../../../context';
+import { useStateContext, useThemeContext } from '../../contextProviders/context';
 import Actions from './Actions';
 import './Settings.css';
 
 type SettingsProps = { restartMidi: () => Promise<any> };
 
 function Settings({ restartMidi }: SettingsProps) {
+  const [theme, dispatchThemeAction] = useThemeContext();
   const [state, dispatch] = useStateContext();
   const [open, setOpen] = useState(false);
   const [saveDialogOpen, setSaveDialogOpen] = useState(false);
@@ -24,7 +25,7 @@ function Settings({ restartMidi }: SettingsProps) {
   }
 
   function handleThemeModeToggle(event: React.ChangeEvent, checked: boolean) {
-    dispatch({ type: 'SET_INVERT_THEME', value: checked });
+    dispatchThemeAction({ type: 'SET_MODE', mode: checked ? 'light' : 'dark' });
   }
 
   function handleLeftHandedChange() {
@@ -48,18 +49,18 @@ function Settings({ restartMidi }: SettingsProps) {
     setSaveDialogOpen(false);
   }
 
-  const { leftHanded, showEditButton, editMode, invertTheme, fileName } = state;
+  const { leftHanded, showEditButton, editMode, fileName } = state;
 
   return (
     <div className={`settings__controls ${leftHanded ? 'row-reversed' : ''}`}>
       {showEditButton && (
-        <Fab color="default" aria-label="edit" size="large" onClick={handleEditButtonClick}>
+        <button className={'fab'} aria-label="edit" onClick={handleEditButtonClick}>
           {editMode ? <EditOffIcon /> : <ModeEditIcon />}
-        </Fab>
+        </button>
       )}
-      <Fab color="default" aria-label="settings" size="large" onClick={handleOpenClick}>
+      <button className={'fab'} aria-label="settings" onClick={handleOpenClick}>
         <SettingsIcon />
-      </Fab>
+      </button>
       <Dialog
         title="Settings"
         open={open}
@@ -71,15 +72,15 @@ function Settings({ restartMidi }: SettingsProps) {
         <div className="settings__general">
           <FormControlLabel
             control={<Switch checked={showEditButton} onChange={handleShowEditButtonChange} />}
-            label="Show edit button"
+            label="Edit button"
           />
           <FormControlLabel
-            control={<Switch checked={invertTheme} onChange={handleThemeModeToggle} />}
-            label="Perform in light mode"
+            control={<Switch checked={theme.mode === 'light'} onChange={handleThemeModeToggle} />}
+            label="Light mode"
           />
           <FormControlLabel
             control={<Switch checked={leftHanded} onChange={handleLeftHandedChange} />}
-            label="Left handed"
+            label="Right to left"
           />
         </div>
         <MidiSettings />

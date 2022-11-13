@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import { useEffect, useReducer } from 'react';
-import { MidiContext } from '../../context';
 import { reducer } from '../../reducers/midi.reducer';
-import { ContextProps } from '../../types/context.types';
+import { MidiContextProps } from '../../types/context.types';
+import { MidiContext } from './context';
 
-function MidiContextProvider({ children, socket }: ContextProps) {
+function MidiContextProvider({ children, socket }: MidiContextProps) {
   const [midi, dispatch] = useReducer(reducer, {
     socket,
     input: null,

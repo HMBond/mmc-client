@@ -4,8 +4,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Fab } from '@mui/material';
 import { CSSProperties, useState } from 'react';
 import { ViewDialog } from '../..';
-import { useStateContext } from '../../../context';
 import { View, ViewPropTypes } from '../../../types/View.types';
+import { useStateContext } from '../../contextProviders/context';
 import './ViewActions.css';
 
 ViewActions.propTypes = {

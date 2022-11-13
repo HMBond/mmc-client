@@ -1,4 +1,3 @@
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useEffect } from 'react';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 import { WebMidi } from 'webmidi';
@@ -15,21 +14,15 @@ import {
   View,
   ViewControl,
 } from '.';
-import { useMidiContext, useStateContext } from '../context';
 import { ButtonModule, SliderModule } from '../types/Module.types';
 import { View as ViewModel } from '../types/View.types';
+import { useMidiContext, useStateContext } from './contextProviders/context';
 
 export default function MMC() {
   const [, midiDispatch] = useMidiContext();
   const [state, dispatch] = useStateContext();
-  const { activeViewId, views, modules, editMode, invertTheme, inputId, outputId } = state;
+  const { activeViewId, views, modules, inputId, outputId } = state;
   let cleanup: () => void;
-
-  const theme = createTheme({
-    palette: {
-      mode: invertTheme !== editMode ? 'light' : 'dark',
-    },
-  });
 
   useEffect(() => {
     connectShareAction(state.socket);
@@ -130,7 +123,7 @@ export default function MMC() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <Nav>
         <Settings restartMidi={handleRestartMidi} />
         <LaunchPad />
@@ -153,6 +146,6 @@ export default function MMC() {
             </View>
           ))}
       </Carrousel>
-    </ThemeProvider>
+    </>
   );
 }

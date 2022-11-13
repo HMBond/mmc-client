@@ -1,7 +1,7 @@
 import AppBar from '@mui/material/AppBar';
 import PropTypes from 'prop-types';
 import { ReactNode } from 'react';
-import { useStateContext } from '../../../context';
+import { useStateContext } from '../../contextProviders/context';
 import './Nav.css';
 
 type NavProps = {
@@ -12,7 +12,7 @@ function Nav({ children }: NavProps) {
   const [state] = useStateContext();
   return (
     <AppBar
-      sx={{ backgroundColor: 'black' }}
+      sx={{ backgroundColor: 'transparent' }}
       position="static"
       className={`nav ${state.leftHanded ? 'row-reversed' : ''}`}
     >
