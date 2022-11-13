@@ -1,9 +1,11 @@
 import { Dispatch } from 'react';
 import ReconnectingWebSocket from 'reconnecting-websocket';
 import { ModuleInterface } from './Module.types';
+import { ColorScheme } from './theme.types';
 import { View } from './View.types';
 
 export type State = {
+  theme: ColorScheme;
   editMode: boolean;
   showEditButton: boolean;
   leftHanded: boolean;
@@ -36,6 +38,7 @@ export type Action =
   | { type: 'SET_INPUT_ID'; value: string }
   | { type: 'SET_OUTPUT_ID'; value: string }
   | { type: 'SET_FILE_NAME'; value: string }
+  | { type: 'SET_THEME'; value: ColorScheme }
   | { type: 'SET_STATE'; state: State }
   | { type: 'SHARE' };
 

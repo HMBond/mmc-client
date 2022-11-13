@@ -1,11 +1,11 @@
-.theme-mode-dark {
+.dark-theme {
   --html-background-color: black;
   --view-background-color: hsl(275, 100%, 10%);
   --button-color-accent: #0ff;
   --button-color-accent-transparent: #0ffa;
 }
 
-.theme-mode-light {
+.light-theme {
   --html-background-color: white;
   --view-background-color: hsl(275, 100%, 90%);
   --button-color-accent: dodgerblue;

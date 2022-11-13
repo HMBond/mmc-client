@@ -4,6 +4,7 @@ header.nav {
   gap: 1rem;
   padding: 1rem;
   z-index: var(--z-index-nav);
+  background: transparent;
 }
 
 header.nav.row-reversed {

@@ -1,41 +1,27 @@
 import { createTheme, ThemeProvider } from '@mui/material';
-import PropTypes from 'prop-types';
-import { useEffect, useReducer } from 'react';
-import { reducer } from '../../reducers/theme.reducer';
+import { useEffect } from 'react';
 import { ThemeContextProps } from '../../types/context.types';
 import { ColorScheme } from '../../types/theme.types';
-import { ThemeContext } from './context';
+import { useStateContext } from './context';
 
-function ThemeContextProvider({ children }: ThemeContextProps) {
-  const [theme, dispatch] = useReducer(reducer, {
-    mode: 'dark',
-  });
+export default function ThemeContextProvider({ children }: ThemeContextProps) {
+  const [state] = useStateContext();
 
   const muiTheme = createTheme({
     palette: {
-      mode: theme.mode,
+      mode: state.theme,
     },
   });
 
-  function setMode(mode: ColorScheme) {
-    const opposite = mode === 'dark' ? 'light' : 'dark';
-    document.documentElement.classList.add(`theme-mode-${mode}`);
-    document.documentElement.classList.remove(`theme-mode-${opposite}`);
+  function setTheme(colorScheme: ColorScheme) {
+    const opposite = colorScheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.classList.add(`${colorScheme}-theme`);
+    document.documentElement.classList.remove(`${opposite}-theme`);
   }
 
   useEffect(() => {
-    setMode(theme.mode);
-  }, [theme]);
+    setTheme(state.theme);
+  }, [state.theme]);
 
-  return (
-    <ThemeContext.Provider value={[theme, dispatch]}>
-      <ThemeProvider theme={muiTheme}>{children}</ThemeProvider>
-    </ThemeContext.Provider>
-  );
+  return <ThemeProvider theme={muiTheme}>{children}</ThemeProvider>;
 }
-
-ThemeContextProvider.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
-};
-
-export default ThemeContextProvider;

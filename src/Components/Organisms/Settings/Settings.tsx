@@ -4,14 +4,13 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { FormControlLabel, Switch } from '@mui/material';
 import { useState } from 'react';
 import { Dialog, MidiSettings, SaveDialog } from '../..';
-import { useStateContext, useThemeContext } from '../../contextProviders/context';
+import { useStateContext } from '../../contextProviders/context';
 import Actions from './Actions';
 import './Settings.css';
 
 type SettingsProps = { restartMidi: () => Promise<any> };
 
 function Settings({ restartMidi }: SettingsProps) {
-  const [theme, dispatchThemeAction] = useThemeContext();
   const [state, dispatch] = useStateContext();
   const [open, setOpen] = useState(false);
   const [saveDialogOpen, setSaveDialogOpen] = useState(false);
@@ -25,7 +24,7 @@ function Settings({ restartMidi }: SettingsProps) {
   }
 
   function handleThemeModeToggle(event: React.ChangeEvent, checked: boolean) {
-    dispatchThemeAction({ type: 'SET_MODE', mode: checked ? 'light' : 'dark' });
+    dispatch({ type: 'SET_THEME', value: checked ? 'light' : 'dark' });
   }
 
   function handleLeftHandedChange() {
@@ -49,7 +48,7 @@ function Settings({ restartMidi }: SettingsProps) {
     setSaveDialogOpen(false);
   }
 
-  const { leftHanded, showEditButton, editMode, fileName } = state;
+  const { leftHanded, showEditButton, editMode, fileName, theme } = state;
 
   return (
     <div className={`settings__controls ${leftHanded ? 'row-reversed' : ''}`}>
@@ -75,7 +74,7 @@ function Settings({ restartMidi }: SettingsProps) {
             label="Edit button"
           />
           <FormControlLabel
-            control={<Switch checked={theme.mode === 'light'} onChange={handleThemeModeToggle} />}
+            control={<Switch checked={theme === 'light'} onChange={handleThemeModeToggle} />}
             label="Light mode"
           />
           <FormControlLabel

@@ -51,22 +51,32 @@ function Actions({ restartMidi, setOpen, setSaveDialogOpen }: ActionsProps) {
 
   return (
     <>
-      <button aria-label="save" onClick={handleSaveClick}>
+      <button className="fab" aria-label="save" onClick={handleSaveClick}>
         <FileDownloadIcon />
       </button>
-      <button aria-label="load" onClick={handleUploadClick}>
+      <button className="fab" aria-label="load" onClick={handleUploadClick}>
         <FileUploadIcon />
       </button>
-      <button aria-label="restart midi" color="warning" onClick={async () => await restartMidi()}>
+      <button
+        className="fab"
+        aria-label="restart midi"
+        color="warning"
+        onClick={async () => await restartMidi()}
+      >
         <SettingsInputSvideoIcon />
       </button>
-      <button aria-label="reset setup" color="warning" onClick={handleClearLocalStorage}>
+      <button
+        className="fab"
+        aria-label="reset setup"
+        color="warning"
+        onClick={handleClearLocalStorage}
+      >
         <DeleteIcon />
       </button>
-      <button aria-label="share setup" onClick={handleShare}>
+      <button className="fab" aria-label="share setup" onClick={handleShare}>
         {<Share />}
       </button>
-      <button aria-label="fullscreen" onClick={toggleFullScreen}>
+      <button className="fab" aria-label="fullscreen" onClick={toggleFullScreen}>
         {fullscreen ? <FullscreenExit /> : <Fullscreen />}
       </button>
     </>

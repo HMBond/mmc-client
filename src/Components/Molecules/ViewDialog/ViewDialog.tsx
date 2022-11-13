@@ -1,5 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import { ChangeEvent, useState } from 'react';
 import { Dialog } from '../..';
@@ -51,9 +51,9 @@ function ViewDialog({ onSubmit, open, onClose, onDelete, add, view }: Props) {
       submitLabel={submitLabel}
       actions={
         onDelete !== undefined && (
-          <Button color="warning" size="small" aria-label="delete" onClick={onDelete}>
+          <button aria-label="delete" onClick={onDelete}>
             <DeleteIcon />
-          </Button>
+          </button>
         )
       }
     >

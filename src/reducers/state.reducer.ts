@@ -159,6 +159,11 @@ export const reducer = (state: State, action: Action): State => {
         ...state,
         fileName: action.value,
       };
+    case 'SET_THEME':
+      return {
+        ...state,
+        theme: action.value,
+      };
 
     case 'SET_STATE':
       // TODO: state validation

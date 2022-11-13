@@ -6,5 +6,5 @@
 .dialog__left-actions {
   margin-right: auto;
   display: flex;
-  gap: 4px;
+  gap: 0.5rem;
 }

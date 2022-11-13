@@ -43,8 +43,13 @@ const view: View = new View({
   moduleIds: [button.id, slider.id],
 });
 
+const initialColorScheme = window.matchMedia('(prefers-color-scheme: light)').matches
+  ? 'light'
+  : 'dark';
+
 export const INITIAL_STATE: State = {
   editMode: false,
+  theme: initialColorScheme,
   showEditButton: true,
   leftHanded: false,
   activeViewId: view.id,
