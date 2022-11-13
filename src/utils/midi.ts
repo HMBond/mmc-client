@@ -2,11 +2,7 @@ import ReconnectingWebSocket from 'reconnecting-websocket';
 import { Output } from 'webmidi';
 import { MidiMessage, NoteMessage, PitchbendMessage } from '../types/midi.types';
 
-export function send(
-  midi: MidiMessage,
-  socket: ReconnectingWebSocket | null,
-  output: Output | null
-) {
+export function send(midi: MidiMessage, output: Output | null, socket?: ReconnectingWebSocket) {
   socket?.send(JSON.stringify(midi));
 
   if (midi.type === 'note') {

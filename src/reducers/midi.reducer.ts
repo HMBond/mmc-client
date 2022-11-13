@@ -17,7 +17,7 @@ export const reducer = (state: MidiContextState, action: MidiAction): MidiContex
       return {
         ...state,
         output: action.output,
-        send: (midi) => send(midi, state.socket, action.output),
+        send: (midi) => send(midi, action.output, state.socket),
       };
     case 'SET_OUTPUTS':
       return {
@@ -28,7 +28,7 @@ export const reducer = (state: MidiContextState, action: MidiAction): MidiContex
       return {
         ...state,
         socket: action.socket,
-        send: (midi) => send(midi, action.socket, state.output),
+        send: (midi) => send(midi, state.output, action.socket),
       };
     default:
       return state;

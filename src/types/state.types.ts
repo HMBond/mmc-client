@@ -14,7 +14,7 @@ export type State = {
   inputId: string;
   outputId: string;
   fileName: string;
-  socket?: ReconnectingWebSocket | null;
+  socket?: ReconnectingWebSocket;
 };
 
 export type Action =

@@ -4,7 +4,7 @@ import { MidiContextProvider, MMC, StateContextProvider } from './components';
 import { connectWebSocket } from './webSocket';
 
 export default function App() {
-  const [socket, setSocket] = useState<ReconnectingWebSocket | null>(null);
+  const [socket, setSocket] = useState<ReconnectingWebSocket>();
   const ws = connectWebSocket({
     host: (import.meta.env.VITE_WS_HOST as string) || 'localhost',
     port: (import.meta.env.VITE_WS_PORT as string) || '8080',

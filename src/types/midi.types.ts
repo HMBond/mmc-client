@@ -24,14 +24,14 @@ export type MidiAction =
   | { type: 'SET_OUTPUT'; output: Output | null }
   | { type: 'SET_INPUTS'; inputs: Input[] }
   | { type: 'SET_OUTPUTS'; outputs: Output[] }
-  | { type: 'SET_SOCKET'; socket: ReconnectingWebSocket | null };
+  | { type: 'SET_SOCKET'; socket?: ReconnectingWebSocket };
 
 export type MidiContextState = {
   input: Input | null;
   output: Output | null;
   inputs: Input[];
   outputs: Output[];
-  socket: ReconnectingWebSocket | null;
+  socket?: ReconnectingWebSocket;
   send: (message: MidiMessage) => void;
 };
 

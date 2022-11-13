@@ -1,5 +1,6 @@
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useEffect } from 'react';
+import ReconnectingWebSocket from 'reconnecting-websocket';
 import { WebMidi } from 'webmidi';
 import {
   Carrousel,
@@ -31,31 +32,43 @@ export default function MMC() {
   });
 
   useEffect(() => {
+    connectShareAction(state.socket);
+  }, [state.socket]);
+
+  useEffect(() => {
     connectLocalMidiDevices().then((callback) => {
       cleanup = callback;
     });
-    state.socket?.addEventListener('message', (event) => {
-      const {
-        type,
-        payload: { modules, views, activeViewId },
-      } = JSON.parse(event.data);
-      if (type === 'share') {
-        if (!modules || !views) throw new Error('Sharing setup failed');
-        dispatch({
-          type: 'SET_STATE',
-          state: {
-            ...state,
-            modules,
-            views,
-            activeViewId,
-          },
-        });
+    return () => {
+      cleanup();
+    };
+  }, []);
+
+  function connectShareAction(socket?: ReconnectingWebSocket): void {
+    socket?.addEventListener('message', (event) => {
+      try {
+        const {
+          type,
+          payload: { modules, views, activeViewId },
+        } = JSON.parse(event.data);
+        if (type === 'share') {
+          if (!modules || !views) throw new Error('Sharing setup failed');
+          if (!confirm('Are you sure you want to get the shared setup?')) return;
+          dispatch({
+            type: 'SET_STATE',
+            state: {
+              ...state,
+              modules,
+              views,
+              activeViewId,
+            },
+          });
+        }
+      } catch (error) {
+        error;
       }
     });
-    return () => {
-      cleanup && cleanup();
-    };
-  }, [state.socket]);
+  }
 
   async function connectLocalMidiDevices() {
     await WebMidi.enable()
@@ -106,7 +119,7 @@ export default function MMC() {
 
   async function handleRestartMidi() {
     if (WebMidi.enabled) {
-      cleanup && cleanup();
+      cleanup();
     }
     cleanup = await connectLocalMidiDevices();
   }
