@@ -1,4 +1,6 @@
+import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
+import SaveIcon from '@mui/icons-material/Save';
 import {
   Dialog as MuiDialog,
   DialogActions,
@@ -18,7 +20,7 @@ function Dialog({
   title,
   text,
   actions,
-  submitLabel = 'OK',
+  submitIcon = 'Save',
   ...restProps
 }: DialogProps) {
   function handleSubmit(event: FormEvent) {
@@ -47,10 +49,16 @@ function Dialog({
         </DialogContent>
         <DialogActions>
           <div className="dialog__left-actions">{actions}</div>
-          <button className="fab" onClick={handleCloseClick}>
-            <CloseIcon />
-          </button>
-          {onSubmit && <button type="submit">{submitLabel}</button>}
+          {onSubmit ? (
+            <button type="submit" className="fab">
+              {submitIcon === 'Add' && <AddIcon />}
+              {submitIcon === 'Save' && <SaveIcon />}
+            </button>
+          ) : (
+            <button className="fab" onClick={handleCloseClick}>
+              <CloseIcon />
+            </button>
+          )}
         </DialogActions>
       </form>
     </MuiDialog>
@@ -63,7 +71,7 @@ Dialog.propTypes = {
   onSubmit: PropTypes.func,
   open: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
-  submitLabel: PropTypes.string,
+  submitIcon: PropTypes.string,
   actions: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]),
 };
 
@@ -75,7 +83,7 @@ type DialogProps = {
   title: string;
   text?: string;
   actions?: ReactNode;
-  submitLabel?: string;
+  submitIcon?: string;
   [prop: string]: unknown;
 };
 

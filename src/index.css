@@ -22,7 +22,7 @@ html {
 body {
   margin: 0;
   height: 100%;
-  font-family: 'Roboto', -apple-system, sans-serif;
+  font-family: 'Nunito', -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;

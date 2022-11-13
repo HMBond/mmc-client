@@ -38,7 +38,7 @@ function ModuleDialogBase({ children, onSubmit, open, onClose, module, add }: Pr
   }
 
   const title = `${add ? 'New' : 'Edit'} ${module.type}`;
-  const submitLabel = add ? 'Add' : 'Save';
+  const submitIcon = add ? 'Add' : 'Save';
 
   return (
     <Dialog
@@ -46,7 +46,7 @@ function ModuleDialogBase({ children, onSubmit, open, onClose, module, add }: Pr
       onClose={onClose}
       onSubmit={handleSubmit}
       title={title}
-      submitLabel={submitLabel}
+      submitIcon={submitIcon}
     >
       <FormControl component="fieldset" fullWidth>
         <TextField

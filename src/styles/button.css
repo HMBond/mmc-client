@@ -47,6 +47,6 @@ button.fab {
   border-radius: 50%;
   min-width: auto;
   min-height: auto;
-  width: 56px;
-  height: 56px;
+  width: 3rem;
+  height: 3rem;
 }
