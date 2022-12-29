@@ -27,7 +27,6 @@ function SaveDialog(props: SaveDialogProps) {
       open={open}
       onClose={onClose}
       title="Save setup"
-      submitLabel="Save"
       onSubmit={handleSubmit}
       aria-describedby="specify a filename to save setup"
     >

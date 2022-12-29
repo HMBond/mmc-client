@@ -1,13 +1,17 @@
 .dark-theme {
+  --text-color: white;
   --html-background-color: black;
   --view-background-color: hsl(275, 100%, 10%);
-  --button-color-accent: #0ff;
-  --button-color-accent-transparent: #0ffa;
+  --accent-color: #0ff;
+  --accent-color-transparent: #0ffa;
+  --border-radius: 10px;
 }
 
 .light-theme {
+  --text-color: #007;
   --html-background-color: white;
   --view-background-color: hsl(275, 100%, 90%);
-  --button-color-accent: dodgerblue;
-  --button-color-accent-transparent: rgba(30, 143, 255, 0.6);
+  --accent-color: dodgerblue;
+  --accent-color-transparent: rgba(30, 143, 255, 0.6);
+  --border-radius: 10px;
 }

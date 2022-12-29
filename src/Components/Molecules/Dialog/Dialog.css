@@ -1,9 +1,19 @@
-.dialog__content {
-  display: grid;
-  gap: 1rem;
+dialog {
+  background-color: var(--html-background-color);
+  color: var(--text-color);
+  border-color: var(--accent-color);
+  border-radius: var(--border-radius);
 }
 
-.dialog__left-actions {
+dialog .dialog__actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-flow: row nowrap;
+}
+
+dialog .dialog__left-actions {
   margin-right: auto;
   display: flex;
   gap: 0.5rem;

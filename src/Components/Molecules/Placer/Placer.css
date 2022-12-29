@@ -24,8 +24,3 @@
   transform: translate(0%, 0%) scale(100%);
   opacity: 1;
 }
-
-.placer[draggable='true']:active > .module-actions > * {
-  transition: none !important; /* override MUI */
-  opacity: 0;
-}

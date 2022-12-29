@@ -4,7 +4,7 @@
 }
 
 .select-chevron::after {
-  color: var(--button-color-accent);
+  color: var(--accent-color);
   content: '▾';
   position: absolute;
   top: 0;
@@ -20,10 +20,10 @@ select {
   font-weight: bold;
   font-size: large;
   font-family: inherit;
-  border-radius: 10px;
-  border: solid var(--button-color-accent-transparent) 2px;
-  box-shadow: var(--button-color-accent) inset 0px 0px 6px 0px;
-  color: var(--button-color-accent);
+  border-radius: var(--border-radius);
+  border: solid var(--accent-color-transparent) 2px;
+  box-shadow: var(--accent-color) inset 0px 0px 6px 0px;
+  color: var(--accent-color);
   background-color: transparent;
   background-color: #00ffff08;
   transition: background-color 0.6s cubic-bezier(0, 0, 0, 1);

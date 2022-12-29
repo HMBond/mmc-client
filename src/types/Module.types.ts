@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { DEFAULT_CHANNEL, DEFAULT_NOTE, DEFAULT_VELOCITY } from '../DEFINITION';
-import { uid } from '../utils/uid';
+import { uid } from '../utils/id';
 import { Position } from './misc.types';
 
 export const ModulePropTypes = PropTypes.shape({

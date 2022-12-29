@@ -40,7 +40,6 @@ function ViewDialog({ onSubmit, open, onClose, onDelete, add, view }: Props) {
   }
 
   const title = `${add ? 'New' : 'Edit'} View`;
-  const submitLabel = add ? 'Add' : 'Save';
 
   return (
     <Dialog
@@ -48,7 +47,6 @@ function ViewDialog({ onSubmit, open, onClose, onDelete, add, view }: Props) {
       onClose={onClose}
       onSubmit={handleSubmit}
       title={title}
-      submitLabel={submitLabel}
       actions={
         onDelete !== undefined && (
           <button aria-label="delete" onClick={onDelete}>
