@@ -15,14 +15,14 @@ function MidiSettings({ module }: MidiSettingsProps) {
 
   function handleInputSelect(event: ChangeEvent<HTMLSelectElement>) {
     const id = event.target.value;
-    const input = id === '' ? null : WebMidi.getInputById(id);
+    const input = !id ? null : WebMidi.getInputById(id);
     midiDispatch({ type: 'SET_INPUT', input });
     dispatch({ type: 'SET_INPUT_ID', value: id });
   }
 
   function handleOutputSelect(event: ChangeEvent<HTMLSelectElement>) {
     const id = event.target.value;
-    const output = id === '' ? null : WebMidi.getOutputById(id);
+    const output = !id ? null : WebMidi.getOutputById(id);
     midiDispatch({ type: 'SET_OUTPUT', output });
     dispatch({ type: 'SET_OUTPUT_ID', value: id });
   }

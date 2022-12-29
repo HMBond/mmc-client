@@ -37,8 +37,8 @@ function DeviceSelect({ deviceType, devices, selected, onChange, disabled }: Dev
               disabled={disabled}
               onChange={onChange}
             >
-              <option key="None" defaultValue={''}>
-                Option one
+              <option key="None" value={''}>
+                None
               </option>
               {devices.map((device) => (
                 <option key={device.id} value={device.id}>

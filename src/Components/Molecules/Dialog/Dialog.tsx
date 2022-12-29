@@ -34,7 +34,6 @@ function Dialog({
       e.clientX <= rect.left + rect.width;
 
     if (!clickedInDialog) {
-      console.log('close');
       onClose(e, 'backdropClick');
     }
   }

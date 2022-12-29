@@ -14,17 +14,17 @@ export function connectWebSocket({ host, port }: { host: string; port: string })
 
   // Listen for messages
   socket.addEventListener('message', (event) => {
-    console.log(`Message from server: ${event.data}`);
+    console.log(`[MMC-client] received from server: ${event.data}`);
   });
 
   // Connection error
   socket.addEventListener('error', (event) => {
-    console.error('WebSocket server error: ', event);
+    console.error('[MMC-client] received error from server: ', event);
   });
 
   // Connection closed
   socket.addEventListener('close', (event) => {
-    console.log('WebSocket connection closed', event);
+    console.log('[MMC-client] received websocket connection closed', event);
   });
 
   return socket;
