@@ -1,4 +1,4 @@
-import { Alert, FormControl, InputLabel, NativeSelect } from '@mui/material';
+import { Alert, FormControl } from '@mui/material';
 import PropTypes from 'prop-types';
 import { ChangeEventHandler } from 'react';
 
@@ -29,24 +29,24 @@ function DeviceSelect({ deviceType, devices, selected, onChange, disabled }: Dev
     return (
       <div>
         <FormControl fullWidth>
-          <InputLabel variant="standard" htmlFor={`${deviceType}-select`}>
-            {capitalizeFirstLetter(deviceType)} Device
-          </InputLabel>
-          <NativeSelect
-            id={`${deviceType}-select`}
-            value={selected?.id ? selected.id : ''}
-            variant="outlined"
-            inputProps={{
-              onChange,
-            }}
-            disabled={disabled}
-          >
-            {devices.map((device) => (
-              <option key={device.id} value={device.id}>
-                {device.name}
+          <label htmlFor={`${deviceType}-select`}>{capitalizeFirstLetter(deviceType)} Device</label>
+          <div className="select-chevron">
+            <select
+              id={`${deviceType}-select`}
+              value={selected?.id ? selected.id : ''}
+              disabled={disabled}
+              onChange={onChange}
+            >
+              <option key="None" defaultValue={''}>
+                Option one
               </option>
-            ))}
-          </NativeSelect>
+              {devices.map((device) => (
+                <option key={device.id} value={device.id}>
+                  {device.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </FormControl>
       </div>
     );

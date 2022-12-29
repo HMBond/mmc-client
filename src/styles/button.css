@@ -1,6 +1,7 @@
 button {
   display: inline-grid;
   place-items: center;
+  margin: 0;
   padding: 0 1rem;
   min-width: 3.5rem;
   min-height: 3.5rem;
@@ -11,7 +12,6 @@ button {
   font-family: inherit;
   border-radius: 10px;
   border: solid var(--button-color-accent-transparent) 2px;
-  margin: 0;
   box-shadow: var(--button-color-accent) inset 0px 0px 6px 0px;
   color: var(--button-color-accent);
   background-color: transparent;

@@ -1,0 +1,7 @@
+label {
+  color: var(--button-color-accent);
+  font-weight: bold;
+  font-size: large;
+  font-family: inherit;
+  line-height: 2rem;
+}
