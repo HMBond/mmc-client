@@ -1,9 +1,9 @@
-.select-chevron {
+.select-with-chevron {
   display: inline-block;
   position: relative;
 }
 
-.select-chevron::after {
+.select-with-chevron::after {
   color: var(--accent-color);
   content: '▾';
   position: absolute;

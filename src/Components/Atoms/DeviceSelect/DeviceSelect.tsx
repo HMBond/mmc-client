@@ -30,7 +30,7 @@ function DeviceSelect({ deviceType, devices, selected, onChange, disabled }: Dev
       <div>
         <FormControl fullWidth>
           <label htmlFor={`${deviceType}-select`}>{capitalizeFirstLetter(deviceType)} Device</label>
-          <div className="select-chevron">
+          <div className="select-with-chevron">
             <select
               id={`${deviceType}-select`}
               value={selected?.id ? selected.id : ''}
