@@ -16,10 +16,10 @@ function Dialog({
   submitIcon = 'Save',
   ...restProps
 }: DialogProps) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const dialogRef = useRef<any>(null);
 
   function handleBackdropClick(e: globalThis.MouseEvent) {
-    const target = e.target as HTMLDialogElement;
+    const target = e.target as HTMLElement;
     if (target.tagName !== 'DIALOG') {
       //This prevents issues with forms
       return;
@@ -46,10 +46,11 @@ function Dialog({
   }, []);
 
   useEffect(() => {
-    if (dialogRef.current?.hasAttribute('open')) {
-      !open && dialogRef.current?.close();
-    } else {
-      open && dialogRef.current?.showModal();
+    const isElementOpen = dialogRef.current?.hasAttribute('open');
+    if (isElementOpen && !open) {
+      dialogRef.current?.close();
+    } else if (!isElementOpen && open) {
+      dialogRef.current?.showModal();
     }
   }, [open]);
 

@@ -29,11 +29,11 @@ export default function MMC() {
   }, [state.socket]);
 
   useEffect(() => {
-    connectLocalMidiDevices().then((callback) => {
-      cleanup = callback;
+    connectLocalMidiDevices().then((removeListener) => {
+      cleanup = removeListener;
     });
     return () => {
-      cleanup();
+      cleanup && cleanup();
     };
   }, []);
 
@@ -112,7 +112,7 @@ export default function MMC() {
 
   async function handleRestartMidi() {
     if (WebMidi.enabled) {
-      cleanup();
+      cleanup && cleanup();
     }
     cleanup = await connectLocalMidiDevices();
   }
